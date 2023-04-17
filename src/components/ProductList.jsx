@@ -1,0 +1,18 @@
+import { observer } from "mobx-react-lite";
+import React, { useContext } from "react";
+import { Context } from "../index";
+import { Row } from "react-bootstrap";
+import ProductItem from "./ProductItem";
+
+const ProductList = observer(() => {
+  const { product } = useContext(Context);
+  return (
+    <Row>
+      {product.products.map((el) => (
+        <ProductItem key={el.id} product={el} />
+      ))}
+    </Row>
+  );
+});
+
+export default ProductList;
