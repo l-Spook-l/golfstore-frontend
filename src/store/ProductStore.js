@@ -4,13 +4,15 @@ import { makeAutoObservable } from "mobx";
 // _ - переменная не может быть изменена
 export default class ProductStore {
   constructor() {
-    this._types = []
-    this._brands = []
-    this._products = []
+    this._types = []  // массив полученных типов
+    this._brands = []  // массив полученных брэндов
+    this._products = []  // массив полученных продуктов
+
     // Выделять выбранный тип и брэнд
     this._selectedType = []
-    this._selectedBrand = {}
+    this._selectedBrand = []
     
+
     this._page = 1
     this._totalCount = 0
     // this._limit = 0
@@ -37,39 +39,25 @@ setSelectedType принимает тип продукта и устанавли
 
   // Выделять выбранный тип
   setSelectedType(type) {
-    console.log('typeeeeeeeeeeeeee', type)
+    //console.log('typeeeeeeeeeeeeee', type, typeof type)
     this.setPage(1)
-    this._selectedType = type
-  }
-
-  handleTypeSelection(type) {
-    if (this.selectedType.includes(type.id)) {
-      // Если выбранный тип уже выбран, удаляем его из массива выбранных типов
-      this.setSelectedType(this.selectedType.filter(id => id !== type.id));
+    if (!this._selectedType.includes(type)){
+      this._selectedType = [...this._selectedType, type]
     } else {
-      // Иначе, добавляем выбранный тип в массив выбранных типов
-      this.setSelectedType([...this.selectedType, type.id]);
+      this._selectedType = this._selectedType.filter((selectedType) => selectedType !== type)
     }
-    // Обновляем список товаров на основе выбранных типов
-    const filteredProducts = this._products.filter(product => {
-      // Если нет выбранных типов, то показываем все товары
-      if (this._selectedType.length === 0) {
-        return true;
-      }
-
-      // Если выбран хотя бы один тип, то показываем товары, у которых есть выбранные типы
-      return product._types.some(type => this._selectedType.includes(type));
-    });
-
-    // Устанавливаем обновленный список товаров
-    this.setProducts(filteredProducts);
   }
 
   setSelectedBrand(brand) {
-    console.log('branddddddddddddddddd', brand)
+    //console.log('branddddddddddddddddd', brand)
     this.setPage(1)
-    this._selectedBrand = brand
+    if (!this._selectedBrand.includes(brand)){
+      this._selectedBrand = [...this._selectedBrand, brand]
+    } else {
+      this._selectedBrand = this._selectedBrand.filter((selectedBrand) => selectedBrand !== brand)
+    }
   }
+
 
   setPage(page) {
     this._page = page

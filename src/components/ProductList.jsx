@@ -6,8 +6,9 @@ import ProductItem from "./ProductItem";
 
 const ProductList = observer(() => {
   const { product } = useContext(Context);
+  // console.log('product list ,product.products', product.products)
   return (
-    <Row>
+    <Row className="mt-5">
       {product.products.map((el) => (
         <ProductItem key={el.id} product={el} />
       ))}

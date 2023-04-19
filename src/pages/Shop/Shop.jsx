@@ -11,12 +11,12 @@ import Paginations from '../../components/UI/Paginations/Paginations'
 const Shop = observer(() => {
   const {product} = useContext(Context)
 
-  //console.log('shop - product', product)
-  //console.log('shop - product page', product.page)
-  //console.log('shop - product types', product.types)
-  //console.log('shop - product brands', product.brands)
+/*   console.log('shop - product', product)
+  console.log('shop - product page', product.page)
+  console.log('shop - product types', product.types)
+  console.log('shop - product brands', product.brands) */
 
-
+  // первое получение типов, брєндов, продуктов
   useEffect(() => {
     fetchTypes().then((data) => product.setTypes(data))
     fetchBrands().then((data) => product.setBrands(data))
@@ -24,23 +24,31 @@ const Shop = observer(() => {
       product.setProducts(data.results)
       product.setTotalCount(data.count)
       //console.log('shop - data', data)
-      //console.log('shop - data .results', data.results)
+      //console.log('shop - data.results', data.results)
     })
   }, [])
 
   useEffect(() => {
-    fetchProducts(product.selectedType.slug, product.selectedBrand.slug, product.page).then((data) => {
-      product.setProducts(data.results)
-      product.setTotalCount(data.count)
+    fetchProducts(
+      product.selectedType.map(el => el.slug).join(', '), 
+      product.selectedBrand.map(el => el.slug).join(', '),
+      product.page).then((data) => {
+        product.setProducts(data.results)
+        product.setTotalCount(data.count)
+
+      console.log('shop - product selectedType', product.selectedType)
+      console.log('shop - product selectedBrand', product.selectedBrand)
+
 /*       console.log('shop - data222', data)
       console.log('shop - data222 results222', data.results)
       console.log('shop - product types', product.types)
       console.log('shop - product selectedType', product.selectedType)
-      console.log('shop - product selectedType id', product.selectedType.id)
+      console.log('shop - product selectedType id', product.selectedType.slug)
       console.log('shop - product type2222222', product.types.slug)
       console.log('shop - product brand222', product.brands) */
     })
   }, [product.selectedType, product.selectedBrand, product.page])
+
   return (
     <Container>
       <Row>

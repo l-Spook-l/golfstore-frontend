@@ -1,6 +1,7 @@
 import Auth from "./pages/Auth/Auth";
 import Basket from "./pages/Basket/Basket";
 import Shop from "./pages/Shop/Shop";
+import Profile from "./pages/Profile/Profile"
 import ProductPage from "./pages/ProductPage/ProductPage";
 import {
   ADMIN_ROUTE,
@@ -9,9 +10,11 @@ import {
   LOGIN_ROUTE,
   REGISTER_ROUTE,
   SHOP_ROUTE,
+  PROFILE_ROUTE,
 } from "./utils/consts"; // Ссылки
 
 export const authRoutes = [
+
   {
     path: BASKET_ROUTE,
     Component: Basket,
@@ -35,5 +38,9 @@ export const publicRoutes = [
   {
     path: PRODUCT_ROUTE + "/:id",
     Component: ProductPage,
+  },
+  {
+    path: PROFILE_ROUTE,
+    Component: Profile,
   },
 ];

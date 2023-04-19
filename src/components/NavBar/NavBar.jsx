@@ -1,15 +1,18 @@
 import React, { useContext, useState } from 'react'
 import { Context } from '../../index'
 import { Button, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import MyModal from '../../components/UI/MyModal/MyModal'
 import { observer } from 'mobx-react-lite'
 import FormLogin from '../UI/FormLogin/FormLogin'
 import FormRegister from '../UI/FormRegister/FormRegister'
+import { PROFILE_ROUTE } from '../../utils/consts'
 
 // observer позволяет создавать компоненты, которые автоматически обновляются при изменении данных, отслеживаемых с помощью MobX.
 const NavBar = observer(() => {
   const {user} = useContext(Context)
+
+  const navigate = useNavigate();  // для перехода по страницам
 
   /* Для модального окна */
   const [showModal, setShowModal] = useState(false)
@@ -72,6 +75,7 @@ const NavBar = observer(() => {
           : 
           <Button variant="primary" className="ms-2 me-2" onClick={clickLogin}>Log in</Button>
           }
+          <Button variant="primary" className="ms-2 me-2" onClick={() => navigate(PROFILE_ROUTE)}>Profile</Button>
         </Nav>
 
       </Navbar.Collapse>
