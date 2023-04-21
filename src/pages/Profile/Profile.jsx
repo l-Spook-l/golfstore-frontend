@@ -23,7 +23,7 @@ const Profile = observer(() => {
     {
       id: 1,
       name: "PING Men's G430 MAX Driver",
-      price: 549,
+      price: 349,
       rating: 0,
       brand: "PING Golf",
       type: "Golf clubs",
@@ -32,7 +32,7 @@ const Profile = observer(() => {
     {
       id: 2,
       name: "TaylorMade Men's Stealth 2 Plus Driver",
-      price: 549,
+      price: 8549,
       rating: 0,
       brand: "TaylorMade Golf",
       type: "Golf clubs",
@@ -41,7 +41,7 @@ const Profile = observer(() => {
     {
       id: 3,
       name: "Callaway Men's Paradym Driver",
-      price: 549,
+      price: 1549,
       rating: 0,
       brand: "Callaway Golf",
       type: "Golf clubs",

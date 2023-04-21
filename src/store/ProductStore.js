@@ -11,7 +11,13 @@ export default class ProductStore {
     // Выделять выбранный тип и брэнд
     this._selectedType = []
     this._selectedBrand = []
+
+    // 
+    this._priceMin = 0
+    this._priceMax = 1000000
     
+    // Сортировка по, цене, дате создания
+    this._ordering = ''
 
     this._page = 1
     this._totalCount = 0
@@ -58,6 +64,16 @@ setSelectedType принимает тип продукта и устанавли
     }
   }
 
+  setPriceMin(price){
+    this._priceMin = price
+  }
+  setPriceMax(price){
+    this._priceMax = price
+  }
+
+  setOrdering(param){
+    this._ordering = param
+  }
 
   setPage(page) {
     this._page = page
@@ -87,12 +103,24 @@ setSelectedType принимает тип продукта и устанавли
   }
 
   // Выделять выбранный тип
+  get priceMin() {
+    return this._priceMin;
+  }
+  get priceMax() {
+    return this._priceMax;
+  }
+
+  get ordering() {
+    return this._ordering;
+  }
+
   get selectedType() {
     return this._selectedType;
   }
   get selectedBrand() {
     return this._selectedBrand;
   }
+
 
   get page() {
     return this._page

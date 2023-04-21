@@ -14,15 +14,16 @@ const ProductItem = ({ product }) => {
     >
       <Card style={{ width: 150, cursor: "pointer" }} border="light">
         <Image width={150} height={150} src={product.photo} />
+        <div>{product.name}</div>
         <div className="mt-1 d-flex justify-content-between align-items-center">
-          <div>{product.brand}</div>
+        <div>{product.price}</div>
           <div className="d-flex align-items-center">
             <div>{product.rating}</div>
             {/* <Image width={18} height={18} src={star} /> */}
             <Image width={18} height={18} style={{ backgroundColor: "blue" }} />
           </div>
         </div>
-        <div>{product.name}</div>
+        
       </Card>
     </Col>
   );

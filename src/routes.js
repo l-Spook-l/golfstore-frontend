@@ -15,10 +15,7 @@ import {
 
 export const authRoutes = [
 
-  {
-    path: BASKET_ROUTE,
-    Component: Basket,
-  },
+
 ];
 
 // Доступ всем
@@ -42,5 +39,9 @@ export const publicRoutes = [
   {
     path: PROFILE_ROUTE,
     Component: Profile,
+  },
+  {
+    path: BASKET_ROUTE,
+    Component: Basket,
   },
 ];

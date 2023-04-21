@@ -6,8 +6,8 @@ import MyModal from '../../components/UI/MyModal/MyModal'
 import { observer } from 'mobx-react-lite'
 import FormLogin from '../UI/FormLogin/FormLogin'
 import FormRegister from '../UI/FormRegister/FormRegister'
-import { PROFILE_ROUTE } from '../../utils/consts'
-
+import { BASKET_ROUTE, PROFILE_ROUTE } from '../../utils/consts'
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 // observer позволяет создавать компоненты, которые автоматически обновляются при изменении данных, отслеживаемых с помощью MobX.
 const NavBar = observer(() => {
   const {user} = useContext(Context)
@@ -67,6 +67,10 @@ const NavBar = observer(() => {
             </NavDropdown.Item>
           </NavDropdown>
         </Nav>
+        <Nav>
+          <NavLink style={{fontSize: "1.8rem", color:'white'}} to={BASKET_ROUTE}><AiOutlineShoppingCart /></NavLink>
+        </Nav>
+
 
         <Nav >
           {user.isAuth 
