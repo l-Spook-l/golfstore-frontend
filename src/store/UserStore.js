@@ -15,7 +15,7 @@ export default class UserStore {
   }
 
   setUser(user) {
-    this._isAuth = user
+    this._user = user
   }
 
   // геттеры для чтения значений приватных полей

@@ -16,6 +16,8 @@ const ProductPage = () => {
     fetchOneProduct(id).then((data) => setProduct(data))
     /* console.log('data one ', data) */
   }, [])
+
+  
   return (
     <Container>
       <Row>

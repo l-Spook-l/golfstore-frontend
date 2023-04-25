@@ -47,7 +47,9 @@ setSelectedType принимает тип продукта и устанавли
   setSelectedType(type) {
     //console.log('typeeeeeeeeeeeeee', type, typeof type)
     this.setPage(1)
-    if (!this._selectedType.includes(type)){
+    if (type === 'clear') {
+      this._selectedType = []
+    } else if (!this._selectedType.includes(type)){
       this._selectedType = [...this._selectedType, type]
     } else {
       this._selectedType = this._selectedType.filter((selectedType) => selectedType !== type)
@@ -57,7 +59,9 @@ setSelectedType принимает тип продукта и устанавли
   setSelectedBrand(brand) {
     //console.log('branddddddddddddddddd', brand)
     this.setPage(1)
-    if (!this._selectedBrand.includes(brand)){
+    if (brand === 'clear') {
+      this._selectedBrand = []
+    } else if (!this._selectedBrand.includes(brand)){
       this._selectedBrand = [...this._selectedBrand, brand]
     } else {
       this._selectedBrand = this._selectedBrand.filter((selectedBrand) => selectedBrand !== brand)

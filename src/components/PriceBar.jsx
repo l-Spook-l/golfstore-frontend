@@ -6,11 +6,11 @@ import { Context } from "..";
 const PriceBar = observer(() => {
   const { product } = useContext(Context);
 
-  const handleMinPriceChange = (e) => {
+  const changeMinPrice = (e) => {
     product.setPriceMin(e.target.value)
   };
 
-  const handleMaxPriceChange = (e) => {
+  const changeMaxPrice = (e) => {
     product.setPriceMax(e.target.value)
   };
 
@@ -27,7 +27,7 @@ const PriceBar = observer(() => {
           min={product.priceMin}
           max={product.priceMax}
           value={product.priceMin}
-          onChange={handleMinPriceChange}
+          onChange={changeMinPrice}
           style={{ width: '45%' }}
         />
 
@@ -37,7 +37,7 @@ const PriceBar = observer(() => {
           min={product.priceMin}
           max={product.priceMax}
           value={product.priceMax}
-          onChange={handleMaxPriceChange}
+          onChange={changeMaxPrice}
           style={{ width: '45%' }}
         />
       </div> 

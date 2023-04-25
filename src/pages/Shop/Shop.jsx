@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Alert, Col, Container, Form, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import TypeBar from "../../components/TypeBar/TypeBar";
 import BrandBar from "../../components/BrandBar/BrandBar";
 import ProductList from "../../components/ProductList";
@@ -11,8 +11,7 @@ import PriceBar from "../../components/PriceBar";
 
 const Shop = observer(() => {
   const { product } = useContext(Context);
-
-  /*   console.log('shop - product', product)
+  /* 
   console.log('shop - product page', product.page)
   console.log('shop - product types', product.types)
   console.log('shop - product brands', product.brands) */
@@ -21,7 +20,7 @@ const Shop = observer(() => {
   useEffect(() => {
     fetchTypes().then((data) => product.setTypes(data));
     fetchBrands().then((data) => product.setBrands(data));
-    fetchProducts(null, null, 1).then((data) => {
+    fetchProducts(null, null, 1, null, null, null).then((data) => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
       //console.log('shop - data', data)
@@ -41,45 +40,70 @@ const Shop = observer(() => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
 
-      /*       console.log('shop - data222', data)
-      console.log('shop - data222 results222', data.results)
-      console.log('shop - product types', product.types)
-      console.log('shop - product selectedType', product.selectedType)
-      console.log('shop - product selectedType id', product.selectedType.slug)
-      console.log('shop - product type2222222', product.types.slug)
-      console.log('shop - product brand222', product.brands) */
+      //console.log('shop - data222', data)
+      //console.log('shop - data222 results222', data.results)
+      //console.log('shop - product types', product.types)
+      //console.log('shop - product selectedType', product.selectedType)
+      //console.log('shop - product selectedType id', product.selectedType.slug)
+      //console.log('shop - product type2222222', product.types.slug)
+      //console.log('shop - product brand222', product.brands) 
     });
   }, [product.selectedType, product.selectedBrand, product.page, product.priceMin, product.priceMax, product.ordering]);
 
+  const clearFilter = () => {
+    product.setSelectedType('clear')
+    product.setSelectedBrand('clear')
+  }
+
+  console.log("shop - product", product);
+  console.log('shop - product typesqqq', product.selectedType)
+  console.log('shop - product brands', product.brands)
 
   return (
     <Container>
-      <Row className="mt-3 bg-success" >
-        <Col md={10} className="d-flex flex-wrap bg-primary">
-        {product.selectedType.map((el) => 
+
+      <Row className="mt-3">
+        <Col md={10} className="d-flex flex-wrap mb-0 ">
+        {product.selectedType.length !== 0 || product.selectedBrand.length !== 0
+         ? <Button onClick={() => clearFilter()}>Очистить</Button>
+         : null
+         }
+          {product.selectedType.map((el) => 
             <Alert 
-            key={el.id}
-            variant="light" 
-            className="me-1 border text-dark" 
-            onClose={() => product.setSelectedType(el)} 
-            dismissible>
+              key={el.id} 
+              variant="light" 
+              className="me-1 border text-dark p-2"  >
               {el.name}
+              <Button 
+                type="button" 
+                className="ms-1 btn-close"
+                style={{fontSize: 12}}
+                aria-label="Close" 
+                onClick={() => product.setSelectedType(el)} 
+              ></Button>
             </Alert>
-          )}
-          {product.selectedBrand.map((el) =>
-            <Alert 
-            key={el.id}
-            variant="light" 
-            className="me-1 border text-dark" 
-            onClose={() => product.setSelectedBrand(el)} 
-            dismissible>
-              {el.name}
-            </Alert>
-          )}
+            )}
+
+            {product.selectedBrand.map((el) =>
+              <Alert 
+                key={el.id} 
+                variant="light" 
+                className="me-1 border text-dark p-2"  >
+                {el.name}
+                <Button 
+                  type="button" 
+                  className="ms-1 btn-close"
+                  style={{fontSize: 12}}  
+                  aria-label="Close" 
+                  onClick={() => product.setSelectedBrand(el)} 
+                ></Button>
+              </Alert>
+            )}
         </Col>
+        
         <Col md={2} className="d-flex flex-wrap align-items-end">
           {/* Сортировка по убыванию и возрастанию цены, дате создания */}
-          <Form.Select  onChange={(e) => product.setOrdering(e.target.value)}>
+          <Form.Select className="mt-4" onChange={(e) => product.setOrdering(e.target.value)}>
             <option value="">Sorted by</option>
             <option value="-time_create">Новинки</option>
             <option value="price">Цена (От дешевых до дорогих)</option>
@@ -87,7 +111,8 @@ const Shop = observer(() => {
           </Form.Select>
         </Col>
       </Row>
-      <Row className="mt-3">
+      <hr />
+      <Row>
         <Col md={3}>
           <Col md={9}>
             <TypeBar />

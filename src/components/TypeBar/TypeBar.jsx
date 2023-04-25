@@ -19,7 +19,8 @@ const TypeBar = observer(() => {
   console.log('-------------------------------------------------------------'); */
   //console.log('selectedType', product.selectedType, typeof product.selectedType);
   //console.log('types', product.types);
-  //console.log(product.setSelectedType.length)
+  //console.log('setSelectedType.length', product.selectedType.length)
+  //console.log('setSelectedType.length', Object.keys(product.selectedType).length)
 
   return (
     /*     <ListGroup>
@@ -46,17 +47,10 @@ const TypeBar = observer(() => {
         <Accordion.Header>Category</Accordion.Header>
         <Accordion.Body className="">
           <ListGroup>
-            <ListGroupItem
-              style={{ cursor: "pointer" }}
-              active={product.setSelectedType.length === 0}
-              onClick={() => product.setSelectedType([])}
-            >
-              All
-            </ListGroupItem>
             {product.types.map((type) => (
               <ListGroup.Item
                 style={{ cursor: "pointer" }}
-                action
+               // action // выделяет и подвечивает когда наводишь
                 active={product.selectedType.includes(type)}
                 key={type.id}
                 onClick={() => product.setSelectedType(type)}

@@ -8,7 +8,9 @@ const AppRouter = () => {
   const {user} = useContext(Context)
   // const {product} = useContext(Context)
 
-  // console.log(user)
+  console.log('AppRouter user', user)
+  console.log('AppRouter user user', user.user)
+  console.log('AppRouter user user name', user.user.username)
   // console.log(product)
 
   return (
