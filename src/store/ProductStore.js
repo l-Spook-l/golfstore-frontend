@@ -6,11 +6,13 @@ export default class ProductStore {
   constructor() {
     this._types = []  // массив полученных типов
     this._brands = []  // массив полученных брэндов
+    this._categories = []
     this._products = []  // массив полученных продуктов
 
-    // Выделять выбранный тип и брэнд
+    // Выделять выбранный тип, брэнд, категорию
     this._selectedType = []
     this._selectedBrand = []
+    this._selectedCategory = []
 
     // 
     this._priceMin = 0
@@ -38,6 +40,9 @@ setSelectedType принимает тип продукта и устанавли
   }
   setBrands(brands) {
     this._brands = brands;
+  }
+  setCategories(categories) {
+    this._categories = categories;
   }
   setProducts(products) {
     this._products = products;
@@ -67,6 +72,18 @@ setSelectedType принимает тип продукта и устанавли
       this._selectedBrand = this._selectedBrand.filter((selectedBrand) => selectedBrand !== brand)
     }
   }
+
+  setSelectedCategory(category) {
+    this.setPage(1)
+    if (category === 'clear') {
+      this._selectedCategory = []
+    } else if (!this._selectedCategory.includes(category)){
+      this._selectedCategory = [...this._selectedCategory, category]
+    } else {
+      this._selectedCategory = this._selectedCategory.filter((selectedCategory) => selectedCategory !== category)
+    }
+  }
+
 
   setPriceMin(price){
     this._priceMin = price
@@ -102,6 +119,9 @@ setSelectedType принимает тип продукта и устанавли
   get brands() {
     return this._brands;
   }
+  get categories() {
+    return this._categories;
+  }
   get products() {
     return this._products;
   }
@@ -124,7 +144,9 @@ setSelectedType принимает тип продукта и устанавли
   get selectedBrand() {
     return this._selectedBrand;
   }
-
+  get selectedCategory() {
+    return this._selectedCategory;
+  }
 
   get page() {
     return this._page

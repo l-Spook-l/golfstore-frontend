@@ -44,7 +44,7 @@ const TypeBar = observer(() => {
     </ListGroup> */
     <Accordion className="mt-3" defaultActiveKey="0">
       <Accordion.Item className="border-0" eventKey="0">
-        <Accordion.Header>Category</Accordion.Header>
+        <Accordion.Header>Types</Accordion.Header>
         <Accordion.Body className="">
           <ListGroup>
             {product.types.map((type) => (

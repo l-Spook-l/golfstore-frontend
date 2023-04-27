@@ -5,9 +5,10 @@ import BrandBar from "../../components/BrandBar/BrandBar";
 import ProductList from "../../components/ProductList";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
-import { fetchBrands, fetchProducts, fetchTypes } from "../../http/productAPI";
+import { fetchBrands, fetchProducts, fetchTypes, fetchCategories } from "../../http/productAPI";
 import Paginations from "../../components/UI/Paginations/Paginations";
 import PriceBar from "../../components/PriceBar";
+import CategoryBar from "../../components/CategoryBar/CategoryBar";
 
 const Shop = observer(() => {
   const { product } = useContext(Context);
@@ -20,7 +21,8 @@ const Shop = observer(() => {
   useEffect(() => {
     fetchTypes().then((data) => product.setTypes(data));
     fetchBrands().then((data) => product.setBrands(data));
-    fetchProducts(null, null, 1, null, null, null).then((data) => {
+    fetchCategories().then((data) => product.setCategories(data))
+    fetchProducts(null, null, null, 1, null, null, null).then((data) => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
       //console.log('shop - data', data)
@@ -32,6 +34,7 @@ const Shop = observer(() => {
     fetchProducts(
       product.selectedType.map((el) => el.slug).join(", "),
       product.selectedBrand.map((el) => el.slug).join(", "),
+      product.selectedCategory.map((el) => el.slug).join(", "),
       product.page,
       product.priceMin,
       product.priceMax,
@@ -48,7 +51,7 @@ const Shop = observer(() => {
       //console.log('shop - product type2222222', product.types.slug)
       //console.log('shop - product brand222', product.brands) 
     });
-  }, [product.selectedType, product.selectedBrand, product.page, product.priceMin, product.priceMax, product.ordering]);
+  }, [product.selectedType, product.selectedBrand, product.selectedCategory, product.page, product.priceMin, product.priceMax, product.ordering]);
 
   const clearFilter = () => {
     product.setSelectedType('clear')
@@ -110,11 +113,13 @@ const Shop = observer(() => {
             <option value="-price">Цена (От дорогих до дешевых)</option>
           </Form.Select>
         </Col>
+
       </Row>
       <hr />
       <Row>
         <Col md={3}>
           <Col md={9}>
+            <CategoryBar />
             <TypeBar />
             <PriceBar />
             <BrandBar />

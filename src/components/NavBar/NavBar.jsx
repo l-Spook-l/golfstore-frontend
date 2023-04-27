@@ -8,6 +8,7 @@ import FormLogin from '../UI/FormLogin/FormLogin'
 import FormRegister from '../UI/FormRegister/FormRegister'
 import { BASKET_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, PROFILE_ROUTE, REGISTER_ROUTE, SHOP_ROUTE } from '../../utils/consts'
 import { AiOutlineShoppingCart } from 'react-icons/ai';
+
 // observer позволяет создавать компоненты, которые автоматически обновляются при изменении данных, отслеживаемых с помощью MobX.
 const NavBar = observer(() => {
   const {user} = useContext(Context)
@@ -60,8 +61,8 @@ const NavBar = observer(() => {
         <Nav className="ms-auto align-items-center">
           {/* Навигаци вместо <a> - react-router-dom*/}
           <NavLink className='text-muted text-decoration-none ms-2' to={SHOP_ROUTE}>Shop</NavLink>
-          <NavLink className='text-muted text-decoration-none ms-2' to={LOGIN_ROUTE}>LOGIN_ROUTE</NavLink>
-          <NavLink className='text-muted text-decoration-none ms-2' to={REGISTER_ROUTE}>REGISTER_ROUTE</NavLink>
+{/*           <NavLink className='text-muted text-decoration-none ms-2' to={LOGIN_ROUTE}>LOGIN_ROUTE</NavLink>
+          <NavLink className='text-muted text-decoration-none ms-2' to={REGISTER_ROUTE}>REGISTER_ROUTE</NavLink> */}
           <NavLink className='text-muted text-decoration-none ms-2' to={'/users'}>Users</NavLink>
           <NavDropdown title="Example" >
             <NavDropdown.Item>

@@ -20,11 +20,6 @@ export const authRoutes = [
     path: BASKET_ROUTE,
     Component: Basket,
   },
-  {
-    path: PRODUCT_ROUTE + "/:id",
-    Component: ProductPage,
-  },
-
 ];
 
 // Доступ всем
@@ -36,6 +31,10 @@ export const publicRoutes = [
   {
     path: SHOP_ROUTE,
     Component: Shop,
+  },
+  {
+    path: PRODUCT_ROUTE + "/:id",
+    Component: ProductPage,
   },
   {
     path: LOGIN_ROUTE,

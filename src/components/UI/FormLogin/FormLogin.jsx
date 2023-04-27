@@ -9,6 +9,8 @@ import { login } from "../../../http/userAPI";
 const FormLogin = observer(({ onSwitchForm }) => {
   const { user } = useContext(Context);
 
+  const navigate = useNavigate()
+
   //const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +34,6 @@ const FormLogin = observer(({ onSwitchForm }) => {
     }
   }, [usernameError, passwordError])
 
-  const navigate = useNavigate()
 
   const loginUser = () => {
     try {
@@ -64,8 +65,8 @@ const FormLogin = observer(({ onSwitchForm }) => {
   const usernameHandler = (e) => {
     setUsername(e.target.value)
     console.log('usernameHandler', e.target.value)
-    console.log('e.target.value > 8', e.target.value.length > 8)
-    if (e.target.value.length < 8) {
+    console.log('e.target.value < 3', e.target.value.length < 3)
+    if (e.target.value.length < 3) {
       setUsernameError('username должен быть длиннее 8 символов')
       if (!e.target.value) {
         setUsernameError('username не может быть пустым')

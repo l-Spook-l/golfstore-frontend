@@ -1,9 +1,9 @@
 import jwt_decode from "jwt-decode";
 import { $authHost, $host } from "./index";
 
-export const registration = async (username, password) => {
+export const registration = async (username, password, email) => {
   // response - ответ от сервера
-  const response = await $host.post("auth/users/", { username, password });
+  const response = await $host.post("auth/users/", { username, password, email });
   //localStorage.setItem("token", response.token); // глянь на этот ответ 2:11:7
   console.log("регистрация response", response);
   //console.log("регистрация jwt_decode(response.data.access)", jwt_decode(response.data.access)); 
@@ -46,3 +46,5 @@ export const check = async () => {
   localStorage.setItem("token", localStorage.getItem("token"));
   return response.data;
 };
+
+/* когда будет профиль authHost ему надо и роутрах добавить */

@@ -11,10 +11,15 @@ export const fetchBrands = async() => {
   return response.data.results
 }
 
+export const fetchCategories = async() => {
+  const response = await $host.get('api/v1/category/')
+  return response.data.results
+}
+
 // делаем запрос и принимаем данные с параметрами
-export const fetchProducts = async(type, brand, page, min_price, max_price, ordering) => {
+export const fetchProducts = async(type, brand, category, page, min_price, max_price, ordering) => {
   const response = await $host.get('api/v1/product/', {params:{
-    type, brand, page, min_price, max_price, ordering
+    type, brand, category, page, min_price, max_price, ordering
   }})
 /*   console.log('product API - response', response)
   console.log('product API - type, brand, page', type, brand, page)
@@ -24,7 +29,7 @@ export const fetchProducts = async(type, brand, page, min_price, max_price, orde
 }
 
 export const fetchOneProduct = async(id) => {
-  const response = await $authHost.get(`api/v1/product/${id}`)
+  const response = await $host.get(`api/v1/product/${id}`)
 /*   console.log('product API - product one response', response)
   console.log('product API -  product one response data', response.data) */
   return response.data
