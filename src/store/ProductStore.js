@@ -50,7 +50,7 @@ setSelectedType принимает тип продукта и устанавли
 
   // Выделять выбранный тип
   setSelectedType(type) {
-    //console.log('typeeeeeeeeeeeeee', type, typeof type)
+    console.log('typeeeeeeeeeeeeee', type, typeof type)
     this.setPage(1)
     if (type === 'clear') {
       this._selectedType = []

@@ -1,18 +1,20 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../..";
-import { fetchBrands, fetchProducts, fetchTypes } from "../../http/productAPI";
-import { NavLink } from "react-router-dom";
-import { SHOP_ROUTE } from "../../utils/consts";
+import { fetchBrands, fetchCategories, fetchProducts, fetchTypes } from "../../http/productAPI";
+import { NavLink, useNavigate } from "react-router-dom";
+import { CATEGORY_ROUTE, SHOP_ROUTE } from "../../utils/consts";
 import Slider from "../../components/UI/Slider/Slider";
 import { Button, Col, Container, Fade, Row, Spinner } from "react-bootstrap";
 
 const MainPage = observer(() => {
   const { product } = useContext(Context);
+  const navigate = useNavigate();  // для перехода по страницам
 
   // Для крутилки во время загрузки
   const [loading, setLoading] = useState(true)
 
+  const [countCategoryOnMainPage, setCountCategoryOnMainPage] = useState(3)
   const [countTypesOnMainPage, setCountTypesOnMainPage] = useState(3)
   const [countBrandsOnMainPage, setCountBrandsOnMainPage] = useState(4)
 
@@ -25,7 +27,8 @@ const MainPage = observer(() => {
   useEffect(() => {
     fetchTypes().then((data) => product.setTypes(data));
     fetchBrands().then((data) => product.setBrands(data));
-    fetchProducts(null, null, 1, null, null, null).then((data) => {
+    fetchCategories().then((data) => product.setCategories(data));
+    fetchProducts(null, null, null, 1, null, null, null).then((data) => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
       //console.log('shop - data', data)
@@ -33,7 +36,9 @@ const MainPage = observer(() => {
     })//.finally(() => setLoading(false));
   }, []);
 
-
+  const showMoreCategories = () => {
+    setCountCategoryOnMainPage(countCategoryOnMainPage + 3);
+  };
   const showMoreTypes = () => {
     setCountTypesOnMainPage(countTypesOnMainPage + 3);
   };
@@ -76,8 +81,20 @@ const MainPage = observer(() => {
     <div>
       <Slider />
       <Container>
+
+      <Button>Categories</Button>
+      <Row className="mt-3 bg-info">
+        {product.categories.slice(0, countCategoryOnMainPage).map((el) => 
+          <Col md={4} key={el.id}>
+            <Button onClick={() => navigate(`${CATEGORY_ROUTE}/${el.slug}`)} style={{height: 200, width: 400, fontSize: 22}}>{el.name}</Button>
+          </Col>
+        )}
+        {countCategoryOnMainPage < product.categories.length && (
+          <Button style={{width: 300, margin: 'auto'}} className="mt-3" onClick={() => showMoreCategories()}>More types</Button>
+        )}
+      </Row>
       
-      <Button>Types</Button>
+      {/* <Button>Types</Button>
       <Row className="mt-3 bg-info">
         {product.types.slice(0, countTypesOnMainPage).map((el) => 
           <Col md={4} key={el.id}>
@@ -87,7 +104,7 @@ const MainPage = observer(() => {
         {countTypesOnMainPage < product.types.length && (
           <Button style={{width: 300, margin: 'auto'}} className="mt-3" onClick={() => showMoreTypes()}>More types</Button>
         )}
-      </Row>
+      </Row> */}
 
       <Button>Brands</Button>
       <Row className="mt-3 bg-info">

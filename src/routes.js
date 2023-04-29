@@ -13,7 +13,9 @@ import {
   SHOP_ROUTE,
   PROFILE_ROUTE,
   MAIN_ROUTE,
+  CATEGORY_ROUTE,
 } from "./utils/consts"; // Ссылки
+import CategoryPage from "./pages/CategoryPage/CategoryPage";
 
 export const authRoutes = [
   {
@@ -33,6 +35,10 @@ export const publicRoutes = [
     Component: Shop,
   },
   {
+    path: CATEGORY_ROUTE + "/:slug",
+    Component: CategoryPage,
+  },
+  {
     path: PRODUCT_ROUTE + "/:id",
     Component: ProductPage,
   },
@@ -44,7 +50,6 @@ export const publicRoutes = [
     path: REGISTER_ROUTE,
     Component: Auth,
   },
-
   {
     path: PROFILE_ROUTE,
     Component: Profile,

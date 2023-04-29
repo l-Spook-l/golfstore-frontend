@@ -42,18 +42,20 @@ const TypeBar = observer(() => {
         </ListGroup.Item>
       ))}
     </ListGroup> */
+
     <Accordion className="mt-3" defaultActiveKey="0">
       <Accordion.Item className="border-0" eventKey="0">
         <Accordion.Header>Types</Accordion.Header>
         <Accordion.Body className="">
           <ListGroup>
             {product.types.map((type) => (
+              //console.log('TypeBar type', type, typeof type),
               <ListGroup.Item
                 style={{ cursor: "pointer" }}
                // action // выделяет и подвечивает когда наводишь
                 active={product.selectedType.includes(type)}
-                key={type.id}
                 onClick={() => product.setSelectedType(type)}
+                key={type.id}
               >
                 {type.name}
               </ListGroup.Item>

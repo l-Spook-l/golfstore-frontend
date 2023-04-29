@@ -61,9 +61,8 @@ const NavBar = observer(() => {
         <Nav className="ms-auto align-items-center">
           {/* Навигаци вместо <a> - react-router-dom*/}
           <NavLink className='text-muted text-decoration-none ms-2' to={SHOP_ROUTE}>Shop</NavLink>
-{/*           <NavLink className='text-muted text-decoration-none ms-2' to={LOGIN_ROUTE}>LOGIN_ROUTE</NavLink>
-          <NavLink className='text-muted text-decoration-none ms-2' to={REGISTER_ROUTE}>REGISTER_ROUTE</NavLink> */}
-          <NavLink className='text-muted text-decoration-none ms-2' to={'/users'}>Users</NavLink>
+          <NavLink className='text-muted text-decoration-none ms-2' to={LOGIN_ROUTE}>LOGIN_ROUTE</NavLink>
+          <NavLink className='text-muted text-decoration-none ms-2' to={REGISTER_ROUTE}>REGISTER_ROUTE</NavLink>
           <NavDropdown title="Example" >
             <NavDropdown.Item>
               <NavLink className='text-muted text-decoration-none ms-2 text-dark' to={"/counter"}>Counter</NavLink>

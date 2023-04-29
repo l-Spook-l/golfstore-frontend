@@ -1,40 +1,37 @@
-import React, { useContext, useEffect } from "react";
-import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
-import TypeBar from "../../components/TypeBar/TypeBar";
-import BrandBar from "../../components/BrandBar/BrandBar";
-import ProductList from "../../components/ProductList";
-import { observer } from "mobx-react-lite";
-import { Context } from "../..";
-import { fetchBrands, fetchProducts, fetchTypes, fetchCategories } from "../../http/productAPI";
-import Paginations from "../../components/UI/Paginations/Paginations";
-import PriceBar from "../../components/PriceBar";
-import CategoryBar from "../../components/CategoryBar/CategoryBar";
+import React, { useContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { fetchBrands, fetchOneCategory, fetchProducts, fetchProductsByCategory } from '../../http/productAPI'
+import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { observer } from 'mobx-react-lite'
+import { Context } from '../..'
+import PriceBar from '../../components/PriceBar'
+import BrandBar from '../../components/BrandBar/BrandBar'
+import Paginations from '../../components/UI/Paginations/Paginations'
+import ProductList from '../../components/ProductList'
+import TypeBar from '../../components/TypeBar/TypeBar'
 
-const Shop = observer(() => {
+const CategoryPage = observer(() => {
   const { product } = useContext(Context);
-  /* 
-  console.log('shop - product page', product.page)
-  console.log('shop - product types', product.types)
-  console.log('shop - product brands', product.brands) */
-
+  
+  const {slug} = useParams()
+  console.log('slug', slug)
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
-    fetchTypes().then((data) => product.setTypes(data));
+    fetchOneCategory(slug).then((data) => product.setTypes(data.type))
     fetchBrands().then((data) => product.setBrands(data));
-    fetchCategories().then((data) => product.setCategories(data));
-    fetchProducts(null, null, null, 1, null, null, null).then((data) => {
+    fetchProductsByCategory(slug, null, null, 1, null, null, null).then((data) => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
-      //console.log('shop - data', data)
+      console.log('CategoryPage - data', data)
       //console.log('shop - data.results', data.results)
     });
   }, []);
 
   useEffect(() => {
-    fetchProducts(
+    fetchProductsByCategory(
+      slug,
       product.selectedType.map((el) => el.slug).join(", "),
       product.selectedBrand.map((el) => el.slug).join(", "),
-      product.selectedCategory.map((el) => el.slug).join(", "),
       product.page,
       product.priceMin,
       product.priceMax,
@@ -43,30 +40,28 @@ const Shop = observer(() => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
 
-      //console.log('shop - data222', data)
-      //console.log('shop - data222 results222', data.results)
-      //console.log('shop - product types', product.types)
-      //console.log('shop - product selectedType', product.selectedType)
-      //console.log('shop - product selectedType slug', product.selectedType.slug)
-      //console.log('shop - product type2222222', product.types.slug)
-      //console.log('shop - product brand222', product.brands) 
+      console.log('category page - data', data)
+      console.log('category page - data results', data.results)
+      console.log('category page - product types', product.types)
+      console.log('category page - product brand', product.brands)
+      console.log('category page - product selectedType', product.selectedType)
     });
-  }, [product.selectedType, product.selectedBrand, product.selectedCategory, product.page, product.priceMin, product.priceMax, product.ordering]);
+  }, [product.selectedType, product.selectedBrand, product.page, product.priceMin, product.priceMax, product.ordering]);
 
   const clearFilter = () => {
     product.setSelectedType('clear')
     product.setSelectedBrand('clear')
   }
-
-  console.log("shop - product", product);
-  console.log('shop - product selectedType', product.selectedType)
-  console.log('shop - product brands', product.brands)
-  console.log('shop - product types', product.types)
-
+  //console.log('category', category)
+  //console.log('category results', category.results[0].name)
+  //console.log("CategoryPage - product", product);
+  //console.log('CategoryPage - product selectedType', product.selectedType)
+  //console.log('CategoryPage - product brands', product.brands)
+  //console.log('CategoryPage - product types', product.types)
 
   return (
     <Container>
-
+      
       <Row className="mt-3">
         <Col md={10} className="d-flex flex-wrap mb-0 ">
         {product.selectedType.length !== 0 || product.selectedBrand.length !== 0
@@ -75,10 +70,10 @@ const Shop = observer(() => {
          }
           {product.selectedType.map((el) => 
             <Alert 
-              key={el.id} 
+              key={el.id}
               variant="light" 
               className="me-1 border text-dark p-2"  >
-              {el.name}
+              {el.name  }
               <Button 
                 type="button" 
                 className="ms-1 btn-close"
@@ -121,7 +116,6 @@ const Shop = observer(() => {
       <Row>
         <Col md={3}>
           <Col md={9}>
-            <CategoryBar />
             <TypeBar />
             <PriceBar />
             <BrandBar />
@@ -134,6 +128,6 @@ const Shop = observer(() => {
       </Row>
     </Container>
   );
-});
+})
 
-export default Shop;
+export default CategoryPage
