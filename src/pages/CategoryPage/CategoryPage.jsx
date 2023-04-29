@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { fetchBrands, fetchOneCategory, fetchProducts, fetchProductsByCategory } from '../../http/productAPI'
+import { fetchOneCategory, fetchProductsByCategory } from '../../http/productAPI'
 import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 import { Context } from '../..'
@@ -17,8 +17,10 @@ const CategoryPage = observer(() => {
   console.log('slug', slug)
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
-    fetchOneCategory(slug).then((data) => product.setTypes(data.type))
-    fetchBrands().then((data) => product.setBrands(data));
+    fetchOneCategory(slug).then((data) => {
+      product.setTypes(data.type)
+      product.setBrands(data.brand)
+    })
     fetchProductsByCategory(slug, null, null, 1, null, null, null).then((data) => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);

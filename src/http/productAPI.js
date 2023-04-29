@@ -2,17 +2,17 @@ import { $authHost, $host } from "./index";
 
 
 export const fetchTypes = async() => {
-  const response = await $host.get('api/v1/type/')
+  const response = await $host.get('api/v1/types/')
   return response.data.results
 }
 
 export const fetchBrands = async() => {
-  const response = await $host.get('api/v1/brand/')
+  const response = await $host.get('api/v1/brands/')
   return response.data.results
 }
 
 export const fetchCategories = async() => {
-  const response = await $host.get('api/v1/category/')
+  const response = await $host.get('api/v1/categories/')
   return response.data.results
 }
 
@@ -36,7 +36,7 @@ export const fetchOneProduct = async(id) => {
 }
 
 export const fetchOneCategory = async(slug) => {
-  const response = await $host.get(`api/v1/${slug}`)
+  const response = await $host.get(`api/v1/category-info/${slug}`)
   return response.data
 }
 
