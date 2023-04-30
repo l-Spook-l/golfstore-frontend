@@ -18,7 +18,7 @@ const Slider = () => {
       </Carousel.Item>
 
 
-{/*       <Carousel.Item style={{height: '700px'}}>
+      <Carousel.Item style={{height: '700px'}}>
         <img className="d-block w-100 h-100" src={nature2} alt="qwerty"/>
         <Carousel.Caption>
           <h3 className="text-dark">Spook Golf intr...</h3>
@@ -32,7 +32,7 @@ const Slider = () => {
           <h3 className="text-dark">Spook Golf intr...</h3>
           <p className="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem nobis debitis blanditiis, et dolore illo officia! Illo, quas placeat nam accusamus, nemo dolorum minima corrupti culpa rem quis quam porro!</p>
         </Carousel.Caption>
-      </Carousel.Item> */}
+      </Carousel.Item>
     </Carousel>
   );
 };

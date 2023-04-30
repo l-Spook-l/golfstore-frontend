@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { fetchOneCategory, fetchProductsByCategory } from '../../http/productAPI'
-import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
-import { Context } from '../..'
-import PriceBar from '../../components/PriceBar'
-import BrandBar from '../../components/BrandBar/BrandBar'
-import Paginations from '../../components/UI/Paginations/Paginations'
-import ProductList from '../../components/ProductList'
-import TypeBar from '../../components/TypeBar/TypeBar'
+import React, { useContext, useEffect } from 'react'
+import { fetchOneBrand, fetchProductsByBrand } from '../../http/productAPI';
+import { Context } from '../..';
+import { useParams } from 'react-router-dom';
+import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap';
+import CategoryBar from '../../components/CategoryBar/CategoryBar';
+import TypeBar from '../../components/TypeBar/TypeBar';
+import PriceBar from '../../components/PriceBar';
+import ProductList from '../../components/ProductList';
+import Paginations from '../../components/UI/Paginations/Paginations';
 
-const CategoryPage = observer(() => {
+const BrandPage = observer(() => {
   const { product } = useContext(Context);
   
   const {slug} = useParams()
@@ -18,24 +18,23 @@ const CategoryPage = observer(() => {
 
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
-    fetchOneCategory(slug).then((data) => {
+    fetchOneBrand(slug).then((data) => {
       product.setTypes(data.type)
-      product.setBrands(data.brand)
-      console.log('CategoryPage - fetchOneCategory - data', data)
+      product.setCategories(data.categories)
+      console.log('brandPage - fetchOneBrand - data', data)
     })
-    fetchProductsByCategory(slug, null, null, 1, null, null, null).then((data) => {
+    fetchProductsByBrand(slug, null, null, 1, null, null, null).then((data) => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
-      console.log('CategoryPage - fetchProductsByCategory - data', data)
-      //console.log('shop - data.results', data.results)
+      console.log('brandPage - fetchProductsByBrand - data', data)
     });
   }, []);
 
   useEffect(() => {
-    fetchProductsByCategory(
+    fetchProductsByBrand(
       slug,
       product.selectedType.map((el) => el.slug).join(", "),
-      product.selectedBrand.map((el) => el.slug).join(", "),
+      product.selectedCategory.map((el) => el.slug).join(", "),
       product.page,
       product.priceMin,
       product.priceMax,
@@ -44,17 +43,18 @@ const CategoryPage = observer(() => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
 
-      console.log('category page - data', data)
-      console.log('category page - data results', data.results)
-      console.log('category page - product types', product.types)
-      console.log('category page - product brand', product.brands)
-      console.log('category page - product selectedType', product.selectedType)
+      console.log('brand page - data', data)
+      console.log('brand page - data results', data.results)
+      console.log('brand page - product ', product)
+      console.log('brand page - product types', product.types)
+      console.log('brand page - product categories', product.categories)
+      console.log('brand page - product selectedType', product.selectedType)
     });
-  }, [product.selectedType, product.selectedBrand, product.page, product.priceMin, product.priceMax, product.ordering]);
+  }, [product.selectedType, product.selectedCategory, product.page, product.priceMin, product.priceMax, product.ordering]);
 
   const clearFilter = () => {
     product.setSelectedType('clear')
-    product.setSelectedBrand('clear')
+    product.setSelectedCategory('clear')
   }
   //console.log('category', category)
   //console.log('category results', category.results[0].name)
@@ -88,7 +88,7 @@ const CategoryPage = observer(() => {
             </Alert>
             )}
 
-            {product.selectedBrand.map((el) =>
+{/*             {product.selectedBrand.map((el) =>
               <Alert 
                 key={el.id} 
                 variant="light" 
@@ -102,7 +102,7 @@ const CategoryPage = observer(() => {
                   onClick={() => product.setSelectedBrand(el)} 
                 ></Button>
               </Alert>
-            )}
+            )} */}
         </Col>
         
         <Col md={2} className="d-flex flex-wrap align-items-end">
@@ -120,9 +120,9 @@ const CategoryPage = observer(() => {
       <Row>
         <Col md={3}>
           <Col md={9}>
+            <CategoryBar/>
             <TypeBar />
             <PriceBar />
-            <BrandBar />
           </Col>
         </Col>
         <Col md={9}>
@@ -134,4 +134,4 @@ const CategoryPage = observer(() => {
   );
 })
 
-export default CategoryPage
+export default BrandPage

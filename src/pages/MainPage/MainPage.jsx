@@ -3,9 +3,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../..";
 import { fetchBrands, fetchCategories, fetchProducts, fetchTypes } from "../../http/productAPI";
 import { NavLink, useNavigate } from "react-router-dom";
-import { CATEGORY_ROUTE, SHOP_ROUTE } from "../../utils/consts";
+import { BRAND_ROUTE, CATEGORY_ROUTE, SHOP_ROUTE } from "../../utils/consts";
 import Slider from "../../components/UI/Slider/Slider";
-import { Button, Col, Container, Fade, Row, Spinner } from "react-bootstrap";
+import { Button, Card, Col, Container, Fade, Image, Row, Spinner } from "react-bootstrap";
 
 const MainPage = observer(() => {
   const { product } = useContext(Context);
@@ -25,7 +25,7 @@ const MainPage = observer(() => {
 
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
-    fetchTypes().then((data) => product.setTypes(data));
+   // fetchTypes().then((data) => product.setTypes(data));
     fetchBrands().then((data) => product.setBrands(data));
     fetchCategories().then((data) => product.setCategories(data));
     fetchProducts(null, null, null, 1, null, null, null).then((data) => {
@@ -38,9 +38,6 @@ const MainPage = observer(() => {
 
   const showMoreCategories = () => {
     setCountCategoryOnMainPage(countCategoryOnMainPage + 3);
-  };
-  const showMoreTypes = () => {
-    setCountTypesOnMainPage(countTypesOnMainPage + 3);
   };
   const showMoreBrands = () => {
     setCountBrandsOnMainPage(countBrandsOnMainPage + 4);
@@ -68,9 +65,10 @@ const MainPage = observer(() => {
     });
   }, [product.selectedType, product.selectedBrand, product.page, product.priceMin, product.priceMax, product.ordering]); */
 
-/*   console.log("shop - product", product);
+  console.log("shop - product", product);
+  console.log("shop - product products", product.products);
   console.log('shop - product typesqqq', product.selectedType)
-  console.log('shop - product brands', product.brands) */
+  console.log('shop - product brands', product.brands)
 
 /*   if (loading) {
     return <Spinner animation='grow'/>
@@ -93,24 +91,25 @@ const MainPage = observer(() => {
           <Button style={{width: 300, margin: 'auto'}} className="mt-3" onClick={() => showMoreCategories()}>More types</Button>
         )}
       </Row>
-      
-      {/* <Button>Types</Button>
-      <Row className="mt-3 bg-info">
-        {product.types.slice(0, countTypesOnMainPage).map((el) => 
-          <Col md={4} key={el.id}>
-            <Button style={{height: 200, width: 400, fontSize: 22}}>{el.name}</Button>
-          </Col>
-        )}
-        {countTypesOnMainPage < product.types.length && (
-          <Button style={{width: 300, margin: 'auto'}} className="mt-3" onClick={() => showMoreTypes()}>More types</Button>
-        )}
-      </Row> */}
 
+      <h2>NEWEST ARRIVALS</h2>
+      <Row>
+        {product.products.slice(0, 3).map((el) => 
+          <Card style={{ width: 150, cursor: "pointer" }} border="light">
+            <Image width={150} height={150} src={el.photo} />
+            <div>{el.name}</div>
+            <div className="mt-1 d-flex justify-content-between align-items-center">
+              <div>{el.price}</div>
+            </div>
+          </Card>
+        )}
+      </Row>
+      
       <Button>Brands</Button>
       <Row className="mt-3 bg-info">
         {product.brands.slice(0, countBrandsOnMainPage).map((el) => 
           <Col md={3} key={el.id}>
-            <Button style={{height: 200, width: 300, fontSize: 22}}>{el.name}</Button>
+            <Button onClick={() => navigate(`${BRAND_ROUTE}/${el.slug}`)} style={{height: 200, width: 300, fontSize: 22}}>{el.name}</Button>
           </Col>
         )}
         {countBrandsOnMainPage < product.brands.length && (
@@ -118,6 +117,14 @@ const MainPage = observer(() => {
         )}
       </Row>
       
+      <Row>
+        <Col md={6}>
+          <h3>Golf clubs for you</h3>
+        </Col>
+        <Col md={6}>
+          <h3>Exclusive brands</h3>
+        </Col>
+      </Row>
       </Container>
 
     </div>

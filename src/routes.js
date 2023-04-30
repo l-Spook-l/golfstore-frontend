@@ -14,13 +14,15 @@ import {
   PROFILE_ROUTE,
   MAIN_ROUTE,
   CATEGORY_ROUTE,
+  BRAND_ROUTE,
 } from "./utils/consts"; // Ссылки
 import CategoryPage from "./pages/CategoryPage/CategoryPage";
+import BrandPage from "./pages/BrandPage/BrandPage";
 
 export const authRoutes = [
   {
-    path: BASKET_ROUTE,
-    Component: Basket,
+    path: PROFILE_ROUTE,
+    Component: Profile,
   },
 ];
 
@@ -39,6 +41,10 @@ export const publicRoutes = [
     Component: CategoryPage,
   },
   {
+    path: BRAND_ROUTE + "/:slug",
+    Component: BrandPage,
+  },
+  {
     path: PRODUCT_ROUTE + "/:id",
     Component: ProductPage,
   },
@@ -51,8 +57,7 @@ export const publicRoutes = [
     Component: Auth,
   },
   {
-    path: PROFILE_ROUTE,
-    Component: Profile,
+    path: BASKET_ROUTE,
+    Component: Basket,
   },
-
 ];

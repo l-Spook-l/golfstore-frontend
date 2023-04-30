@@ -49,6 +49,15 @@ export const fetchProductsByCategory = async(slug, type, brand, page, min_price,
   return response.data
 }
 
+export const fetchOneBrand = async(slug) => {
+  const response = await $host.get(`api/v1/brand-info/${slug}`)
+  console.log('Brand получение - response', response)
+  return response.data
+}
 
-
-/* сделать запрос на получения одной карегории http://127.0.0.1:8000/api/v1/category/golf-clubs/ */
+export const fetchProductsByBrand = async(slug, type, category, page, min_price, max_price, ordering) => {
+  const response = await $host.get(`api/v1/brand/${slug}/`, {params:{
+    type, category, page, min_price, max_price, ordering
+  }})
+  return response.data
+}

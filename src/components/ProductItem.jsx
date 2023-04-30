@@ -18,7 +18,6 @@ const ProductItem = ({ product }) => {
         <div className="mt-1 d-flex justify-content-between align-items-center">
         <div>{product.price}</div>
           <div className="d-flex align-items-center">
-            <div>{product.rating}</div>
             {/* <Image width={18} height={18} src={star} /> */}
             <Image width={18} height={18} style={{ backgroundColor: "blue" }} />
           </div>
