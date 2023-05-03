@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react'
-import { Button, Col, Container, Image, Row } from 'react-bootstrap'
-import { Context } from '../..';
-import { createBasketForUser, fetchBasket, fetchListProductsBasket } from '../../http/productAPI';
 import { observer } from 'mobx-react-lite';
+import React, { useContext, useEffect } from 'react'
+import { Button, Col, Container, Image, Row } from 'react-bootstrap';
+import { Context } from '../..';
+import { fetchListProductsWishList, fetchWishList } from '../../http/productAPI';
 
-const Basket = observer(() => {
+const WishListPage = observer(() => {
+
   const productsTest = [
     {
       id: 1,
@@ -46,23 +47,18 @@ const Basket = observer(() => {
   
   const {user} = useContext(Context)
 
-  console.log('Basket user', user)
-  console.log('Basket user user', user.user)
-  console.log('Basket user user id', user.user.id)
-
-  //createBasketForUser({user: user.user.id})
-  //createWishListForUser({user: user.user.id})
-
+  console.log('WishListPage user', user)
+  console.log('WishListPage user user', user.user)
+  console.log('WishListPage user user id', user.user.id)
   useEffect(() => {
-    fetchBasket(user.user.id).then((data) => {
-      console.log('Basket data one ', data)
-      fetchListProductsBasket(data.id).then((products) => {
-      console.log('fetchListProductsBasket products', products)
-      console.log('fetchListProductsBasket products results', products.results)
+    fetchWishList(user.user.id).then((data) => {
+      console.log('fetchWishList data one ', data)
+      fetchListProductsWishList(data.id).then((products) => {
+      console.log('fetchListProductsWishList products', products)
+      console.log('fetchListProductsWishList products results', products.results)
       })
     })
-   /*  console.log('Basket data one ', data) */
-  }, [])
+    }, [])
 
   return (
     <Container>
@@ -87,4 +83,4 @@ const Basket = observer(() => {
   )
 })
 
-export default Basket
+export default WishListPage

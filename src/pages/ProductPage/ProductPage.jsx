@@ -6,14 +6,14 @@ import { fetchOneProduct } from '../../http/productAPI'
 const ProductPage = () => {
   const [product, setProduct] = useState({info: []})
   // id нашего продукта
-  const {id} = useParams()
-  //console.log('params in product one', {id})
+  const {slug} = useParams()
+  console.log('params in product one', {slug})
   //console.log('product in product one', product)
   //console.log('product in product one name', product.name)
 
   // первая и единственная загрузка стр
   useEffect(() => {
-    fetchOneProduct(id).then((data) => setProduct(data))
+    fetchOneProduct(slug).then((data) => setProduct(data))
     /* console.log('data one ', data) */
   }, [])
 

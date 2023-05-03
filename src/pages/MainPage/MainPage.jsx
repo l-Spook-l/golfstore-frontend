@@ -6,6 +6,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { BRAND_ROUTE, CATEGORY_ROUTE, SHOP_ROUTE } from "../../utils/consts";
 import Slider from "../../components/UI/Slider/Slider";
 import { Button, Card, Col, Container, Fade, Image, Row, Spinner } from "react-bootstrap";
+import golf_clothing_photo from "../../assets/golf-clothing-main-page.png";
+import golf_brands_photo from "../../assets/golf-brands-main-page.png";
 
 const MainPage = observer(() => {
   const { product } = useContext(Context);
@@ -80,7 +82,7 @@ const MainPage = observer(() => {
       <Slider />
       <Container>
 
-      <Button>Categories</Button>
+      <h2>Categories</h2>
       <Row className="mt-3 bg-info">
         {product.categories.slice(0, countCategoryOnMainPage).map((el) => 
           <Col md={4} key={el.id}>
@@ -95,17 +97,17 @@ const MainPage = observer(() => {
       <h2>NEWEST ARRIVALS</h2>
       <Row>
         {product.products.slice(0, 3).map((el) => 
-          <Card style={{ width: 150, cursor: "pointer" }} border="light">
-            <Image width={150} height={150} src={el.photo} />
+          <Card style={{ width: 250, cursor: "pointer" }} border="light">
+            <Image width={250} height={250} src={el.photo} />
             <div>{el.name}</div>
-            <div className="mt-1 d-flex justify-content-between align-items-center">
+            <div className="m-auto">
               <div>{el.price}</div>
             </div>
           </Card>
         )}
       </Row>
       
-      <Button>Brands</Button>
+      <h2>Brands</h2>
       <Row className="mt-3 bg-info">
         {product.brands.slice(0, countBrandsOnMainPage).map((el) => 
           <Col md={3} key={el.id}>
@@ -119,12 +121,20 @@ const MainPage = observer(() => {
       
       <Row>
         <Col md={6}>
-          <h3>Golf clubs for you</h3>
+          <h3 className="">Golf clubs for you</h3>
+          <p>Discover the perfect golf clubs for your game at Golf Clubs for You. Our selection features top equipment brands like TaylorMade Golf, Callaway, Titleist, PXG, Mizuno, Miura, and more.</p>
+          <Button>Shop</Button>
+          <Image width={500} height={600} src={golf_brands_photo}/>
         </Col>
         <Col md={6}>
           <h3>Exclusive brands</h3>
+          <Image width={400} height={532} src={golf_clothing_photo}/>
+          <p>"Leading Brands"
+            "Explore top golf apparel brands that offer a blend of style, comfort, and performance</p>
+          <Button>Shop</Button>
         </Col>
       </Row>
+
       </Container>
 
     </div>

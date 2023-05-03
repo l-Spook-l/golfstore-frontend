@@ -1,19 +1,20 @@
 import React, { useContext, useState } from 'react'
 import { Context } from '../../index'
-import { Button, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap'
+import { Badge, Button, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap'
 import { NavLink, useNavigate } from 'react-router-dom'
 import MyModal from '../../components/UI/MyModal/MyModal'
 import { observer } from 'mobx-react-lite'
 import FormLogin from '../UI/FormLogin/FormLogin'
 import FormRegister from '../UI/FormRegister/FormRegister'
-import { BASKET_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, PROFILE_ROUTE, REGISTER_ROUTE, SHOP_ROUTE } from '../../utils/consts'
-import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { BASKET_ROUTE, BRAND_ROUTE, CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, PROFILE_ROUTE, REGISTER_ROUTE, SHOP_ROUTE, WISHLIST_ROUTE } from '../../utils/consts'
+import { AiOutlineShoppingCart, AiOutlineHeart, AiOutlineProfile } from 'react-icons/ai';
 
 // observer позволяет создавать компоненты, которые автоматически обновляются при изменении данных, отслеживаемых с помощью MobX.
 const NavBar = observer(() => {
   const {user} = useContext(Context)
+  const {product} = useContext(Context)
 
-  const navigate = useNavigate();  // для перехода по страницам
+  //const navigate = useNavigate();  // для перехода по страницам
 
   /* Для модального окна */
   const [showModal, setShowModal] = useState(false)
@@ -42,6 +43,8 @@ const NavBar = observer(() => {
     setShowLogin(!showLogin);
   }
   /* ---------------------------------------------------- */
+  const [cartCount, setCartCount] = useState(2);
+  const [wishCount, setWishCount] = useState(2);
 
   return (
     <div>
@@ -63,24 +66,78 @@ const NavBar = observer(() => {
           <NavLink className='text-muted text-decoration-none ms-2' to={SHOP_ROUTE}>Shop</NavLink>
           <NavLink className='text-muted text-decoration-none ms-2' to={LOGIN_ROUTE}>LOGIN_ROUTE</NavLink>
           <NavLink className='text-muted text-decoration-none ms-2' to={REGISTER_ROUTE}>REGISTER_ROUTE</NavLink>
-          <NavDropdown title="Example" >
-            <NavDropdown.Item>
-              <NavLink className='text-muted text-decoration-none ms-2 text-dark' to={"/counter"}>Counter</NavLink>
-              <NavLink className='text-muted text-decoration-none ms-2 text-dark' to={"/counter"}>Counter</NavLink>
-              <NavLink className='text-muted text-decoration-none ms-2 text-dark' to={"/counter"}>Counter</NavLink>
-            </NavDropdown.Item>
+
+          <NavDropdown title="Brands" >
+            {product.brands.map((el) => 
+              <NavDropdown.Item>
+                <NavLink className='text-muted text-decoration-none ms-2 text-dark' to={`${BRAND_ROUTE}/${el.slug}`}>{el.name}</NavLink>
+              </NavDropdown.Item>
+            )}
           </NavDropdown>
-        </Nav>
-        <Nav>
-          <NavLink style={{fontSize: "1.8rem", color:'white'}} to={BASKET_ROUTE}><AiOutlineShoppingCart /></NavLink>
+          <NavDropdown title="Categories" >
+            {product.categories.map((el) => 
+              <NavDropdown.Item>
+                <NavLink className='text-muted text-decoration-none ms-2 text-dark' to={`${CATEGORY_ROUTE}/${el.slug}`}>{el.name}</NavLink>
+              </NavDropdown.Item>
+            )}
+          </NavDropdown>
+
         </Nav>
 
+        <Nav>
+          
+          <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative' }} to={BASKET_ROUTE}>
+            <AiOutlineShoppingCart />
+            {cartCount > 0 && (
+              <div style={{
+                position: 'absolute',
+                top: '10px',
+                right: '-5px',
+                borderRadius: '50%',
+                color: 'white',
+                fontSize: '1.1rem',
+                width: '20px',
+                height: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transform: 'translate(50%, -50%)'
+              }}>
+                {cartCount}
+              </div>
+            )}
+          </NavLink>
+
+        </Nav>
         <Nav >
           {user.isAuth 
           ? 
           <div>
-          <Button variant="primary" className="ms-2 me-2" onClick={() => navigate(PROFILE_ROUTE)}>Profile</Button>
-          <Button variant="primary" className="ms-2 me-2" onClick={logOut}>Sign in</Button>
+            <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative' }} to={WISHLIST_ROUTE}>
+            <AiOutlineHeart />
+            {wishCount > 0 && (
+              <div style={{
+                position: 'absolute',
+                top: '10px',
+                right: '-5px',
+                borderRadius: '50%',
+                color: 'white',
+                fontSize: '1.1rem',
+                width: '20px',
+                height: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transform: 'translate(50%, -50%)'
+              }}>
+                {wishCount}
+              </div>
+            )}
+          </NavLink>
+            <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative' }} to={PROFILE_ROUTE} >
+              <AiOutlineProfile/>
+            </NavLink>
+            <Button variant="primary" className="ms-2 me-2" onClick={logOut}>Sign in</Button>
           </div>
           : 
           <Button variant="primary" className="ms-2 me-2" onClick={clickLogin}>Log in</Button>
