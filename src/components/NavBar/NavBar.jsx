@@ -34,10 +34,6 @@ const NavBar = observer(() => {
     setShowModal(true);
     setShowLogin(true);
   }
-  // закрытие модального окна
-  const modalClose = () => {
-    setShowModal(false);
-  }
 
   const handleSwitchForm = () => {
     setShowLogin(!showLogin);
@@ -148,7 +144,14 @@ const NavBar = observer(() => {
       </Container>
     </Navbar>
 
-    <MyModal 
+    {showLogin
+    ?
+    <FormLogin show={showModal} onHide={() => setShowModal(false)} onSwitchForm={handleSwitchForm}/>
+    :
+    <FormRegister show={showModal} onHide={() => setShowModal(false)} onSwitchForm={handleSwitchForm}/>
+    }
+
+    {/* <MyModal 
       showModal={showModal}
       setShowModal={modalClose} 
       title={showLogin ? 'Форма авторизации' : 'Форма регистрации'} >
@@ -158,7 +161,7 @@ const NavBar = observer(() => {
         :
         <FormRegister onSwitchForm={handleSwitchForm} />
         }
-    </MyModal>
+    </MyModal> */}
 
     </div>
   )

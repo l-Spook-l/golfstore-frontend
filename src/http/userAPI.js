@@ -1,11 +1,14 @@
 import jwt_decode from "jwt-decode";
 import { $authHost, $host } from "./index";
+import { createBasketForUser, createWishListForUser } from "./productAPI";
 
 export const registration = async (username, password, email) => {
   // response - ответ от сервера
   const response = await $host.post("auth/users/", { username, password, email });
   //localStorage.setItem("token", response.token); // глянь на этот ответ 2:11:7
   console.log("регистрация response", response);
+  createBasketForUser({user: response.data.id})
+  createWishListForUser({user: response.data.id})
   //console.log("регистрация jwt_decode(response.data.access)", jwt_decode(response.data.access)); 
   console.log("регистрация data", response.data);
   // return jwt_decode(response.data.access);

@@ -50,9 +50,6 @@ const Basket = observer(() => {
   console.log('Basket user user', user.user)
   console.log('Basket user user id', user.user.id)
 
-  //createBasketForUser({user: user.user.id})
-  //createWishListForUser({user: user.user.id})
-
   useEffect(() => {
     fetchBasket(user.user.id).then((data) => {
       console.log('Basket data one ', data)

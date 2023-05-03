@@ -1,39 +1,42 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { Context } from "../../..";
 import { useNavigate } from "react-router-dom";
 import { MAIN_ROUTE } from "../../../utils/consts";
 import { login } from "../../../http/userAPI";
 
-const FormLogin = observer(({ onSwitchForm }) => {
+const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
   const { user } = useContext(Context);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   //const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   // Были ли мы в ipnut
-  const [usernameDirty, setUsernameDirty] = useState(false)
-  const [passwordDirty, setPasswordDirty] = useState(false)
+  const [usernameDirty, setUsernameDirty] = useState(false);
+  const [passwordDirty, setPasswordDirty] = useState(false);
   // Ошибка полей
-  const [usernameError, setUsernameError] = useState('username не может быть пустым')
+  const [usernameError, setUsernameError] = useState(
+    "username не может быть пустым"
+  );
   //const [emailError, setEmailError] = useState('Email не может быть пустым')
-  const [passwordError, setPasswordError] = useState('password не может быть пустым')
+  const [passwordError, setPasswordError] = useState(
+    "password не может быть пустым"
+  );
 
   // Общая проверка валидации формы
-  const [formValid, setFormValid] = useState(false)
+  const [formValid, setFormValid] = useState(false);
 
   useEffect(() => {
     if (usernameError || passwordError) {
-      setFormValid(false)
+      setFormValid(false);
     } else {
-      setFormValid(true)
+      setFormValid(true);
     }
-  }, [usernameError, passwordError])
-
+  }, [usernameError, passwordError]);
 
   const loginUser = () => {
     try {
@@ -43,7 +46,7 @@ const FormLogin = observer(({ onSwitchForm }) => {
       user.setUser(userData);
       user.setIsAuth(true);
       console.log("Auth user", user);
-
+      onHide()
       navigate(MAIN_ROUTE);
     } catch (error) {
       console.log("error", error);
@@ -52,7 +55,7 @@ const FormLogin = observer(({ onSwitchForm }) => {
     }
   };
 
-/*   const emailHandler = (e) => {
+  /*   const emailHandler = (e) => {
     setEmail(e.target.value)
     const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if (!re.test(String(e.target.value).toLowerCase())) {
@@ -63,83 +66,96 @@ const FormLogin = observer(({ onSwitchForm }) => {
   } */
 
   const usernameHandler = (e) => {
-    setUsername(e.target.value)
-    console.log('usernameHandler', e.target.value)
-    console.log('e.target.value < 3', e.target.value.length < 3)
+    setUsername(e.target.value);
+    console.log("usernameHandler", e.target.value);
+    console.log("e.target.value < 3", e.target.value.length < 3);
     if (e.target.value.length < 3) {
-      setUsernameError('username должен быть длиннее 8 символов')
+      setUsernameError("username должен быть длиннее 8 символов");
       if (!e.target.value) {
-        setUsernameError('username не может быть пустым')
+        setUsernameError("username не может быть пустым");
       }
     } else {
-      setUsernameError('')
+      setUsernameError("");
     }
-  }
+  };
 
   const passwordHandler = (e) => {
-    setPassword(e.target.value)
+    setPassword(e.target.value);
     if (e.target.value.length < 8) {
-      setPasswordError('Пароль должен быть длиннее 8 символов')
+      setPasswordError("Пароль должен быть длиннее 8 символов");
       if (!e.target.value) {
-        setPasswordError('password не может быть пустым')
+        setPasswordError("password не может быть пустым");
       }
     } else {
-      setPasswordError('')
+      setPasswordError("");
     }
-  }
+  };
 
-  const blurHandler  = (e) => {
+  const blurHandler = (e) => {
     switch (e.target.name) {
-      case 'username':
-        setUsernameDirty(true)
+      case "username":
+        setUsernameDirty(true);
         break;
-      case 'password':
-        setPasswordDirty(true)
+      case "password":
+        setPasswordDirty(true);
         break;
     }
-  }
+  };
 
   return (
-    <Form>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email Adress</Form.Label>
-        <Form.Control
-          onBlur={(e) => blurHandler(e)}
-          name="username"
-          type="text"
-          placeholder="Enter username"
-          value={username}
-          onChange={(e) => usernameHandler(e)}
-        />
-        {(usernameDirty && usernameError) && <Form.Text className="text-danger">{usernameError}</Form.Text>}
-      </Form.Group>
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          onBlur={(e) => blurHandler(e)}
-          name="password"
-          type="password"
-          placeholder="Enter password"
-          value={password}
-          onChange={(e) => passwordHandler(e)}
-        />
-        {(passwordDirty && passwordError) && <Form.Text className="text-danger">{passwordError}</Form.Text>}
-      </Form.Group>
-      <Form.Group className="mt-2" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Remember me" />
-      </Form.Group>
-      <Row className="mt-2">
-        <Col md={8} className="d-flex">
-          Нет аккаунта?
-          <Button className="ms-2" type="button" onClick={onSwitchForm}>
-            Зарегистрируйтесь!
-          </Button>
-        </Col>
-        <Col className="d-flex justify-content-end">
-          <Button disabled={!formValid} onClick={() => loginUser()}>Login</Button>
-        </Col>
-      </Row>
-    </Form>
+    <Modal show={show} onHide={onHide}>
+      <Modal.Header closeButton>
+        <Modal.Title>Форма авторизации</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email Adress</Form.Label>
+            <Form.Control
+              onBlur={(e) => blurHandler(e)}
+              name="username"
+              type="text"
+              placeholder="Enter username"
+              value={username}
+              onChange={(e) => usernameHandler(e)}
+            />
+            {usernameDirty && usernameError && (
+              <Form.Text className="text-danger">{usernameError}</Form.Text>
+            )}
+          </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              onBlur={(e) => blurHandler(e)}
+              name="password"
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => passwordHandler(e)}
+            />
+            {passwordDirty && passwordError && (
+              <Form.Text className="text-danger">{passwordError}</Form.Text>
+            )}
+          </Form.Group>
+          <Form.Group className="mt-2" controlId="formBasicCheckbox">
+            <Form.Check type="checkbox" label="Remember me" />
+          </Form.Group>
+          <Row className="mt-2">
+            <Col md={8} className="d-flex">
+              Нет аккаунта?
+              <Button className="ms-2" type="button" onClick={onSwitchForm}>
+                Зарегистрируйтесь!
+              </Button>
+            </Col>
+            <Col className="d-flex justify-content-end">
+              <Button disabled={!formValid} onClick={() => loginUser()}>
+                Login
+              </Button>
+            </Col>
+          </Row>
+        </Form>
+      </Modal.Body>
+    </Modal>
   );
 });
 

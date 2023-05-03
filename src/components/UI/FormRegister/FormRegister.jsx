@@ -1,12 +1,12 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { Context } from "../../..";
 import { useNavigate } from "react-router-dom";
 import { registration } from "../../../http/userAPI";
 import { MAIN_ROUTE } from "../../../utils/consts";
 
-const FormRegister = observer(({ onSwitchForm }) => {
+const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
   const { user } = useContext(Context);
 
   const navigate = useNavigate();
@@ -48,6 +48,7 @@ const FormRegister = observer(({ onSwitchForm }) => {
       user.setIsAuth(true);
       console.log("Auth user", user);
 
+      onHide()
       navigate(MAIN_ROUTE);
     } catch (error) {
       console.log("error", error);
@@ -105,66 +106,74 @@ const FormRegister = observer(({ onSwitchForm }) => {
   };
 
   return (
-    <Form>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email Adress</Form.Label>
-        <Form.Control
-          onBlur={(e) => blurHandler(e)}
-          name="email"
-          type="wmail"
-          placeholder="Enter email"
-          value={email}
-          onChange={(e) => emailHandler(e)}
-        />
-        {emailDirty && emailError && (
-          <Form.Text className="text-danger">{emailError}</Form.Text>
-        )}
-      </Form.Group>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Username</Form.Label>
-        <Form.Control
-          onBlur={(e) => blurHandler(e)}
-          name="username"
-          type="text"
-          placeholder="Enter username"
-          value={username}
-          onChange={(e) => usernameHandler(e)}
-        />
-        {usernameDirty && usernameError && (
-          <Form.Text className="text-danger">{usernameError}</Form.Text>
-        )}
-      </Form.Group>
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          onBlur={(e) => blurHandler(e)}
-          name="password"
-          type="password"
-          placeholder="Enter password"
-          value={password}
-          onChange={(e) => passwordHandler(e)}
-        />
-        {passwordDirty && passwordError && (
-          <Form.Text className="text-danger">{passwordError}</Form.Text>
-        )}
-      </Form.Group>
-      <Form.Group className="mt-2" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Remember me" />
-      </Form.Group>
-      <Row className="mt-2">
-        <Col md={8} className="d-flex">
-          Есть аккаунт?
-          <Button className="ms-2" type="button" onClick={onSwitchForm}>
-            Войдите!
-          </Button>
-        </Col>
-        <Col className="d-flex justify-content-end">
-          <Button disabled={!formValid} onClick={() => registerUser()}>
-            Register
-          </Button>
-        </Col>
-      </Row>
-    </Form>
+    <Modal show={show} onHide={onHide}>
+      <Modal.Header closeButton>
+        <Modal.Title>Форма регистрации</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email Adress</Form.Label>
+            <Form.Control
+              onBlur={(e) => blurHandler(e)}
+              name="email"
+              type="wmail"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => emailHandler(e)}
+            />
+            {emailDirty && emailError && (
+              <Form.Text className="text-danger">{emailError}</Form.Text>
+            )}
+          </Form.Group>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              onBlur={(e) => blurHandler(e)}
+              name="username"
+              type="text"
+              placeholder="Enter username"
+              value={username}
+              onChange={(e) => usernameHandler(e)}
+            />
+            {usernameDirty && usernameError && (
+              <Form.Text className="text-danger">{usernameError}</Form.Text>
+            )}
+          </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              onBlur={(e) => blurHandler(e)}
+              name="password"
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => passwordHandler(e)}
+            />
+            {passwordDirty && passwordError && (
+              <Form.Text className="text-danger">{passwordError}</Form.Text>
+            )}
+          </Form.Group>
+          <Form.Group className="mt-2" controlId="formBasicCheckbox">
+            <Form.Check type="checkbox" label="Remember me" />
+          </Form.Group>
+          <Row className="mt-2">
+            <Col md={8} className="d-flex">
+              Есть аккаунт?
+              <Button className="ms-2" type="button" onClick={onSwitchForm}>
+                Войдите!
+              </Button>
+            </Col>
+            <Col className="d-flex justify-content-end">
+              <Button disabled={!formValid} onClick={() => registerUser()}>
+                Register
+              </Button>
+            </Col>
+          </Row>
+        </Form>
+      </Modal.Body>
+    </Modal>
+
   );
   /*   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
