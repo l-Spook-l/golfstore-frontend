@@ -50,7 +50,6 @@ setSelectedType принимает тип продукта и устанавли
 
   // Выделять выбранный тип
   setSelectedType(type) {
-    console.log('typeeeeeeeeeeeeee', type, typeof type)
     this.setPage(1)
     if (type === 'clear') {
       this._selectedType = []
@@ -62,7 +61,6 @@ setSelectedType принимает тип продукта и устанавли
   }
 
   setSelectedBrand(brand) {
-    //console.log('branddddddddddddddddd', brand)
     this.setPage(1)
     if (brand === 'clear') {
       this._selectedBrand = []

@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect } from 'react'
 import { Button, Col, Container, Image, Row } from 'react-bootstrap';
 import { Context } from '../..';
-import { fetchListProductsWishList, fetchWishList } from '../../http/productAPI';
+import { deleteProductFromWishList } from '../../http/productAPI';
 
 const WishListPage = observer(() => {
 
@@ -50,7 +50,7 @@ const WishListPage = observer(() => {
   console.log('WishListPage user', user)
   console.log('WishListPage user user', user.user)
   console.log('WishListPage user user id', user.user.id)
-  useEffect(() => {
+  /* useEffect(() => {
     fetchWishList(user.user.id).then((data) => {
       console.log('fetchWishList data one ', data)
       fetchListProductsWishList(data.id).then((products) => {
@@ -58,27 +58,31 @@ const WishListPage = observer(() => {
       console.log('fetchListProductsWishList products results', products.results)
       })
     })
-    }, [])
+    }, []) */
 
   return (
     <Container>
-      <h2>Моя корзина</h2>
-      <Row className='mt-5'>
-        <Col md={2}>
-        <Image width={150} height={150} src={productsTest[1].photo} />
-        </Col>
-      <Col md={7}>
-        <h5>{productsTest[1].name}</h5>
-        <p>кол-во</p>
-        <p>{productsTest[1].price}</p>
-      </Col>
-      <Col md={3}>
-        <h5>Итоговая сумма</h5>
-        <p>{productsTest[1].price}</p>
-        <Button>Оформить заказ</Button>
-      </Col>
-      </Row>
-
+      <h2>Список желаний</h2>
+      {user.wishList.product.map((el) => (
+        <Row className="mt-5">
+          <Col md={2}>
+            <Image width={150} height={150} src={el.product.photo} />
+          </Col>
+          <Col md={5}>
+            <h5>{el.product.name}</h5>
+            <p>кол-во</p>
+            <p>{el.product.price}</p>
+          </Col>
+          <Col md={2}>
+            <Button onClick={() => deleteProductFromWishList(user.wishList.id, el.product.id)} className="btn-danger">Удалить</Button>
+          </Col>
+          <Col md={3}>
+            <h5>Итоговая сумма</h5>
+            <p>{el.product.price}</p>
+            <Button>Оформить заказ</Button>
+          </Col>
+        </Row>
+      ))}
     </Container>
   )
 })

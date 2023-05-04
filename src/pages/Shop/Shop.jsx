@@ -58,10 +58,10 @@ const Shop = observer(() => {
     product.setSelectedBrand('clear')
   }
 
-  console.log("shop - product", product);
+  /* console.log("shop - product", product);
   console.log('shop - product selectedType', product.selectedType)
   console.log('shop - product brands', product.brands)
-  console.log('shop - product types', product.types)
+  console.log('shop - product types', product.types) */
 
 
   return (

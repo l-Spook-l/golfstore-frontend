@@ -67,10 +67,10 @@ const MainPage = observer(() => {
     });
   }, [product.selectedType, product.selectedBrand, product.page, product.priceMin, product.priceMax, product.ordering]); */
 
-  console.log("shop - product", product);
+  /* console.log("shop - product", product);
   console.log("shop - product products", product.products);
   console.log('shop - product typesqqq', product.selectedType)
-  console.log('shop - product brands', product.brands)
+  console.log('shop - product brands', product.brands) */
 
 /*   if (loading) {
     return <Spinner animation='grow'/>

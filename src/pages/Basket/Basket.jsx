@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from 'react'
-import { Button, Col, Container, Image, Row } from 'react-bootstrap'
-import { Context } from '../..';
-import { createBasketForUser, fetchBasket, fetchListProductsBasket } from '../../http/productAPI';
-import { observer } from 'mobx-react-lite';
+import React, { useContext, useEffect } from "react";
+import { Button, Col, Container, Image, Row } from "react-bootstrap";
+import { Context } from "../..";
+import { observer } from "mobx-react-lite";
+import { deleteProductFromBasket } from "../../http/productAPI";
 
 const Basket = observer(() => {
   const productsTest = [
@@ -43,14 +43,20 @@ const Basket = observer(() => {
       photo: "photos/product/Callaway_Mens_Paradym_Driver.jpg",
     },
   ];
-  
-  const {user} = useContext(Context)
 
-  console.log('Basket user', user)
+  const { user } = useContext(Context);
+
+  /* console.log('Basket user', user)
   console.log('Basket user user', user.user)
-  console.log('Basket user user id', user.user.id)
-
-  useEffect(() => {
+  console.log('Basket user user id', user.user.id) */
+  console.log('Basket user', user)
+  console.log("Basket user basket", user.basket);
+  console.log("Basket user wishList", user.wishList);
+  console.log("Basket user wishList", user.wishList.id);
+  console.log("Basket user wishList", user.wishList.product);
+  console.log("Basket user basket lenght ", user.basket.length);
+  
+  /*  useEffect(() => {
     fetchBasket(user.user.id).then((data) => {
       console.log('Basket data one ', data)
       fetchListProductsBasket(data.id).then((products) => {
@@ -58,30 +64,34 @@ const Basket = observer(() => {
       console.log('fetchListProductsBasket products results', products.results)
       })
     })
-   /*  console.log('Basket data one ', data) */
-  }, [])
+  }, []) */
 
   return (
     <Container>
       <h2>Моя корзина</h2>
-      <Row className='mt-5'>
-        <Col md={2}>
-        <Image width={150} height={150} src={productsTest[1].photo} />
-        </Col>
-      <Col md={7}>
-        <h5>{productsTest[1].name}</h5>
-        <p>кол-во</p>
-        <p>{productsTest[1].price}</p>
-      </Col>
-      <Col md={3}>
-        <h5>Итоговая сумма</h5>
-        <p>{productsTest[1].price}</p>
-        <Button>Оформить заказ</Button>
-      </Col>
-      </Row>
-
+      {user.basket.product.map((el) => (
+        <Row className="mt-5">
+          <Col md={2}>
+            <Image width={150} height={150} src={el.product.photo} />
+          </Col>
+          <Col md={5}>
+            <h5>{el.product.name}</h5>
+            <p>кол-во</p>
+            <p>{el.product.price}</p>
+          </Col>
+          <Col md={2}>
+            <Button onClick={() => deleteProductFromBasket(user.basket.id, el.product.id)} className="btn-danger">Удалить</Button>
+          </Col>
+          <Col md={3}>
+            <h5>Итоговая сумма</h5>
+            <p>{el.product.price}</p>
+            <Button>Оформить заказ</Button>
+          </Col>
+        </Row>
+      ))}
+      
     </Container>
-  )
-})
+  );
+});
 
-export default Basket
+export default Basket;

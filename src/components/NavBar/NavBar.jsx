@@ -38,9 +38,6 @@ const NavBar = observer(() => {
   const handleSwitchForm = () => {
     setShowLogin(!showLogin);
   }
-  /* ---------------------------------------------------- */
-  const [cartCount, setCartCount] = useState(2);
-  const [wishCount, setWishCount] = useState(2);
 
   return (
     <div>
@@ -84,7 +81,7 @@ const NavBar = observer(() => {
           
           <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative' }} to={BASKET_ROUTE}>
             <AiOutlineShoppingCart />
-            {cartCount > 0 && (
+            {user.basket.product.length > 0 && (
               <div style={{
                 position: 'absolute',
                 top: '10px',
@@ -99,7 +96,7 @@ const NavBar = observer(() => {
                 justifyContent: 'center',
                 transform: 'translate(50%, -50%)'
               }}>
-                {cartCount}
+                {user.basket.product.length}
               </div>
             )}
           </NavLink>
@@ -111,7 +108,7 @@ const NavBar = observer(() => {
           <div>
             <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative' }} to={WISHLIST_ROUTE}>
             <AiOutlineHeart />
-            {wishCount > 0 && (
+            {user.wishList.product.length > 0 && (
               <div style={{
                 position: 'absolute',
                 top: '10px',
@@ -126,7 +123,7 @@ const NavBar = observer(() => {
                 justifyContent: 'center',
                 transform: 'translate(50%, -50%)'
               }}>
-                {wishCount}
+                {user.wishList.product.length}
               </div>
             )}
           </NavLink>

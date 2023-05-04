@@ -71,8 +71,15 @@ export const createBasketForUser = async(userId)  => {
 
 export const fetchBasket = async(userId) => {
   const response = await $host.get(`api/v1/basket/${userId}/`)
-  console.log('product API - fetchOneBasket response', response)
-  console.log('product API -  fetchOneBasket response data', response.data)
+  console.log('product API - fetchBasket response', response)
+  console.log('product API -  fetchBasket response data', response.data)
+  return response.data
+}
+
+export const addProductToBasket = async(quantity=1, basket, productId) => {
+  const response = await $host.post('api/v1/basket-product/', quantity, basket, productId)
+  console.log('product API - addProductToBasket response', response)
+  console.log('product API - addProductToBasket response data', response.data)  
   return response.data
 }
 
@@ -80,6 +87,11 @@ export const fetchListProductsBasket = async(basketId) => {
   const response = await $host.get(`api/v1/basket-product/${basketId}`)
   console.log('product API - fetchListProductsBasket response', response)
   console.log('product API -  fetchListProductsBasket response data', response.data)
+  return response.data
+}
+
+export const deleteProductFromBasket = async(basketId, productId) => {
+  const response = await $host.delete(`api/v1/basket-product/${basketId}/${productId}`)
   return response.data
 }
 
@@ -97,9 +109,21 @@ export const fetchWishList = async(userId) => {
   return response.data
 }
 
+export const addProductToWishList = async(wishlist, productId) => {
+  const response = await $host.post('api/v1/wishlist-product/', wishlist, productId)
+  console.log('product API - addProductToWishList response', response)
+  console.log('product API - addProductToWishList response data', response.data)  
+  return response.data
+}
+
 export const fetchListProductsWishList = async(wishListId) => {
   const response = await $host.get(`api/v1/wishlist-product/${wishListId}`)
   console.log('product API - fetchListProductsWishList response', response)
   console.log('product API -  fetchListProductsWishList response data', response.data)
+  return response.data
+}
+
+export const deleteProductFromWishList = async(basketId, productId) => {
+  const response = await $host.delete(`api/v1/wishlist-product/${basketId}/${productId}`)
   return response.data
 }
