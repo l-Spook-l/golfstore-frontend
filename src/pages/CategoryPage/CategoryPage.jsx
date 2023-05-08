@@ -27,7 +27,6 @@ const CategoryPage = observer(() => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
       console.log('CategoryPage - fetchProductsByCategory - data', data)
-      //console.log('shop - data.results', data.results)
     });
   }, []);
 
@@ -44,11 +43,11 @@ const CategoryPage = observer(() => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
 
-      console.log('category page - data', data)
+      /* console.log('category page - data', data)
       console.log('category page - data results', data.results)
       console.log('category page - product types', product.types)
       console.log('category page - product brand', product.brands)
-      console.log('category page - product selectedType', product.selectedType)
+      console.log('category page - product selectedType', product.selectedType) */
     });
   }, [product.selectedType, product.selectedBrand, product.page, product.priceMin, product.priceMax, product.ordering]);
 
@@ -56,6 +55,7 @@ const CategoryPage = observer(() => {
     product.setSelectedType('clear')
     product.setSelectedBrand('clear')
   }
+
   //console.log('category', category)
   //console.log('category results', category.results[0].name)
   //console.log("CategoryPage - product", product);
@@ -64,7 +64,7 @@ const CategoryPage = observer(() => {
   //console.log('CategoryPage - product types', product.types)
 
   return (
-    <Container>
+    <Container style={{paddingTop: '63px'}}>
       
       <Row className="mt-3">
         <Col md={10} className="d-flex flex-wrap mb-0 ">

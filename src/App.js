@@ -43,12 +43,9 @@ const App = observer(() => {
           console.log('App fetchListProductsWishList products results', products.results)
         })
       })
-      //console.log('отработал check - user ', user)
-      //console.log('отработал check - data', data)
     }).finally(() => setLoading(false))
   },[])
-
-
+  
   if (loading) {
     return <Spinner animation='grow'/>
   }

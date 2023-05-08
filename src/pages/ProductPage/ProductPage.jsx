@@ -19,7 +19,7 @@ const ProductPage = () => {
 
   
   return (
-    <Container>
+    <Container style={{paddingTop: '63px'}}>
       <Row>
         <Col md={4}>
           <Image width={300} height={300} src={product.photo} />

@@ -1,0 +1,9 @@
+.alertMenu {
+  cursor: pointer;
+  background-color:burlywood;
+  color: black;
+}
+
+.alertMenu:hover {
+  background-color:cadetblue;
+}

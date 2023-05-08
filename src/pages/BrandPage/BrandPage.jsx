@@ -43,12 +43,12 @@ const BrandPage = observer(() => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
 
-      console.log('brand page - data', data)
+      /* console.log('brand page - data', data)
       console.log('brand page - data results', data.results)
       console.log('brand page - product ', product)
       console.log('brand page - product types', product.types)
       console.log('brand page - product categories', product.categories)
-      console.log('brand page - product selectedType', product.selectedType)
+      console.log('brand page - product selectedType', product.selectedType) */
     });
   }, [product.selectedType, product.selectedCategory, product.page, product.priceMin, product.priceMax, product.ordering]);
 
@@ -64,7 +64,7 @@ const BrandPage = observer(() => {
   //console.log('CategoryPage - product types', product.types)
 
   return (
-    <Container>
+    <Container style={{paddingTop: '63px'}}>
       
       <Row className="mt-3">
         <Col md={10} className="d-flex flex-wrap mb-0 ">

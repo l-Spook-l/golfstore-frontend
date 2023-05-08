@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../../index'
 import { Badge, Button, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -39,13 +39,15 @@ const NavBar = observer(() => {
     setShowLogin(!showLogin);
   }
 
+  console.log('Работает Navbar')
+
   return (
     <div>
       {/* collapseOnSelect: сворачивает менб в одну кнопку при ширине (expand)
     expand: при какой ширине будет сворачиваться меню
     bg: атрибут задает фоновый цвет (background color) для навигационного меню. 
     variant: атрибут задает вариант (стиль) оформления навигационного меню. */}
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="fixed-top">
       {/* fluid указывает на то, что контейнер будет занимать всю доступную ширину родительского элемента. */}
       <Container fluid>
       {/* Навигаци вместо <a> */}
@@ -60,25 +62,10 @@ const NavBar = observer(() => {
           <NavLink className='text-muted text-decoration-none ms-2' to={LOGIN_ROUTE}>LOGIN_ROUTE</NavLink>
           <NavLink className='text-muted text-decoration-none ms-2' to={REGISTER_ROUTE}>REGISTER_ROUTE</NavLink>
 
-          <NavDropdown title="Brands" >
-            {product.brands.map((el) => 
-              <NavDropdown.Item>
-                <NavLink className='text-muted text-decoration-none ms-2 text-dark' to={`${BRAND_ROUTE}/${el.slug}`}>{el.name}</NavLink>
-              </NavDropdown.Item>
-            )}
-          </NavDropdown>
-          <NavDropdown title="Categories" >
-            {product.categories.map((el) => 
-              <NavDropdown.Item>
-                <NavLink className='text-muted text-decoration-none ms-2 text-dark' to={`${CATEGORY_ROUTE}/${el.slug}`}>{el.name}</NavLink>
-              </NavDropdown.Item>
-            )}
-          </NavDropdown>
-
         </Nav>
 
         <Nav>
-          
+        
           <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative' }} to={BASKET_ROUTE}>
             <AiOutlineShoppingCart />
             {user.basket.product.length > 0 && (

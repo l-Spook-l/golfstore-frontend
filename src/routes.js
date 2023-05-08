@@ -16,10 +16,12 @@ import {
   CATEGORY_ROUTE,
   BRAND_ROUTE,
   WISHLIST_ROUTE,
+  CHECKOUT_ROUTE,
 } from "./utils/consts"; // Ссылки
 import CategoryPage from "./pages/CategoryPage/CategoryPage";
 import BrandPage from "./pages/BrandPage/BrandPage";
 import WishListPage from "./pages/WishListPage/WishListPage";
+import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 
 export const authRoutes = [
 /*   {
@@ -29,7 +31,16 @@ export const authRoutes = [
   {
     path: WISHLIST_ROUTE,
     Component: WishListPage,
-  }, */
+  }, 
+  {
+    path: BASKET_ROUTE,
+    Component: Basket,
+  },
+  {
+    path: CHECKOUT_ROUTE,
+    Component: CheckoutPage,
+  },
+  */
 ];
 
 // Доступ всем
@@ -62,9 +73,14 @@ export const publicRoutes = [
     path: REGISTER_ROUTE,
     Component: Auth,
   },
+  /* -------------------------- */
   {
     path: BASKET_ROUTE,
     Component: Basket,
+  },
+  {
+    path: CHECKOUT_ROUTE,
+    Component: CheckoutPage,
   },
   {
     path: PROFILE_ROUTE,

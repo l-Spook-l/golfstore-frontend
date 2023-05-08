@@ -35,7 +35,7 @@ const MainPage = observer(() => {
       product.setTotalCount(data.count);
       //console.log('shop - data', data)
       //console.log('shop - data.results', data.results)
-    })//.finally(() => setLoading(false));
+    }).finally(() => setLoading(false));
   }, []);
 
   const showMoreCategories = () => {
@@ -72,13 +72,14 @@ const MainPage = observer(() => {
   console.log('shop - product typesqqq', product.selectedType)
   console.log('shop - product brands', product.brands) */
 
-/*   if (loading) {
+ if (loading) {
     return <Spinner animation='grow'/>
   }
- */
+
+  console.log('MainPage')
 
   return (
-    <div>
+    <div style={{paddingTop: '63px'}}>
       <Slider />
       <Container>
 
@@ -90,14 +91,14 @@ const MainPage = observer(() => {
           </Col>
         )}
         {countCategoryOnMainPage < product.categories.length && (
-          <Button style={{width: 300, margin: 'auto'}} className="mt-3" onClick={() => showMoreCategories()}>More types</Button>
+          <Button style={{width: 300, margin: 'auto'}} className="mt-3" onClick={() => showMoreCategories()}>More categories</Button>
         )}
       </Row>
 
       <h2>NEWEST ARRIVALS</h2>
       <Row>
         {product.products.slice(0, 3).map((el) => 
-          <Card style={{ width: 250, cursor: "pointer" }} border="light">
+          <Card style={{ width: 250, cursor: "pointer" }} border="light" key={el.id}>
             <Image width={250} height={250} src={el.photo} />
             <div>{el.name}</div>
             <div className="m-auto">
@@ -123,7 +124,7 @@ const MainPage = observer(() => {
         <Col md={6}>
           <h3 className="">Golf clubs for you</h3>
           <p>Discover the perfect golf clubs for your game at Golf Clubs for You. Our selection features top equipment brands like TaylorMade Golf, Callaway, Titleist, PXG, Mizuno, Miura, and more.</p>
-          <Button>Shop</Button>
+          <NavLink to={`${CATEGORY_ROUTE}/golf-clubs`}>Shop</NavLink>
           <Image width={500} height={600} src={golf_brands_photo}/>
         </Col>
         <Col md={6}>
@@ -131,7 +132,7 @@ const MainPage = observer(() => {
           <Image width={400} height={532} src={golf_clothing_photo}/>
           <p>"Leading Brands"
             "Explore top golf apparel brands that offer a blend of style, comfort, and performance</p>
-          <Button>Shop</Button>
+          <NavLink to={`${CATEGORY_ROUTE}/golf-clothing`}>Shop</NavLink>
         </Col>
       </Row>
 

@@ -9,6 +9,7 @@ export default class UserStore {
 
     this._basket = {id: null, product: []}
     this._wishList = {id: null, product: []}
+    
     makeAutoObservable(this)  //  делает все свойства класса наблюдаемыми (отслеживаемыми). 
   }
 

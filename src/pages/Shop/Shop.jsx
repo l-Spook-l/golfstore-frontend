@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
+import React, { useContext, useEffect, useState } from "react";
+import { Alert, Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import TypeBar from "../../components/TypeBar/TypeBar";
 import BrandBar from "../../components/BrandBar/BrandBar";
 import ProductList from "../../components/ProductList";
@@ -12,6 +12,9 @@ import CategoryBar from "../../components/CategoryBar/CategoryBar";
 
 const Shop = observer(() => {
   const { product } = useContext(Context);
+
+  const [loading, setLoading] = useState(true)
+
   /* 
   console.log('shop - product page', product.page)
   console.log('shop - product types', product.types)
@@ -27,7 +30,7 @@ const Shop = observer(() => {
       product.setTotalCount(data.count);
       //console.log('shop - data', data)
       //console.log('shop - data.results', data.results)
-    });
+    }).finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -50,7 +53,7 @@ const Shop = observer(() => {
       //console.log('shop - product selectedType slug', product.selectedType.slug)
       //console.log('shop - product type2222222', product.types.slug)
       //console.log('shop - product brand222', product.brands) 
-    });
+    }).finally(() => setLoading(false));
   }, [product.selectedType, product.selectedBrand, product.selectedCategory, product.page, product.priceMin, product.priceMax, product.ordering]);
 
   const clearFilter = () => {
@@ -62,10 +65,13 @@ const Shop = observer(() => {
   console.log('shop - product selectedType', product.selectedType)
   console.log('shop - product brands', product.brands)
   console.log('shop - product types', product.types) */
-
+  
+  /* if (loading) {
+    return <Spinner animation='grow'/>
+  } */
 
   return (
-    <Container>
+    <Container style={{paddingTop: '63px'}}>
 
       <Row className="mt-3">
         <Col md={10} className="d-flex flex-wrap mb-0 ">

@@ -71,9 +71,9 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
   const usernameHandler = (e) => {
     setUsername(e.target.value);
     console.log("usernameHandler", e.target.value);
-    console.log("e.target.value > 8", e.target.value.length > 8);
-    if (e.target.value.length < 8) {
-      setUsernameError("username должен быть длиннее 8 символов");
+    console.log("e.target.value > 4", e.target.value.length > 4);
+    if (e.target.value.length < 4) {
+      setUsernameError("username должен быть длиннее 4 символов");
       if (!e.target.value) {
         setUsernameError("username не может быть пустым");
       }
