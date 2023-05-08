@@ -4,54 +4,46 @@ import { BASKET_ROUTE, PRODUCT_ROUTE } from "../utils/consts";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { BsCart, BsFillCartCheckFill } from "react-icons/bs";
-import { addProductToBasket, addProductToWishList, fetchListProductsBasket, fetchListProductsWishList} from "../http/productAPI";
+import { addProductToBasket, addProductToWishList, fetchListProductsBasket, fetchListProductsWishList } from "../http/productAPI";
 import { observer } from "mobx-react-lite";
 import { Context } from "..";
+import FormLogin from "./UI/FormLogin/FormLogin";
+import FormRegister from "./UI/FormRegister/FormRegister";
 
 const ProductItem = observer(({ product }) => {
   const { user } = useContext(Context);
 
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('получил такой товар useEffect', product.name)
+    console.log("получил такой товар useEffect", product.name);
     fetchListProductsBasket(user.basket.id).then((products) => {
       user.setBasket({ id: user.basket.id, product: products.results });
     });
     fetchListProductsWishList(user.wishList.id).then((products) => {
-      user.setWishList({ id: user.wishList.id, product: products.results });
-    }).finally(() => setLoading(false));
-  }, [user.basket.product.length, user.wishList.product.length]);
+        user.setWishList({ id: user.wishList.id, product: products.results });
+      }).finally(() => setLoading(false));
+  }, [/* user.basket.product.length, user.wishList.product.length */]);
 
   const [productOnBasket, setProductOnBasket] = useState(
-    user.basket.product.filter((item) => item.product.id === product.id)
-      .length > 0 ? (
-      <BsFillCartCheckFill />
-    ) : (
-      <BsCart />
-    )
+    user.basket.product.filter((item) => item.product.id === product.id).length > 0
+     ? <BsFillCartCheckFill />
+     : <BsCart />
   );
 
   const [productOnWishList, setProductOnWishList] = useState(
-    user.wishList.product.filter((item) => item.product.id === product.id)
-      .length > 0 ? (
-      <AiTwotoneHeart />
-    ) : (
-      <AiOutlineHeart />
-    )
+    user.wishList.product.filter((item) => item.product.id === product.id).length > 0
+    ? <AiTwotoneHeart />
+    : <AiOutlineHeart />
   );
 
   const addToWishlist = (wishListId, productId) => {
     const wishList = user.wishList.product.filter((item) => item.product.id !== productId);
-    const newProduct = addProductToWishList({
-      wishlist: wishListId,
-      product: productId,
-    });
+    const newProduct = addProductToWishList({ wishlist: wishListId, product: productId });
 
-    newProduct.then((result) =>
-      user.setWishList({
+    newProduct.then((result) => user.setWishList({
         id: wishListId,
         product: [
           ...wishList,
@@ -74,10 +66,9 @@ const ProductItem = observer(({ product }) => {
 
   const addToBasket = (basketId, productId) => {
     const basket = user.basket.product.filter((item) => item.product.id !== productId);
-    const newProduct = addProductToBasket({basket: basketId, product: productId, });
+    const newProduct = addProductToBasket({ basket: basketId, product: productId });
 
-    newProduct.then((result) =>
-      user.setBasket({
+    newProduct.then((result) => user.setBasket({
         id: basketId,
         product: [
           ...basket,
@@ -98,18 +89,36 @@ const ProductItem = observer(({ product }) => {
     setProductOnBasket(<BsFillCartCheckFill />);
   };
 
-  console.log('получил такой товар', product.name)
+  console.log("получил такой товар", product.name);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleSwitchForm = () => {
+    setShowLogin(!showLogin);
+  };
+
+  const [showLogin, setShowLogin] = useState(true);
+
+  const clickLogin = () => {
+    setShowModal(true);
+    setShowLogin(true);
+  };
 
   /* if (loading) {
     return <Spinner animation='grow'/>
   } */
+  console.log("qweqweqweqwe", user.isAuth);
 
   return (
     <Col md={3} className="mt-3">
       <Card style={{ width: 150 }} border="light">
         <Button
           style={{ fontSize: "1.3rem", color: "black" }}
-          onClick={() => addToWishlist(user.wishList.id, product.id)}
+          onClick={() => {
+            user.isAuth
+              ? addToWishlist(user.wishList.id, product.id)
+              : clickLogin();
+          }}
         >
           {productOnWishList}
         </Button>
@@ -127,12 +136,25 @@ const ProductItem = observer(({ product }) => {
           <NavLink
             style={{ fontSize: "1.3rem", color: "black" }}
             onClick={() => addToBasket(user.basket.id, product.id)}
-            //to={BASKET_ROUTE}
           >
             {productOnBasket}
           </NavLink>
         </div>
       </Card>
+
+      {showLogin ? (
+        <FormLogin
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          onSwitchForm={handleSwitchForm}
+        />
+      ) : (
+        <FormRegister
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          onSwitchForm={handleSwitchForm}
+        />
+      )}
     </Col>
   );
 });

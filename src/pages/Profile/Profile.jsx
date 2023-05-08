@@ -43,7 +43,7 @@ const Profile = observer(() => {
       <Row className="">
         <Col md={2} className=" mt-5">
           <Nav className="d-flex flex-column">
-            <Alert className={style.alertMenu} onClick={() => blurHandler('userInfo')}>{user.user.username}<p>{user.user.email}</p></Alert>
+            <Alert className={style.alertMenu} onClick={() => blurHandler('userInfo')}>{user.user.first_name} {user.user.last_name} <p>{user.user.email}</p></Alert>
             <hr />
             <Alert className={style.alertMenu} onClick={() => blurHandler("basket")} active={activeTab === "basket"}>
               Моя корзина

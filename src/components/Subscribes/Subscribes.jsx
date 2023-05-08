@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 
 const Subscribes = () => {
   return (
-    <Container>
+    <Container style={{paddingTop: '63px'}}>
       <Row>
         <Col md={6}>Види розсилок</Col>
         <Col md={6}>Канали зв'язку</Col>

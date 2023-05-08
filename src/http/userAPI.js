@@ -23,31 +23,33 @@ export const login = async (username, password) => {
   console.log("авторизация response.data.access", response.data.access); 
   console.log("авторизация jwt_decode(response.data.access)", jwt_decode(response.data.access)); 
 
-  const responseUserMe = await $authHost.get("auth/users/me/");
+  //const responseUserMe = await $authHost.get("auth/users/me/");
+  const responseUserMe = await $authHost.get("api/v1/user-info/");
+
   console.log("авторизация auth/users/me/ responseUserMe", responseUserMe);
   console.log("авторизация auth/users/me/ responseUserMe data", responseUserMe.data);
 
-  //const responseVerify = await $authHost.post("auth/jwt/verify/", { Token });
-  //const responseVerify = await $authHost.post("auth/jwt/verify/", response.data.access);
-  //console.log("авторизация auth/jwt/verify/ responseVerify", responseVerify);
-
-  return responseUserMe.data;
-  //return jwt_decode(response.data.access);
+  //return responseUserMe.data
+  return responseUserMe.data.results[0];
 };
 
 // Проверка токена на валидность
 // Получение данных о пользователе, если токен не валиден ничег не получим
 export const check = async () => {
-  const response = await $authHost.get("auth/users/me/");
+  console.log("check in userAPI is work")
+  localStorage.setItem("token", localStorage.getItem("token"));
+  console.log("check in userAPI is work token")
+
+  //const response = await $authHost.get("auth/users/me/");
+  const response = await $authHost.get("api/v1/user-info/");
 
   console.log("check auth/users/me/ token test", `Bearer ${localStorage.getItem("token")}`  );
   console.log("check auth/users/me/ response", response);
   console.log("check auth/users/me/ response.data", response.data);
-  //console.log("check jwt_decode(response.data.access)", jwt_decode(response.data)); 
+  //console.log("check auth/users/me/ response.data results", response.data.results[0]);
 
-  //localStorage.setItem("token", response.data); // тут ошибка возвращаешь обькт на не токен
-  localStorage.setItem("token", localStorage.getItem("token"));
-  return response.data;
+  //return response.data
+  return response.data.results[0]
 };
 
 /* когда будет профиль authHost ему надо и роутрах добавить */

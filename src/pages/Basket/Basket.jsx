@@ -22,7 +22,8 @@ const Basket = observer(() => {
     fetchListProductsBasket(user.basket.id).then((products) => {
       user.setBasket({id: user.basket.id , product: products.results})
     }).finally(() => setLoading(false));
-  },[user.basket.product.length])
+    console.log('Basket useEffect')
+  },[/* user.basket.product.length */])
 
   const deleteProduct = (basketId, productId) => {
     deleteProductFromBasket(basketId, productId)

@@ -14,7 +14,7 @@ const NavBar = observer(() => {
   const {user} = useContext(Context)
   const {product} = useContext(Context)
 
-  //const navigate = useNavigate();  // для перехода по страницам
+  const navigate = useNavigate();  // для перехода по страницам
 
   /* Для модального окна */
   const [showModal, setShowModal] = useState(false)
@@ -23,9 +23,11 @@ const NavBar = observer(() => {
   const logOut = () => {
     user.setUser({})
     user.setIsAuth(false)
+    user.setBasket({id: null, product: []})
+    user.setWishList({id: null, product: []})
     localStorage.setItem("token", null);
+    navigate(MAIN_ROUTE)
   }
-  //console.log(user.isAuth)
   
   /* ---------------------------------------------------- */
   const [showLogin, setShowLogin] = useState(true);
@@ -40,6 +42,7 @@ const NavBar = observer(() => {
   }
 
   console.log('Работает Navbar')
+  console.log('Работает Navbar user.basket.product.length', user.basket.product.length)
 
   return (
     <div>

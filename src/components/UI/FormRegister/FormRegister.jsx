@@ -1,10 +1,12 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import { Button, Col, Form, InputGroup, Modal, Row } from "react-bootstrap";
 import { Context } from "../../..";
 import { useNavigate } from "react-router-dom";
 import { registration } from "../../../http/userAPI";
 import { MAIN_ROUTE } from "../../../utils/consts";
+import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
+
 
 const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
   const { user } = useContext(Context);
@@ -14,6 +16,7 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   // Были ли мы в ipnut
   const [usernameDirty, setUsernameDirty] = useState(false);
@@ -105,6 +108,10 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
     }
   };
 
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  }
+
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
@@ -112,6 +119,7 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
+
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email Adress</Form.Label>
             <Form.Control
@@ -126,6 +134,7 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
               <Form.Text className="text-danger">{emailError}</Form.Text>
             )}
           </Form.Group>
+
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Username</Form.Label>
             <Form.Control
@@ -140,23 +149,32 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
               <Form.Text className="text-danger">{usernameError}</Form.Text>
             )}
           </Form.Group>
+
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
+            <InputGroup>
             <Form.Control
               onBlur={(e) => blurHandler(e)}
               name="password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               placeholder="Enter password"
               value={password}
               onChange={(e) => passwordHandler(e)}
             />
+            <Button className="ms-3" variant="outline-secondary" onClick={toggleShowPassword}>
+            {showPassword ? <AiOutlineEye style={{fontSize: '20px'}}/> :<AiOutlineEyeInvisible style={{fontSize: '20px'}}/> }
+            </Button>
+            
+            </InputGroup>
             {passwordDirty && passwordError && (
               <Form.Text className="text-danger">{passwordError}</Form.Text>
             )}
           </Form.Group>
+
           <Form.Group className="mt-2" controlId="formBasicCheckbox">
             <Form.Check type="checkbox" label="Remember me" />
           </Form.Group>
+          
           <Row className="mt-2">
             <Col md={8} className="d-flex">
               Есть аккаунт?

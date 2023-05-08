@@ -1,10 +1,11 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import { Button, Col, Form, InputGroup, Modal, Row } from "react-bootstrap";
 import { Context } from "../../..";
 import { useNavigate } from "react-router-dom";
 import { MAIN_ROUTE } from "../../../utils/consts";
 import { login } from "../../../http/userAPI";
+import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
 
 const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
   const { user } = useContext(Context);
@@ -14,18 +15,16 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
   //const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
 
   // Были ли мы в ipnut
   const [usernameDirty, setUsernameDirty] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
   // Ошибка полей
-  const [usernameError, setUsernameError] = useState(
-    "username не может быть пустым"
-  );
+  const [usernameError, setUsernameError] = useState("username не может быть пустым");
   //const [emailError, setEmailError] = useState('Email не может быть пустым')
-  const [passwordError, setPasswordError] = useState(
-    "password не может быть пустым"
-  );
+  const [passwordError, setPasswordError] = useState("password не может быть пустым");
 
   // Общая проверка валидации формы
   const [formValid, setFormValid] = useState(false);
@@ -41,13 +40,18 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
   const loginUser = () => {
     try {
       const userData = login(username, password);
-      console.log("Auth login-userData", userData);
+      //console.log("Auth login-userData", userData);
 
-      user.setUser(userData);
-      user.setIsAuth(true);
+      userData.then((data) => {
+        console.log('userData.then((data)', data)
+        user.setUser(data)
+        user.setIsAuth(true);
+
+      })
+
       console.log("Auth user", user);
       onHide()
-      navigate(MAIN_ROUTE);
+      //navigate(MAIN_ROUTE);
     } catch (error) {
       console.log("error", error);
       console.log("error.response", error.response);
@@ -102,6 +106,10 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
     }
   };
 
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  }
+
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
@@ -125,21 +133,29 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
+            <InputGroup>
             <Form.Control
               onBlur={(e) => blurHandler(e)}
               name="password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               placeholder="Enter password"
               value={password}
               onChange={(e) => passwordHandler(e)}
             />
+            <Button className="ms-3" variant="outline-secondary" onClick={toggleShowPassword}>
+            {showPassword ? <AiOutlineEye style={{fontSize: '20px'}}/> :<AiOutlineEyeInvisible style={{fontSize: '20px'}}/> }
+            </Button>
+            </InputGroup>
+            
             {passwordDirty && passwordError && (
               <Form.Text className="text-danger">{passwordError}</Form.Text>
             )}
           </Form.Group>
+
           <Form.Group className="mt-2" controlId="formBasicCheckbox">
             <Form.Check type="checkbox" label="Remember me" />
           </Form.Group>
+          
           <Row className="mt-2">
             <Col md={8} className="d-flex">
               Нет аккаунта?

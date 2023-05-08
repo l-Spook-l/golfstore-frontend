@@ -23,10 +23,11 @@ const App = observer(() => {
 
   // При открытии 1 раз делаем проверку
   useEffect(() => {
-    //console.log('начал работать check', user)
+    console.log('начал работать useEffect check', user)
     check().then((data) => {
       user.setUser(data)
       user.setIsAuth(true)
+      console.log('начал работать check', user)
       fetchBasket(user.user.id).then((data) => {
         console.log('App basket data one ', data)
         fetchListProductsBasket(data.id).then((products) => {
@@ -44,11 +45,12 @@ const App = observer(() => {
         })
       })
     }).finally(() => setLoading(false))
-  },[])
+  },[user.isAuth])
   
   if (loading) {
     return <Spinner animation='grow'/>
   }
+  console.log('Appp user', user)
 
   return (
     <BrowserRouter>

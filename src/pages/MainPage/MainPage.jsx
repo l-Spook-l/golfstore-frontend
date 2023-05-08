@@ -79,7 +79,7 @@ const MainPage = observer(() => {
   console.log('MainPage')
 
   return (
-    <div style={{paddingTop: '63px'}}>
+    <div style={{paddingTop: '59px'}}>
       <Slider />
       <Container>
 

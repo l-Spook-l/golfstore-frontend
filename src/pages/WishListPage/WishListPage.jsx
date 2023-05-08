@@ -25,7 +25,7 @@ const WishListPage = observer(() => {
     fetchListProductsWishList(user.wishList.id).then((products) => {
       user.setWishList({ id: user.wishList.id, product: products.results });
     }).finally(() => setLoading(false));
-  }, [user.wishList.product.length]);
+  }, [/* user.wishList.product.length */]);
 
   const deleteProduct = (wishListId, productId) => {
     deleteProductFromWishList(wishListId, productId);
