@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite'
 import FormLogin from '../UI/FormLogin/FormLogin'
 import FormRegister from '../UI/FormRegister/FormRegister'
 import { BASKET_ROUTE, BRAND_ROUTE, CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, PROFILE_ROUTE, REGISTER_ROUTE, SHOP_ROUTE, WISHLIST_ROUTE } from '../../utils/consts'
-import { AiOutlineShoppingCart, AiOutlineHeart, AiOutlineProfile } from 'react-icons/ai';
+import { AiOutlineShoppingCart, AiOutlineHeart, AiOutlineProfile, AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai';
 
 // observer позволяет создавать компоненты, которые автоматически обновляются при изменении данных, отслеживаемых с помощью MobX.
 const NavBar = observer(() => {
@@ -50,7 +50,7 @@ const NavBar = observer(() => {
     expand: при какой ширине будет сворачиваться меню
     bg: атрибут задает фоновый цвет (background color) для навигационного меню. 
     variant: атрибут задает вариант (стиль) оформления навигационного меню. */}
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="fixed-top">
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="fixed-top" style={{height: '63px'}}>
       {/* fluid указывает на то, что контейнер будет занимать всю доступную ширину родительского элемента. */}
       <Container fluid>
       {/* Навигаци вместо <a> */}
@@ -69,7 +69,7 @@ const NavBar = observer(() => {
 
         <Nav>
         
-          <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative' }} to={BASKET_ROUTE}>
+          <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative',marginLeft: '1rem' }} /* to={BASKET_ROUTE} */ to={{pathname: PROFILE_ROUTE}} state='basket'>
             <AiOutlineShoppingCart />
             {user.basket.product.length > 0 && (
               <div style={{
@@ -96,7 +96,7 @@ const NavBar = observer(() => {
           {user.isAuth 
           ? 
           <div>
-            <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative' }} to={WISHLIST_ROUTE}>
+            <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative', marginLeft: '1rem' }} /* to={WISHLIST_ROUTE} */ to={{pathname: PROFILE_ROUTE}} state='wishlist'>
             <AiOutlineHeart />
             {user.wishList.product.length > 0 && (
               <div style={{
@@ -117,13 +117,13 @@ const NavBar = observer(() => {
               </div>
             )}
           </NavLink>
-            <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative' }} to={PROFILE_ROUTE} >
+            <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative', marginLeft: '1rem' }} to={{pathname: PROFILE_ROUTE}} state='userInfo' >
               <AiOutlineProfile/>
             </NavLink>
-            <Button variant="primary" className="ms-2 me-2" onClick={logOut}>Sign in</Button>
+            <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative', marginLeft: '1rem' }} onClick={logOut}><AiOutlineLogout/></NavLink>
           </div>
           : 
-          <Button variant="primary" className="ms-2 me-2" onClick={clickLogin}>Log in</Button>
+          <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative', marginLeft: '1rem' }} onClick={clickLogin}><AiOutlineLogin/></NavLink>
           }
         </Nav>
 

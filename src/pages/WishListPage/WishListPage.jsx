@@ -44,7 +44,7 @@ const WishListPage = observer(() => {
         {user.wishList.product.map((el) => 
           <Card style={{ width: 200, cursor: "pointer" }} border="light" key={el.product.id} className="m-2">
            <Button
-              style={{width: '30px', height: '30px'}}
+              style={{width: '40px', height: '40px'}}
               onClick={() =>
                 deleteProduct(user.wishList.id, el.product.id)
               }

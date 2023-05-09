@@ -16,7 +16,7 @@ export default class ProductStore {
 
     // 
     this._priceMin = 0
-    this._priceMax = 1000000
+    this._priceMax = 1
     
     // Сортировка по, цене, дате создания
     this._ordering = ''

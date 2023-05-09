@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../..";
 import { fetchBrands, fetchCategories, fetchProducts, fetchTypes } from "../../http/productAPI";
 import { NavLink, useNavigate } from "react-router-dom";
-import { BRAND_ROUTE, CATEGORY_ROUTE, SHOP_ROUTE } from "../../utils/consts";
+import { BRAND_ROUTE, CATEGORY_ROUTE, PRODUCT_ROUTE, SHOP_ROUTE } from "../../utils/consts";
 import Slider from "../../components/UI/Slider/Slider";
 import { Button, Card, Col, Container, Fade, Image, Row, Spinner } from "react-bootstrap";
 import golf_clothing_photo from "../../assets/golf-clothing-main-page.png";
@@ -79,7 +79,7 @@ const MainPage = observer(() => {
   console.log('MainPage')
 
   return (
-    <div style={{paddingTop: '59px'}}>
+    <div style={{paddingTop: '63px'}}>
       <Slider />
       <Container>
 
@@ -96,10 +96,16 @@ const MainPage = observer(() => {
       </Row>
 
       <h2>NEWEST ARRIVALS</h2>
-      <Row>
-        {product.products.slice(0, 3).map((el) => 
-          <Card style={{ width: 250, cursor: "pointer" }} border="light" key={el.id}>
-            <Image width={250} height={250} src={el.photo} />
+      <Row style={{display: 'flex', justifyContent: 'space-around'}}>
+        {product.products.slice(0, 4).map((el) => 
+          <Card style={{ width: 250, cursor: "pointer",  }} border="light" key={el.id}>
+            <Image 
+            width={250} 
+            height={250} 
+            src={el.photo} 
+            onClick={() => navigate(`${PRODUCT_ROUTE}/${el.slug}`)}
+            />
+            
             <div>{el.name}</div>
             <div className="m-auto">
               <div>{el.price}</div>
