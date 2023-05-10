@@ -8,6 +8,7 @@ import Slider from "../../components/UI/Slider/Slider";
 import { Button, Card, Col, Container, Fade, Image, Row, Spinner } from "react-bootstrap";
 import golf_clothing_photo from "../../assets/golf-clothing-main-page.png";
 import golf_brands_photo from "../../assets/golf-brands-main-page.png";
+import style from "./MainPage.module.css"
 
 const MainPage = observer(() => {
   const { product } = useContext(Context);
@@ -83,7 +84,7 @@ const MainPage = observer(() => {
       <Slider />
       <Container>
 
-      <h2>Categories</h2>
+      <h2 className={style.sectionTitle}>Categories</h2>
       <Row className="mt-3 bg-info">
         {product.categories.slice(0, countCategoryOnMainPage).map((el) => 
           <Col md={4} key={el.id}>
@@ -95,7 +96,7 @@ const MainPage = observer(() => {
         )}
       </Row>
 
-      <h2>NEWEST ARRIVALS</h2>
+      <h2 className={style.sectionTitle}>NEWEST ARRIVALS</h2>
       <Row style={{display: 'flex', justifyContent: 'space-around'}}>
         {product.products.slice(0, 4).map((el) => 
           <Card style={{ width: 250, cursor: "pointer",  }} border="light" key={el.id}>
@@ -114,7 +115,7 @@ const MainPage = observer(() => {
         )}
       </Row>
       
-      <h2>Brands</h2>
+      <h2 className={style.sectionTitle}>Brands</h2>
       <Row className="mt-3 bg-info">
         {product.brands.slice(0, countBrandsOnMainPage).map((el) => 
           <Col md={3} key={el.id}>

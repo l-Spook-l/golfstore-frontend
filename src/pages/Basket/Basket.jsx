@@ -44,12 +44,12 @@ const Basket = observer(() => {
         <Col md={10}>
         {user.basket.product.map((el) => (
         <Row className="mt-5" key={el.product.id}>
-          <Col md={3}>
-            <Image width={150} height={150} src={el.product.photo} />
+          <Col md={2}>
+            <Image width={100} height={100} src={el.product.photo} />
           </Col>
-          <Col md={5}>
+          <Col md={6}>
             <h5>{el.product.name}</h5>
-            <p>кол-во</p>
+              <p>кількість {el.quantity}</p>
             <p>{el.product.price}</p>
           </Col>
           <Col md={2}>
