@@ -4,3 +4,69 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+.buttonCatigories {
+  margin-top: 10px;
+  height: 200px;
+  width: 415px;
+  font-size: 30px;
+  border-radius: 3px;
+  color: black;
+  border: 1px solid black;
+  background-color: white;
+  background-color: transparent;
+  transition: background-color  0.5s ease-in-out;
+}
+
+.buttonBrands {
+  margin-top: 10px;
+  height: 200px;
+  width: 315px;
+  font-size: 30px;
+  border-radius: 3px;
+  color: black;
+  border: 1px solid black;
+  background-color: white;
+  background-color: transparent;
+  transition: background-color  0.5s ease-in-out;
+}
+
+.buttonBrands:hover,
+.buttonCatigories:hover,
+.buttonForGoflClubsAndBrands:hover {
+  background-color: black;
+  color: wheat;
+}
+
+.buttonForMore {
+  width: 300px;
+  margin: 15px auto 0 auto;
+  background-color: black;
+  color: white;
+  padding: 5px 0 5px 0;
+}
+
+.textForGoflClubsAndBrands {
+  width: 400px;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.imageForGoflClubsAndBrands {
+  margin: 10px auto;
+}
+
+.buttonForGoflClubsAndBrands {
+  margin: 10px auto;
+  height: 38px;
+  width: 75px;
+  text-align: center;
+  font-size: 22px;
+  border-radius: 3px;
+  text-decoration: none;
+  color: black;
+  border: 1px solid black;
+  background-color: white;
+  background-color: transparent;
+  transition: background-color  0.5s ease-in-out;
+}

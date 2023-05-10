@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+  import React, { useContext, useEffect, useState } from "react";
 import { Button, Card, Col, Image, Spinner } from "react-bootstrap";
 import { BASKET_ROUTE, PRODUCT_ROUTE } from "../utils/consts";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -132,7 +132,7 @@ const ProductItem = observer(({ product }) => {
           {product.name}
         </div>
         <div className="mt-1 d-flex justify-content-between align-items-center">
-          <div>{product.price}</div>
+          <div>{product.price} $</div>
           <NavLink
             style={{ fontSize: "1.3rem", color: "black" }}
             onClick={() => addToBasket(user.basket.id, product.id)}

@@ -42,6 +42,7 @@ const MainPage = observer(() => {
   const showMoreCategories = () => {
     setCountCategoryOnMainPage(countCategoryOnMainPage + 3);
   };
+  
   const showMoreBrands = () => {
     setCountBrandsOnMainPage(countBrandsOnMainPage + 4);
   };
@@ -73,7 +74,7 @@ const MainPage = observer(() => {
   console.log('shop - product typesqqq', product.selectedType)
   console.log('shop - product brands', product.brands) */
 
- if (loading) {
+  if (loading) {
     return <Spinner animation='grow'/>
   }
 
@@ -84,67 +85,72 @@ const MainPage = observer(() => {
       <Slider />
       <Container>
 
-      <h2 className={style.sectionTitle}>Categories</h2>
-      <Row className="mt-3 bg-info">
-        {product.categories.slice(0, countCategoryOnMainPage).map((el) => 
-          <Col md={4} key={el.id}>
-            <Button onClick={() => navigate(`${CATEGORY_ROUTE}/${el.slug}`)} style={{height: 200, width: 400, fontSize: 22}}>{el.name}</Button>
-          </Col>
-        )}
-        {countCategoryOnMainPage < product.categories.length && (
-          <Button style={{width: 300, margin: 'auto'}} className="mt-3" onClick={() => showMoreCategories()}>More categories</Button>
-        )}
-      </Row>
+        <h2 className={style.sectionTitle}>Categories</h2>
+        <Row className="justify-content-center">
+          {product.categories.slice(0, countCategoryOnMainPage).map((el) => 
+            <Col md={4} key={el.id}>
+              <button className={style.buttonCatigories} onClick={() => navigate(`${CATEGORY_ROUTE}/${el.slug}`)} >{el.name}</button>
+            </Col>
+          )}
+          {countCategoryOnMainPage < product.categories.length && (
+            <button className={style.buttonForMore} onClick={() => showMoreCategories()}>More categories</button>
+          )}
+        </Row>
 
-      <h2 className={style.sectionTitle}>NEWEST ARRIVALS</h2>
-      <Row style={{display: 'flex', justifyContent: 'space-around'}}>
-        {product.products.slice(0, 4).map((el) => 
-          <Card style={{ width: 250, cursor: "pointer",  }} border="light" key={el.id}>
-            <Image 
-            width={250} 
-            height={250} 
-            src={el.photo} 
-            onClick={() => navigate(`${PRODUCT_ROUTE}/${el.slug}`)}
-            />
-            
-            <div>{el.name}</div>
-            <div className="m-auto">
-              <div>{el.price}</div>
-            </div>
-          </Card>
-        )}
-      </Row>
-      
-      <h2 className={style.sectionTitle}>Brands</h2>
-      <Row className="mt-3 bg-info">
-        {product.brands.slice(0, countBrandsOnMainPage).map((el) => 
-          <Col md={3} key={el.id}>
-            <Button onClick={() => navigate(`${BRAND_ROUTE}/${el.slug}`)} style={{height: 200, width: 300, fontSize: 22}}>{el.name}</Button>
+        <h2 className={style.sectionTitle}>NEWEST ARRIVALS</h2>
+        <Row style={{display: 'flex', justifyContent: 'space-around'}}>
+          {product.products.slice(0, 4).map((el) => 
+            <Card style={{ width: 280, cursor: "pointer",  }} border="light" key={el.id}>
+              <Image width={250} height={250} src={el.photo} 
+                onClick={() => navigate(`${PRODUCT_ROUTE}/${el.slug}`)}
+              />
+              <p>{el.name}</p>
+              <div className="m-auto">
+                <p>{el.price} $</p>
+              </div>
+            </Card>
+          )}
+        </Row>
+        
+        <h2 className={style.sectionTitle}>Brands</h2>
+        <Row className="justify-content-center mb-5">
+          {product.brands.slice(0, countBrandsOnMainPage).map((el) => 
+            <Col md={3} key={el.id}>
+              <Button className={style.buttonBrands} onClick={() => navigate(`${BRAND_ROUTE}/${el.slug}`)}>{el.name}</Button>
+            </Col>
+          )}
+          {countBrandsOnMainPage < product.brands.length && (
+            <button className={style.buttonForMore} onClick={() => showMoreBrands()}>More brands</button>
+          )}
+        </Row>
+
+        <Row className="mt-5 mb-5">
+          <Col md={6} className="d-flex flex-column">
+            <h3 className="text-center">Golf clubs for you</h3>
+            <p className={style.textForGoflClubsAndBrands}>
+              Discover the perfect golf clubs for your game at Golf Clubs for You. 
+              Our selection features top equipment brands like TaylorMade Golf,
+              Callaway, Titleist, PXG, Mizuno, Miura, and more.
+            </p>
+            <NavLink className={style.buttonForGoflClubsAndBrands} to={`${CATEGORY_ROUTE}/golf-clubs`}>Shop</NavLink>
+            <Image className={style.imageForGoflClubsAndBrands} width={500} height={600} src={golf_brands_photo}/>
           </Col>
-        )}
-        {countBrandsOnMainPage < product.brands.length && (
-          <Button style={{width: 300, margin: 'auto'}} className="mt-3" onClick={() => showMoreBrands()}>More brands</Button>
-        )}
-      </Row>
-      
-      <Row>
-        <Col md={6}>
-          <h3 className="">Golf clubs for you</h3>
-          <p>Discover the perfect golf clubs for your game at Golf Clubs for You. Our selection features top equipment brands like TaylorMade Golf, Callaway, Titleist, PXG, Mizuno, Miura, and more.</p>
-          <NavLink to={`${CATEGORY_ROUTE}/golf-clubs`}>Shop</NavLink>
-          <Image width={500} height={600} src={golf_brands_photo}/>
-        </Col>
-        <Col md={6}>
-          <h3>Exclusive brands</h3>
-          <Image width={400} height={532} src={golf_clothing_photo}/>
-          <p>"Leading Brands"
-            "Explore top golf apparel brands that offer a blend of style, comfort, and performance</p>
-          <NavLink to={`${CATEGORY_ROUTE}/golf-clothing`}>Shop</NavLink>
-        </Col>
-      </Row>
+
+          <Col md={6} className="d-flex flex-column">
+            <h3 className="text-center">Exclusive brands</h3>
+            <Image className={style.imageForGoflClubsAndBrands} width={500} height={600} src={golf_clothing_photo}/>
+            <p className={style.textForGoflClubsAndBrands}>
+              "Leading Brands"
+              "Explore top golf apparel brands that offer a blend of style, 
+              comfort, and performance
+            </p>
+            <NavLink className={style.buttonForGoflClubsAndBrands} to={`${CATEGORY_ROUTE}/golf-clothing`}>Shop</NavLink>
+          </Col>
+        </Row>
+
+        
 
       </Container>
-
     </div>
   );
 });

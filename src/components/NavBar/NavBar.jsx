@@ -50,7 +50,7 @@ const NavBar = observer(() => {
     expand: при какой ширине будет сворачиваться меню
     bg: атрибут задает фоновый цвет (background color) для навигационного меню. 
     variant: атрибут задает вариант (стиль) оформления навигационного меню. */}
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="fixed-top" style={{height: '63px'}}>
+    <Navbar collapseOnSelect expand="lg" bg="black" variant="dark" className="fixed-top" style={{height: '63px'}}>
       {/* fluid указывает на то, что контейнер будет занимать всю доступную ширину родительского элемента. */}
       <Container fluid>
       {/* Навигаци вместо <a> */}
