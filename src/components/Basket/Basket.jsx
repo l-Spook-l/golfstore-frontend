@@ -5,6 +5,7 @@ import { observer } from "mobx-react-lite";
 import { deleteProductFromBasket, fetchListProductsBasket } from "../../http/productAPI";
 import { NavLink } from "react-router-dom";
 import { CHECKOUT_ROUTE } from "../../utils/consts";
+import style from "./Basket.module.css"
 
 const Basket = observer(() => {
   const { user } = useContext(Context);
@@ -43,14 +44,14 @@ const Basket = observer(() => {
       <Row className="my-1">
         <Col md={10}>
         {user.basket.product.map((el) => (
-        <Row className="mt-5" key={el.product.id}>
+        <Row className="mt-3" key={el.product.id}>
           <Col md={2}>
             <Image width={100} height={100} src={el.product.photo} />
           </Col>
           <Col md={6}>
             <h5>{el.product.name}</h5>
               <p>кількість {el.quantity}</p>
-            <p>{el.product.price}</p>
+            <p>{el.product.price} $</p>
           </Col>
           <Col md={2}>
             <Button onClick={() => deleteProduct(user.basket.id, el.product.id)} className="btn-danger">Удалить</Button>
@@ -60,8 +61,8 @@ const Basket = observer(() => {
         </Col>
         <Col md={2}>
             <h5>Итоговая сумма</h5>
-            <p>{totalPrice}</p>
-            <NavLink to={CHECKOUT_ROUTE}>Оформить заказ</NavLink>
+            <p>{totalPrice} $</p>
+            <NavLink className={style.buttonOrder} to={CHECKOUT_ROUTE}>Оформить заказ</NavLink>
           </Col>
       </Row>
 

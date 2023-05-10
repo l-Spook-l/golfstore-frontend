@@ -1,12 +1,10 @@
 import Auth from "./pages/Auth/Auth";
-import Basket from "./pages/Basket/Basket";
 import Shop from "./pages/Shop/Shop";
-import Profile from "./pages/Profile/Profile"
+import Profile from "./pages/Profile/Profile";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import MainPage from "./pages/MainPage/MainPage";
 import {
   ADMIN_ROUTE,
-  BASKET_ROUTE,
   PRODUCT_ROUTE,
   LOGIN_ROUTE,
   REGISTER_ROUTE,
@@ -15,26 +13,16 @@ import {
   MAIN_ROUTE,
   CATEGORY_ROUTE,
   BRAND_ROUTE,
-  WISHLIST_ROUTE,
   CHECKOUT_ROUTE,
 } from "./utils/consts"; // Ссылки
 import CategoryPage from "./pages/CategoryPage/CategoryPage";
 import BrandPage from "./pages/BrandPage/BrandPage";
-import WishListPage from "./pages/WishListPage/WishListPage";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 
 export const authRoutes = [
-/*   {
+  /*   {
     path: PROFILE_ROUTE,
     Component: Profile,
-  },
-  {
-    path: WISHLIST_ROUTE,
-    Component: WishListPage,
-  }, 
-  {
-    path: BASKET_ROUTE,
-    Component: Basket,
   },
   {
     path: CHECKOUT_ROUTE,
@@ -75,19 +63,11 @@ export const publicRoutes = [
   },
   /* -------------------------- */
   {
-    path: BASKET_ROUTE,
-    Component: Basket,
-  },
-  {
     path: CHECKOUT_ROUTE,
     Component: CheckoutPage,
   },
   {
     path: PROFILE_ROUTE,
     Component: Profile,
-  },
-  {
-    path: WISHLIST_ROUTE,
-    Component: WishListPage,
   },
 ];

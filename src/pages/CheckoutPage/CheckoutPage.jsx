@@ -52,7 +52,7 @@ const CheckoutPage = () => {
         <Col md={2}>
             <h5>Итоговая сумма</h5>
             <p>{totalPrice}</p>
-            <Button >Підтвердити замовлення</Button>
+            <Button className="bg-success">Підтвердити замовлення</Button>
           </Col>
       </Row>
       <CheckoutForm/>

@@ -2,11 +2,9 @@ import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Card, Col, Container, Image, Row, Spinner } from "react-bootstrap";
 import { Context } from "../..";
-import {
-  deleteProductFromWishList,
-  fetchListProductsWishList,
-} from "../../http/productAPI";
+import { deleteProductFromWishList, fetchListProductsWishList } from "../../http/productAPI";
 import { FaTimes } from 'react-icons/fa';
+import style from "./WishList.module.css"
 
 const WishListPage = observer(() => {
   const { user } = useContext(Context);
@@ -42,16 +40,13 @@ const WishListPage = observer(() => {
       <Row>
       <h2>Список желаний</h2>
         {user.wishList.product.map((el) => 
-          <Card style={{ width: 200, cursor: "pointer" }} border="light" key={el.product.id} className="m-2">
-           <Button
-              style={{width: '40px', height: '40px'}}
-              onClick={() =>
-                deleteProduct(user.wishList.id, el.product.id)
-              }
-              className="btn-danger"
+          <Card border="light" key={el.product.id} className={style.cardProduct}>
+           <button
+              onClick={() => deleteProduct(user.wishList.id, el.product.id)}
+              className={style.cardProductButton}
             >
               <FaTimes/>
-            </Button>
+            </button>
             <Image width={180} height={180} src={el.product.photo} />
             <div>{el.product.name}</div>
             <div className="m-auto">
