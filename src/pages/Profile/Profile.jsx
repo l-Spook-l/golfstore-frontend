@@ -2,21 +2,20 @@ import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../..";
 import { Alert, Col, Container, Nav, Row } from "react-bootstrap";
-import Basket from "../../components/Basket/Basket";
-import { NavLink, Route, Routes, useLocation } from "react-router-dom";
-import WishListPage from "../../components/WishListPage/WishListPage";
+import Cart from "../../components/Cart/Cart";
+import { useLocation } from "react-router-dom";
 import Subscribes from "../../components/Subscribes/Subscribes";
 import Wallet from "../../components/Wallet/Wallet";
 import style from "./Profile.module.css";
 import UserInfo from "../../components/UserInfo/UserInfo";
+import Wishlist from "../../components/Wishlist/Wishlist";
 
 const Profile = observer(() => {
   const { user } = useContext(Context);
 
   const location = useLocation();
+
   const state = location.state;
-  console.log("kdasnlksadkl;kwhq", location);
-  console.log("kdasnlksadkl;kwhq", state);
 
   const [activeTab, setActiveTab] = useState("userInfo");
 
@@ -32,11 +31,11 @@ const Profile = observer(() => {
       case "userInfo":
         setView(<UserInfo />);
         break;
-      case "basket":
-        setView(<Basket />);
+      case "cart":
+        setView(<Cart />);
         break;
       case "wishlist":
-        setView(<WishListPage />);
+        setView(<Wishlist />);
         break;
       case "subscribe":
         setView(<Subscribes />);
@@ -62,31 +61,31 @@ const Profile = observer(() => {
             <hr />
             <Alert
               className={style.alertMenu}
-              onClick={() => blurHandler("basket")}
-              active={activeTab === "basket" ? "true" : "false"}
+              onClick={() => blurHandler("cart")}
+              active={activeTab === "cart" ? "true" : "false"}
             >
-              Моя корзина
+              My Cart
             </Alert>
             <Alert
               className={style.alertMenu}
               onClick={() => blurHandler("wishlist")}
               active={activeTab === "wishlist" ? "true" : "false"}
             >
-              Список желаний
+              Wishlist
             </Alert>
             <Alert
               className={style.alertMenu}
               onClick={() => blurHandler("subscribe")}
               active={activeTab === "subscribe" ? "true" : "false"}
             >
-              Розсилки
+              Subscriptions
             </Alert>
             <Alert
               className={style.alertMenu}
               onClick={() => blurHandler("wallet")}
               active={activeTab === "wallet" ? "true" : "false"}
             >
-              Мой кошелек
+              My Wallet
             </Alert>
           </Nav>
         </Col>

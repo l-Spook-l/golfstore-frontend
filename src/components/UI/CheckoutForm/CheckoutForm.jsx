@@ -78,7 +78,6 @@ const CheckoutForm = () => {
           feedback="You must agree before submitting."
         />
       </Form.Group>
-      <Button type="submit">Submit form</Button>
     </Form>
   );
 };

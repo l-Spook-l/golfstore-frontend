@@ -3,6 +3,8 @@ import { Button, Col, Container, Image, Row, Spinner } from 'react-bootstrap'
 import { fetchListProductsBasket } from '../../http/productAPI';
 import { Context } from '../..';
 import CheckoutForm from '../../components/UI/CheckoutForm/CheckoutForm';
+import { NavLink } from 'react-router-dom';
+import { PROFILE_ROUTE } from '../../utils/consts';
 
 const CheckoutPage = () => {
   const { user } = useContext(Context);
@@ -24,11 +26,16 @@ const CheckoutPage = () => {
 
   return (
     <Container style={{paddingTop: '63px'}}>
-      <h2>Оформлення замовлення</h2>
-      <div className='mt-2'>
-        <h5>Ваші контактні дані</h5>
-        <p>{user.user.first_name} {user.user.last_name} {user.user.email}</p>
-      </div>
+      <h2>Order checkout</h2>
+      <Row className='mt-2 d-flex justify-content-between'>
+        <Col md={3}>
+          <h5>Your contact information</h5>
+          <p>{user.user.first_name} {user.user.last_name} {user.user.email}</p>
+        </Col>
+        <Col md={4}>
+          <NavLink to={{pathname: PROFILE_ROUTE}} state='basket'>Edit order</NavLink>
+        </Col>
+      </Row>
       <Row className="mt-5">
         <Col md={10}>
         {user.basket.product.map((el) => (
@@ -40,20 +47,20 @@ const CheckoutPage = () => {
             <h5>{el.product.name}</h5>
           </Col>
           <Col md={2}>
-            <p>Ціна {el.product.price}</p> 
+            <p>Price {el.product.price} $</p> 
           </Col>
           <Col md={2}>
-          <p>кількість {el.quantity  }</p>
+          <p>Quantity {el.quantity  }</p>
           </Col>
           <hr className='mt-3'/>
         </Row>
         ))}
         </Col>
         <Col md={2}>
-            <h5>Итоговая сумма</h5>
-            <p>{totalPrice}</p>
-            <Button className="bg-success">Підтвердити замовлення</Button>
-          </Col>
+          <h5>Total</h5>
+          <p>{totalPrice} $</p>
+          <Button className="bg-success">Confirm order</Button>
+        </Col>
       </Row>
       <CheckoutForm/>
     </Container>

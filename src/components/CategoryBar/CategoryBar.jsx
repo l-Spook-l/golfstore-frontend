@@ -10,7 +10,7 @@ const CategoryBar = observer(() => {
   return (  
     <Accordion className="mt-3" defaultActiveKey="0">
       <Accordion.Item  className="border-0" eventKey="0">
-        <Accordion.Header>Categories</Accordion.Header>
+        <Accordion.Header style={{color: 'green'}}>Categories</Accordion.Header>
         <Accordion.Body className="">
           {product.categories.map((category) => (
             <div key={category.id} className="form-check">

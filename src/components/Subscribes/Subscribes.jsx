@@ -5,39 +5,37 @@ import style from "./Subscribes.module.css";
 const Subscribes = () => {
   return (
     <Container style={{ paddingTop: "63px" }}>
-      <h2>Розсилки</h2>
+      <h2>Subscriptions</h2>
       <Row className={style.row}>
         <Col md={6}>
-          <h3 className={style.h3}>Види розсилок</h3>
+          <h3 className={style.h3}>Subscription Types</h3>
           <p>
             <input className={style.input} id="legal-entity-1" type="checkbox" />
-            <label className={style.lable} htmlFor="legal-entity-1">Опитування</label>
+            <label className={style.lable} htmlFor="legal-entity-1">Polls</label>
           </p>
           <p>
             <input className={style.input} id="legal-entity-2" type="checkbox" />
-            <label className={style.lable} htmlFor="legal-entity-2">Новини</label>
+            <label className={style.lable} htmlFor="legal-entity-2">News</label>
           </p>
         </Col>
 
         <Col md={6}>
-          <h3 className={style.h3}>Канали зв'язку</h3>
+          <h3 className={style.h3}>Communication Channels</h3>
           <p>
             <input className={style.input} id="legal-entity-3" type="checkbox" />
-            <label className={style.lable} htmlFor="legal-entity-3">Email-листи</label>
+            <label className={style.lable} htmlFor="legal-entity-3">Email</label>
           </p>
           <p>
             <input className={style.input} id="legal-entity-4" type="checkbox" />
-            <label className={style.lable} htmlFor="legal-entity-4">Повідомлення у Viber</label>
+            <label className={style.lable} htmlFor="legal-entity-4">Viber Messages</label>
           </p>
           <p>
             <input className={style.input} id="legal-entity-5" type="checkbox" />
-            <label className={style.lable} htmlFor="legal-entity-5">SMS-повідомлення</label>
+            <label className={style.lable} htmlFor="legal-entity-5">SMS Messages</label>
           </p>
           <p>
             <input className={style.input} id="legal-entity-6" type="checkbox" />
-            <label className={style.lable} htmlFor="legal-entity-6">
-              Сповіщення у мобільному додатку
-            </label>
+            <label className={style.lable} htmlFor="legal-entity-6">Push Notifications</label>
           </p>
         </Col>
       </Row>

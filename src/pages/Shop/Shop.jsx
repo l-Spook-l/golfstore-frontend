@@ -77,7 +77,7 @@ const Shop = observer(() => {
       <Row className="mt-3">
         <Col md={10} className="d-flex flex-wrap mb-0 ">
         {product.selectedType.length !== 0 || product.selectedBrand.length !== 0 || product.selectedCategory.length !== 0
-         ? <Button onClick={() => clearFilter()}>Очистить</Button>
+         ? <Button style={{height: '46px', marginRight: '10px'}} onClick={() => clearFilter()}>Очистить</Button>
          : null
          }
           {product.selectedCategory.map((el) => 

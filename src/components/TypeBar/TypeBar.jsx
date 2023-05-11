@@ -5,6 +5,7 @@ import {
   AccordionButton,
   Button,
   Card,
+  Dropdown,
   ListGroup,
   ListGroupItem,
 } from "react-bootstrap";
@@ -23,33 +24,14 @@ const TypeBar = observer(() => {
   //console.log('setSelectedType.length', Object.keys(product.selectedType).length)
 
   return (
-    /*     <ListGroup>
-      <ListGroupItem
-        style={{ cursor: "pointer" }}
-        active={product.setSelectedType.length === 0}
-        onClick={() => product.setSelectedType([])}
-      >
-        All
-      </ListGroupItem>
-      {product.types.map((type) => (
-        <ListGroup.Item
-          style={{ cursor: "pointer" }}
-          active={product.selectedType.includes(type)}
-          key={type.id}
-          onClick={() => product.setSelectedType(type)}
-        >
-          {type.name}
-        </ListGroup.Item>
-      ))}
-    </ListGroup> */
+   
 
     <Accordion className="mt-3" defaultActiveKey="0">
       <Accordion.Item className="border-0" eventKey="0">
         <Accordion.Header>Types</Accordion.Header>
-        <Accordion.Body className="">
+        <Accordion.Body>
           <ListGroup>
             {product.types.map((type) => (
-              //console.log('TypeBar type', type, typeof type),
               <ListGroup.Item
                 style={{ cursor: "pointer" }}
                // action // выделяет и подвечивает когда наводишь

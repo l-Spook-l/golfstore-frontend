@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import { deleteProductFromBasket, fetchListProductsBasket } from "../../http/productAPI";
 import { NavLink } from "react-router-dom";
 import { CHECKOUT_ROUTE } from "../../utils/consts";
-import style from "./Basket.module.css"
+import style from "./Cart.module.css"
 
 const Basket = observer(() => {
   const { user } = useContext(Context);
@@ -40,7 +40,7 @@ const Basket = observer(() => {
 
   return (
     <Container style={{paddingTop: '63px'}}>
-      <h2>Моя корзина</h2>
+      <h2>My Cart</h2>
       <Row className="my-1">
         <Col md={10}>
         {user.basket.product.map((el) => (
@@ -50,19 +50,19 @@ const Basket = observer(() => {
           </Col>
           <Col md={6}>
             <h5>{el.product.name}</h5>
-              <p>кількість {el.quantity}</p>
+              <p>Quantity {el.quantity}</p>
             <p>{el.product.price} $</p>
           </Col>
           <Col md={2}>
-            <Button onClick={() => deleteProduct(user.basket.id, el.product.id)} className="btn-danger">Удалить</Button>
+            <Button onClick={() => deleteProduct(user.basket.id, el.product.id)} className="btn-danger">Delete</Button>
           </Col>
         </Row>
         ))}
         </Col>
         <Col md={2}>
-            <h5>Итоговая сумма</h5>
+            <h5>Total amount</h5>
             <p>{totalPrice} $</p>
-            <NavLink className={style.buttonOrder} to={CHECKOUT_ROUTE}>Оформить заказ</NavLink>
+            <NavLink className={style.buttonOrder} to={CHECKOUT_ROUTE}>Place Order</NavLink>
           </Col>
       </Row>
 

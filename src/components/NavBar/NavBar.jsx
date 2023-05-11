@@ -6,7 +6,7 @@ import MyModal from '../../components/UI/MyModal/MyModal'
 import { observer } from 'mobx-react-lite'
 import FormLogin from '../UI/FormLogin/FormLogin'
 import FormRegister from '../UI/FormRegister/FormRegister'
-import { BASKET_ROUTE, BRAND_ROUTE, CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, PROFILE_ROUTE, REGISTER_ROUTE, SHOP_ROUTE, WISHLIST_ROUTE } from '../../utils/consts'
+import { BRAND_ROUTE, CATEGORY_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, PROFILE_ROUTE, REGISTER_ROUTE, SHOP_ROUTE } from '../../utils/consts'
 import { AiOutlineShoppingCart, AiOutlineHeart, AiOutlineProfile, AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai';
 
 // observer позволяет создавать компоненты, которые автоматически обновляются при изменении данных, отслеживаемых с помощью MobX.
@@ -69,7 +69,7 @@ const NavBar = observer(() => {
 
         <Nav>
         
-          <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative',marginLeft: '1rem' }} /* to={BASKET_ROUTE} */ to={{pathname: PROFILE_ROUTE}} state='basket'>
+          <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative',marginLeft: '1rem' }} to={{pathname: PROFILE_ROUTE}} state='cart'>
             <AiOutlineShoppingCart />
             {user.basket.product.length > 0 && (
               <div style={{
@@ -96,7 +96,7 @@ const NavBar = observer(() => {
           {user.isAuth 
           ? 
           <div>
-            <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative', marginLeft: '1rem' }} /* to={WISHLIST_ROUTE} */ to={{pathname: PROFILE_ROUTE}} state='wishlist'>
+            <NavLink style={{ fontSize: "1.8rem", color: "white", position: 'relative', marginLeft: '1rem' }} to={{pathname: PROFILE_ROUTE}} state='wishlist'>
             <AiOutlineHeart />
             {user.wishList.product.length > 0 && (
               <div style={{

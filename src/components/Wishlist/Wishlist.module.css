@@ -1,0 +1,34 @@
+.cardProduct {
+  width: 200px;
+  cursor: pointer;
+}
+
+.cardProductButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cardProductButton:focus {
+  outline: none;
+}
+
+.cardProductButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.cardProductButton > svg {
+  width: 100%;
+  height: 100%;
+  color: #999;
+}
+
+.cardProductButton > svg:hover {
+  color: #ff0000;
+}

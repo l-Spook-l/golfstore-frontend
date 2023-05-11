@@ -5,7 +5,7 @@ import { Container } from 'react-bootstrap'
 const Wallet = () => {
   return (
     <Container style={{paddingTop: '63px'}} >
-      <h1>Мій гаманець</h1>
+      <h1>My wallet</h1>
       <CardForm/>
     </Container>
   )

@@ -5,83 +5,81 @@ import { Context } from "../..";
 const UserInfo = () => {
   const { user } = useContext(Context);
 
-  console.log("uesrewqrwqwqr", user);
-
   return (
     <Container style={{ paddingTop: "63px" }}>
       <Accordion alwaysOpen>
         <Accordion.Item eventKey="0" className="mb-2">
-          <Accordion.Header>Особисті дані</Accordion.Header>
+          <Accordion.Header>Personal information</Accordion.Header>
           <Accordion.Body>
             <Row>
               <Col md={4}>
-                <p>Прізвище</p>
+                <p>Last name</p>
                 {user.user.last_name}
               </Col>
               <Col md={4}>
-                <p>Ім'я</p>
+                <p>First name</p>
                 {user.user.first_name}
               </Col>
               <Col md={4}></Col>
             </Row>
-            <Button className="mt-4">Редагувати</Button>
+            <Button className="mt-4">Edit</Button>
           </Accordion.Body>
         </Accordion.Item>
 
         <Accordion.Item eventKey="1" className="mb-2">
-          <Accordion.Header className="border-top">Контакти</Accordion.Header>
+          <Accordion.Header className="border-top">Contacts</Accordion.Header>
           <Accordion.Body>
             <Row>
               <Col md={3}>
-                <p>Мобільний телефон</p>
+                <p>Mobile phone</p>
               </Col>
               <Col md={3}>
-                <p>Електронна пошта</p>
+                <p>Email</p>
                 {user.user.email}
               </Col>
             </Row>
-            <Button className="mt-4">Редагувати</Button>
+            <Button className="mt-4">Edit</Button>
           </Accordion.Body>
         </Accordion.Item>
 
         <Accordion.Item eventKey="2" className="mb-2">
           <Accordion.Header className="border-top">
-            Адреса доставки
+            Delivery address
           </Accordion.Header>
           <Accordion.Body>
-            <Button className="mt-4">Редагувати</Button>
+            <Button className="mt-4">Edit</Button>
           </Accordion.Body>
         </Accordion.Item>
 
         <Accordion.Item eventKey="3" className="mb-2">
-          <Accordion.Header className="border-top">Логін</Accordion.Header>
+          <Accordion.Header className="border-top">Login</Accordion.Header>
           <Accordion.Body>
             <Row>
               <Col md={3}>
-                <p>Лоігн (Мобільний телефон)</p>
+                <p>Login (Mobile phone)</p>
               </Col>
               <Col md={3}>
-                <p>Логін (Електронна пошта)</p>
+                <p>Login (Email)</p>
                 {user.user.email}
               </Col>
             </Row>
-            <Button className="mt-4">Редагувати</Button>
+            <Button className="mt-4">Edit</Button>
           </Accordion.Body>
         </Accordion.Item>
 
         <Accordion.Item eventKey="4" className="mb-2">
           <Accordion.Header className="border-top">
-            Додаткова інформація
+            Additional information
           </Accordion.Header>
           <Accordion.Body>
             <div>
               <input id="legal-entity" type="checkbox" className="me-2" />
               <label htmlFor="legal-entity">
-                Цей акаунт використовується юридичною особою, представником
-                компанії або приватним підприємцем
+                This account is used by a legal entity, company representative
+                or private entrepreneur.
               </label>
             </div>
-            <Button className="mt-4">Редагувати</Button>
+            <Button className="mt-4">Edit</Button>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
