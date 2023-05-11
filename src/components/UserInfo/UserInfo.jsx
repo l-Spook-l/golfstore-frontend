@@ -7,6 +7,7 @@ const UserInfo = () => {
 
   return (
     <Container style={{ paddingTop: "63px" }}>
+      <h2>Personal information</h2>
       <Accordion alwaysOpen>
         <Accordion.Item eventKey="0" className="mb-2">
           <Accordion.Header>Personal information</Accordion.Header>

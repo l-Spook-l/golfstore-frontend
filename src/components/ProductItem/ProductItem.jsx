@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Card, Col, Image, Spinner } from "react-bootstrap";
-import { BASKET_ROUTE, PRODUCT_ROUTE } from "../../utils/consts";
+import { PRODUCT_ROUTE } from "../../utils/consts";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { BsCart, BsFillCartCheckFill } from "react-icons/bs";
@@ -150,6 +150,7 @@ const ProductItem = observer(({ product }) => {
           {productOnWishList}
         </Button>
         <Image
+          style={{cursor: "pointer"}}
           onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}
           width={200}
           height={200}

@@ -1,0 +1,11 @@
+.reviewCard {
+  margin-bottom: 10px;
+}
+
+.reviewCard .cardTitle {
+  font-weight: bold;
+}
+
+.reviewCard .cardFooter {
+  font-size: smaller;
+}

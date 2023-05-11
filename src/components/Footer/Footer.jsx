@@ -1,30 +1,30 @@
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
 
-function Footer() {
+const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer bg-black">
       <div className="container">
         <div className="row">
           <div className="col-md-6 col-lg-4">
-            <h5>About Us</h5>
-            <p>
+            <h5 className="text-white">About Us</h5>
+            <p className="text-white">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </p>
           </div>
           <div className="col-md-6 col-lg-4">
-            <h5>Follow Us</h5>
+            <h5 className="text-white">Follow Us</h5>
             <ul className="social-media">
-              <li>
+              <li className="text-white">
                 <a href="#" target="_blank" rel="noreferrer noopener">
                   <FaFacebookF />
                 </a>
               </li>
-              <li>
+              <li className="text-white">
                 <a href="#" target="_blank" rel="noreferrer noopener">
                   <FaTwitter />
                 </a>
               </li>
-              <li>
+              <li className="text-white">
                 <a href="#" target="_blank" rel="noreferrer noopener">
                   <FaInstagram />
                 </a>
@@ -32,8 +32,8 @@ function Footer() {
             </ul>
           </div>
           <div className="col-md-6 col-lg-4">
-            <h5>Contact Us</h5>
-            <address>
+            <h5 className="text-white">Contact Us</h5>
+            <address className="text-white">
               1234 Main Street,
               <br />
               Suite 101, Springfield, MA 01234
