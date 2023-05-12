@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
+  Breadcrumb,
   Button,
   Card,
   Col,
@@ -11,9 +12,13 @@ import {
 import { useParams } from "react-router-dom";
 import { fetchOneProduct } from "../../http/productAPI";
 import Review from "../../components/Review/Review";
+import { CATEGORY_ROUTE, MAIN_ROUTE } from "../../utils/consts";
+import { Context } from "../..";
 
 const ProductPage = () => {
   const [product, setProduct] = useState({ info: [] });
+  const {user} = useContext(Context)
+
   // id нашего продукта
   const { slug } = useParams();
   console.log("params in product one", { slug });
@@ -33,28 +38,25 @@ const ProductPage = () => {
     return <Spinner animation="grow" />;
   }
 
+  const typeSlug = product.category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
   return (
     <Container style={{ paddingTop: "100px" }}>
-      <Row>
+      <Breadcrumb>
+        <Breadcrumb.Item href={MAIN_ROUTE}>Home</Breadcrumb.Item>
+        <Breadcrumb.Item href={`${CATEGORY_ROUTE}/${typeSlug}`}>{product.category}</Breadcrumb.Item>
+        <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>
+      </Breadcrumb>
+      <hr />
+      <Row className="mb-5">
         <Col md={4}>
           <Image width={300} height={300} src={product.photo} />
+          {/* {product.photo.map((el) => <Image width={50} height={50}></Image>)} */}
         </Col>
         <Col md={4}>
           <Row className="d-flex flex-column align-items-center">
             <h2>{product.name}</h2>
-            <div
-              className="d-flex align-items-center justify-content-center"
-              style={{
-                // background: `url(${bigStar}) no-repeat center center`,
-                backgroundColor: "blueviolet",
-                backgroundSize: "cover",
-                width: 240,
-                height: 240,
-                fontSize: 55,
-              }}
-            >
-              {product.rating}
-            </div>
+            
           </Row>
         </Col>
         <Col md={4}>
@@ -67,24 +69,23 @@ const ProductPage = () => {
               border: "5px solid lightgray",
             }}
           >
-            <h3>{product.price}</h3>
+            <h3>{product.price} $</h3>
+            <p>Quantity  - +</p>
             <Button variant="outline-dark">Добавить в корзину</Button>
           </Card>
         </Col>
       </Row>
-      <Row className="d-flex flex-column m-3">
-        <h1>Характеристики</h1>
-        {/*         {product.info.map((info, index) =>
-          <Row key={info.id} style={{background: index % 2 === 0 ? 'lightgray' : 'transparent', padding: 10}}>
-            {info.title} : {info.description}
-          </Row>
-        )} */}
-      </Row>
+      
       <div className="d-flex">
         <p>Reviews</p>
+        {user.isAuth 
+        ? 
         <Col>
           <Button>Add a review</Button> 
         </Col> 
+        : <div></div>
+        }
+        
       </div>
       
       {product.reviews.map((review) => (

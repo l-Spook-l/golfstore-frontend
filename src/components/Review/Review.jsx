@@ -11,13 +11,13 @@ const Review = ({ username, comment, createdAt }) => {
 
   let timeCreate = 0;
   if (diffInHours === 0) {
-    timeCreate = "менее часа назад";
+  timeCreate = "less than an hour ago";
   } else if (diffInHours < 24) {
-    timeCreate = `${diffInHours} часов назад`;
+  timeCreate = `${diffInHours} hours ago`;
   } else if (diffInDays === 1) {
-    timeCreate = "вчера";
+  timeCreate = "yesterday";
   } else {
-    timeCreate = `${diffInDays} дней назад`;
+  timeCreate = `${diffInDays} days ago`;
   }
 
   return (

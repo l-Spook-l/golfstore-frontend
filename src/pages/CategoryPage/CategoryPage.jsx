@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { fetchOneCategory, fetchProductsByCategory } from '../../http/productAPI'
-import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Alert, Breadcrumb, Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 import { Context } from '../..'
 import PriceBar from '../../components/PriceBar'
@@ -9,6 +9,7 @@ import BrandBar from '../../components/BrandBar/BrandBar'
 import Paginations from '../../components/UI/Paginations/Paginations'
 import ProductList from '../../components/ProductList'
 import TypeBar from '../../components/TypeBar/TypeBar'
+import { MAIN_ROUTE } from '../../utils/consts'
 
 const CategoryPage = observer(() => {
   const { product } = useContext(Context);
@@ -63,9 +64,14 @@ const CategoryPage = observer(() => {
   //console.log('CategoryPage - product brands', product.brands)
   //console.log('CategoryPage - product types', product.types)
 
+  const category = slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+
   return (
     <Container style={{paddingTop: '63px'}}>
-      
+      <Breadcrumb className='mt-2'>
+        <Breadcrumb.Item href={MAIN_ROUTE}>Home</Breadcrumb.Item>
+        <Breadcrumb.Item active>{category}</Breadcrumb.Item>
+      </Breadcrumb>
       <Row className="mt-3">
         <Col md={10} className="d-flex flex-wrap mb-0 ">
         {product.selectedType.length !== 0 || product.selectedBrand.length !== 0

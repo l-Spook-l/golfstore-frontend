@@ -89,11 +89,9 @@ const Profile = observer(() => {
             </Alert>
           </Nav>
         </Col>
+        
         <Col md={9}>{view}</Col>
       </Row>
-      
-      
-
     </Container>
   );
 });

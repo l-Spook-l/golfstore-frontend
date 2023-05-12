@@ -1,9 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Accordion, Button, Col, Container, Row } from "react-bootstrap";
 import { Context } from "../..";
+import InDevelopmentModal from "../UI/InDevelopmentModal/InDevelopmentModal";
 
 const UserInfo = () => {
   const { user } = useContext(Context);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const closeModal = () => setShowModal(false);
 
   return (
     <Container style={{ paddingTop: "63px" }}>
@@ -23,7 +28,7 @@ const UserInfo = () => {
               </Col>
               <Col md={4}></Col>
             </Row>
-            <Button className="mt-4 bg-success">Edit</Button>
+            <Button onClick={() => setShowModal(true)} className="mt-4 bg-success">Edit</Button>
           </Accordion.Body>
         </Accordion.Item>
 
@@ -84,6 +89,7 @@ const UserInfo = () => {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
+      <InDevelopmentModal show={showModal} closeModal={closeModal}/>
     </Container>
   );
 };
