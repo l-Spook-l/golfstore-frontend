@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Card, Col, Image, Spinner } from "react-bootstrap";
+import { Card, Col, Image, Spinner } from "react-bootstrap";
 import { PRODUCT_ROUTE } from "../../utils/consts";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
@@ -139,7 +139,7 @@ const ProductItem = observer(({ product }) => {
   return (
     <Col md={3} className="mt-3">
       <Card style={{ width: 200 }} border="light">
-        <Button
+        <button
           className={style.butthonWishlist}
           onClick={() => {
             user.isAuth
@@ -148,7 +148,7 @@ const ProductItem = observer(({ product }) => {
           }}
         >
           {productOnWishList}
-        </Button>
+        </button>
         <Image
           style={{cursor: "pointer"}}
           onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}

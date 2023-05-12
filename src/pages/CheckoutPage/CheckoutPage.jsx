@@ -25,7 +25,7 @@ const CheckoutPage = () => {
   const totalPrice = user.basket.product.reduce((acc, el) => acc + el.product.price, 0);
 
   return (
-    <Container className="mb-5" style={{paddingTop: '63px'}}>
+    <Container className="my-5" style={{paddingTop: '63px'}}>
       <h2>Order checkout</h2>
       <Row className='mt-2 d-flex justify-content-between'>
         <Col md={3}>

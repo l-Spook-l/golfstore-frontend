@@ -41,30 +41,35 @@ const Basket = observer(() => {
   return (
     <Container style={{paddingTop: '63px'}}>
       <h2>My Cart</h2>
-      <Row className="my-1">
+      {user.basket.product.length > 0 
+        ? 
+        <Row className="my-1">
         <Col md={10}>
-        {user.basket.product.map((el) => (
+        {user.basket.product.map((el) => 
         <Row className="mt-3" key={el.product.id}>
           <Col md={2}>
             <Image width={100} height={100} src={el.product.photo} />
           </Col>
           <Col md={6}>
             <h5>{el.product.name}</h5>
-              <p>Quantity {el.quantity}</p>
+            <p>Quantity {el.quantity}</p>
             <p>{el.product.price} $</p>
           </Col>
           <Col md={2}>
             <Button onClick={() => deleteProduct(user.basket.id, el.product.id)} className="btn-danger">Delete</Button>
           </Col>
         </Row>
-        ))}
+        )}
         </Col>
         <Col md={2}>
-            <h5>Total amount</h5>
-            <p>{totalPrice} $</p>
-            <NavLink className={style.buttonOrder} to={CHECKOUT_ROUTE}>Place Order</NavLink>
-          </Col>
+          <h5>Total amount</h5>
+          <p>{totalPrice} $</p>
+          <NavLink className={style.buttonOrder} to={CHECKOUT_ROUTE}>Place Order</NavLink>
+        </Col>
       </Row>
+        : <h4 className="mt-5 text-muted">Cart is empty </h4>
+        }
+      
 
     </Container>
   );

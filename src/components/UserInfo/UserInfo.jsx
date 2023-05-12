@@ -23,7 +23,7 @@ const UserInfo = () => {
               </Col>
               <Col md={4}></Col>
             </Row>
-            <Button className="mt-4">Edit</Button>
+            <Button className="mt-4 bg-success">Edit</Button>
           </Accordion.Body>
         </Accordion.Item>
 
@@ -39,7 +39,7 @@ const UserInfo = () => {
                 {user.user.email}
               </Col>
             </Row>
-            <Button className="mt-4">Edit</Button>
+            <Button className="mt-4 bg-success">Edit</Button>
           </Accordion.Body>
         </Accordion.Item>
 
@@ -48,7 +48,7 @@ const UserInfo = () => {
             Delivery address
           </Accordion.Header>
           <Accordion.Body>
-            <Button className="mt-4">Edit</Button>
+            <Button className="mt-4 bg-success">Edit</Button>
           </Accordion.Body>
         </Accordion.Item>
 
@@ -64,7 +64,7 @@ const UserInfo = () => {
                 {user.user.email}
               </Col>
             </Row>
-            <Button className="mt-4">Edit</Button>
+            <Button className="mt-4 bg-success">Edit</Button>
           </Accordion.Body>
         </Accordion.Item>
 
@@ -80,7 +80,7 @@ const UserInfo = () => {
                 or private entrepreneur.
               </label>
             </div>
-            <Button className="mt-4">Edit</Button>
+            <Button className="mt-4 bg-success">Edit</Button>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>

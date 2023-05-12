@@ -14,7 +14,7 @@ const CheckoutForm = () => {
   };
 
   return (
-    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+    <Form noValidate validated={validated} onSubmit={handleSubmit} className="mt-3">
       <h3>Checkout Form</h3>
       <Row className="mb-3">
         <Form.Group as={Col} md="4" controlId="validationCustom01">

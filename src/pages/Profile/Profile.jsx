@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../..";
-import { Alert, Col, Container, Nav, Row } from "react-bootstrap";
+import { Accordion, Alert, Button, Card, Col, Container, Nav, Row } from "react-bootstrap";
 import Cart from "../../components/Cart/Cart";
 import { useLocation } from "react-router-dom";
 import Subscribes from "../../components/Subscribes/Subscribes";
@@ -91,6 +91,9 @@ const Profile = observer(() => {
         </Col>
         <Col md={9}>{view}</Col>
       </Row>
+      
+      
+
     </Container>
   );
 });

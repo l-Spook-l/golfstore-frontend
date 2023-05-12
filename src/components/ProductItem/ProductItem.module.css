@@ -1,14 +1,19 @@
 .butthonWishlist {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   color: rgb(205, 191, 5);
   position: absolute;
   top: 1px;
   right: 0;
   background-color: white;
   border: 0;
+  border-radius: 3px;
 }
 
 .butthonWishlist:hover {
   color: rgb(205, 191, 5);
   background-color: antiquewhite;
 }
+
+/* .butthonWishlist:focus {
+  background-color: black;
+} */

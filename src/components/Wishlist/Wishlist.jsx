@@ -76,7 +76,7 @@ const WishListPage = observer(() => {
             <Image width={180} height={180} src={el.product.photo} />
             <div>{el.product.name}</div>
             <div className="m-auto">
-              <div>{el.product.price}</div>
+              <div>{el.product.price} $</div>
             </div>
           </Card>
         ))}

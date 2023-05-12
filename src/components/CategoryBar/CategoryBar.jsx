@@ -1,38 +1,41 @@
-import React, { useContext } from 'react'
-import { Context } from '../..';
-import { Accordion } from 'react-bootstrap';
-import { observer } from 'mobx-react-lite';
+import React, { useContext, useState } from "react";
+import { Context } from "../..";
+import { Accordion, Form } from "react-bootstrap";
+import { observer } from "mobx-react-lite";
+import style from "./CategoryBar.module.css";
+import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
 const CategoryBar = observer(() => {
   const { product } = useContext(Context);
-  // console.log('selectedBrand', product.selectedBrand);
 
-  return (  
-    <Accordion className="mt-3" defaultActiveKey="0">
-      <Accordion.Item  className="border-0" eventKey="0">
-        <Accordion.Header style={{color: 'green'}}>Categories</Accordion.Header>
-        <Accordion.Body className="">
+  const [show, setShow] = useState(true);
+
+  return (
+    <Accordion bsPrefix="my-accordion" className="mt-3" defaultActiveKey="0">
+      <Accordion.Item className="border-0" eventKey="0">
+        <Accordion.Header className="my-3" onClick={() => setShow(!show)}>
+          <span className={style.accordionHeader}>Categories</span>
+          <span className={style.arrow}>
+            {show ? <AiOutlineMinus /> : <AiOutlinePlus />}
+          </span>
+        </Accordion.Header>
+        <Accordion.Body>
           {product.categories.map((category) => (
-            <div key={category.id} className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input me-3 "
-                checked={product.selectedCategory.includes(category)}
-                onChange={() => product.setSelectedCategory(category)}
-              />
-              <label
-                className="form-check-label"
-                style={{ cursor: "pointer" }}
-                onClick={() => product.setSelectedCategory(category)}
-              >
-                {category.name}
-              </label>
-            </div>
+            <Form.Check
+              key={category.id}
+              id={category.id}
+              type="checkbox"
+              label={category.name}
+              checked={product.selectedCategory.includes(category)}
+              onChange={() => product.setSelectedCategory(category)}
+              className={style.checkbox}
+            />
           ))}
         </Accordion.Body>
       </Accordion.Item>
+      <hr />
     </Accordion>
   );
 });
 
-export default CategoryBar
+export default CategoryBar;

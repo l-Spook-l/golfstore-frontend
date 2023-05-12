@@ -24,9 +24,6 @@ const PriceBar = observer(() => {
     product.setPriceMax(e.target.value)
   };
 
-  
-
-
   return (
     <div>
 
@@ -53,6 +50,7 @@ const PriceBar = observer(() => {
           style={{ width: '45%' }}
         />
       </div> 
+      <hr />
     </div>
   );
 });
