@@ -1,12 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../index";
-import {
-  Button,
-  Container,
-  Nav,
-  NavDropdown,
-  Navbar,
-} from "react-bootstrap";
+import { Button, Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import MyModal from "../../components/UI/MyModal/MyModal";
 import { observer } from "mobx-react-lite";
@@ -69,6 +63,10 @@ const NavBar = observer(() => {
     "Работает Navbar user.basket.product.length",
     user.basket.product.length
   );
+  console.log(
+    "Navbar product.categoriesForSelected",
+    product.categoriesForSelected
+  );
 
   return (
     <Container>
@@ -97,11 +95,35 @@ const NavBar = observer(() => {
           <Nav className="ms-auto align-items-center">
             {/* Навигаци вместо <a> - react-router-dom*/}
             <NavLink
-              className="text-muted text-decoration-none ms-2"
+              className={style.shopOnNavbar}
               to={SHOP_ROUTE}
             >
               Shop All
             </NavLink>
+            <NavDropdown className={style.dropdownMenuTitle} title="Brands" id="collasible-nav-dropdown-brands">
+              {product.brandsForSelected.map((el) => (
+                <NavDropdown.Item key={el.id}>
+                  <button
+                    className={style.dropdownMenu}
+                    onClick={() => navigate(`${BRAND_ROUTE}/${el.slug}`)}
+                  >
+                    {el.name}
+                  </button>
+                </NavDropdown.Item>
+              ))}
+            </NavDropdown>
+            <NavDropdown className={style.dropdownMenuTitle} title="Categories" id="collasible-nav-dropdown-categories">
+              {product.categoriesForSelected.map((el) => (
+                <NavDropdown.Item key={el.id}>
+                  <button
+                    className={style.dropdownMenu}
+                    onClick={() => navigate(`${CATEGORY_ROUTE}/${el.slug}`)}
+                  >
+                    {el.name}
+                  </button>
+                </NavDropdown.Item>
+              ))}
+            </NavDropdown>
             {/* <NavLink
               className="text-muted text-decoration-none ms-2"
               to={LOGIN_ROUTE}
@@ -118,34 +140,15 @@ const NavBar = observer(() => {
 
           <Nav>
             <NavLink
-              style={{
-                fontSize: "1.8rem",
-                color: "white",
-                position: "relative",
-                marginLeft: "1rem",
-              }}
-              to={{ pathname: PROFILE_ROUTE }} state="cart"
+              className={style.cart}
+              to={{ pathname: PROFILE_ROUTE }}
+              state="cart"
               onClick={!user.isAuth ? clickLogin : undefined}
             >
               <AiOutlineShoppingCart />
-              
+
               {user.basket.product.length > 0 && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "10px",
-                    right: "-5px",
-                    borderRadius: "50%",
-                    color: "white",
-                    fontSize: "1.1rem",
-                    width: "20px",
-                    height: "20px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    transform: "translate(50%, -50%)",
-                  }}
-                >
+                <div className={style.cartCount}>
                   {user.basket.product.length}
                 </div>
               )}
@@ -156,54 +159,26 @@ const NavBar = observer(() => {
             {user.isAuth ? (
               <div>
                 <NavLink
-                  style={{
-                    fontSize: "1.8rem",
-                    color: "white",
-                    position: "relative",
-                    marginLeft: "1rem",
-                  }}
-                  to={{ pathname: PROFILE_ROUTE }} state="wishlist"
+                  className={style.wishlist}
+                  to={{ pathname: PROFILE_ROUTE }}
+                  state="wishlist"
                 >
                   <AiOutlineHeart />
                   {user.wishList.product.length > 0 && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "10px",
-                        right: "-5px",
-                        borderRadius: "50%",
-                        color: "white",
-                        fontSize: "1.1rem",
-                        width: "20px",
-                        height: "20px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        transform: "translate(50%, -50%)",
-                      }}
-                    >
+                    <div className={style.wishlistCount}>
                       {user.wishList.product.length}
                     </div>
                   )}
                 </NavLink>
                 <NavLink
-                  style={{
-                    fontSize: "1.8rem",
-                    color: "white",
-                    position: "relative",
-                    marginLeft: "1rem",
-                  }}
-                  to={{ pathname: PROFILE_ROUTE }} state="userInfo"
+                  className={style.profile}
+                  to={{ pathname: PROFILE_ROUTE }}
+                  state="userInfo"
                 >
                   <AiOutlineProfile />
                 </NavLink>
                 <NavLink
-                  style={{
-                    fontSize: "1.8rem",
-                    color: "white",
-                    position: "relative",
-                    marginLeft: "1rem",
-                  }}
+                  className={style.login}
                   onClick={logOut}
                 >
                   <AiOutlineLogout />
@@ -211,12 +186,7 @@ const NavBar = observer(() => {
               </div>
             ) : (
               <NavLink
-                style={{
-                  fontSize: "1.8rem",
-                  color: "white",
-                  position: "relative",
-                  marginLeft: "1rem",
-                }}
+                className={style.logout}
                 onClick={clickLogin}
               >
                 <AiOutlineLogin />
@@ -239,7 +209,6 @@ const NavBar = observer(() => {
           onSwitchForm={handleSwitchForm}
         />
       )}
-
     </Container>
   );
 });

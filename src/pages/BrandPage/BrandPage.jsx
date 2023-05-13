@@ -18,6 +18,7 @@ import PriceBar from "../../components/PriceBar";
 import ProductList from "../../components/ProductList";
 import Paginations from "../../components/UI/Paginations/Paginations";
 import { MAIN_ROUTE } from "../../utils/consts";
+import style from "./BrandPage.module.css"
 
 const BrandPage = observer(() => {
   const { product } = useContext(Context);
@@ -37,7 +38,7 @@ const BrandPage = observer(() => {
       product.setTotalCount(data.count);
       console.log("brandPage - fetchProductsByBrand - data", data);
     });
-  }, []);
+  }, [slug]);
 
   useEffect(() => {
     fetchProductsByBrand(
@@ -85,7 +86,7 @@ const BrandPage = observer(() => {
     .join(" ");
 
   return (
-    <Container style={{ paddingTop: "63px" }}>
+    <Container className={style.forContainer}>
       <Breadcrumb className="mt-2">
         <Breadcrumb.Item>
           <NavLink to={MAIN_ROUTE}>Home</NavLink>
@@ -97,10 +98,10 @@ const BrandPage = observer(() => {
           {product.selectedType.length !== 0 ||
           product.selectedBrand.length !== 0 ? (
             <Button
-              style={{ height: "46px", marginRight: "10px" }}
+              className={style.clearButton}
               onClick={() => clearFilter()}
             >
-              Очистить
+              Clear
             </Button>
           ) : null}
           {product.selectedType.map((el) => (
@@ -119,22 +120,6 @@ const BrandPage = observer(() => {
               ></Button>
             </Alert>
           ))}
-
-          {/*             {product.selectedBrand.map((el) =>
-              <Alert 
-                key={el.id} 
-                variant="light" 
-                className="me-1 border text-dark p-2"  >
-                {el.name}
-                <Button 
-                  type="button" 
-                  className="ms-1 btn-close"
-                  style={{fontSize: 12}}  
-                  aria-label="Close" 
-                  onClick={() => product.setSelectedBrand(el)} 
-                ></Button>
-              </Alert>
-            )} */}
         </Col>
 
         <Col md={2} className="d-flex flex-wrap align-items-end">
@@ -144,9 +129,9 @@ const BrandPage = observer(() => {
             onChange={(e) => product.setOrdering(e.target.value)}
           >
             <option value="">Sorted by</option>
-            <option value="-time_create">Новинки</option>
-            <option value="price">Цена (От дешевых до дорогих)</option>
-            <option value="-price">Цена (От дорогих до дешевых)</option>
+            <option value="-time_create">New Arrivals</option>
+            <option value="price">Price (Low to High)</option>
+            <option value="-price">Price (High to Low)</option>
           </Form.Select>
         </Col>
       </Row>
@@ -155,8 +140,8 @@ const BrandPage = observer(() => {
         <Col md={3}>
           <Col md={9}>
             <CategoryBar />
-            <TypeBar />
             <PriceBar />
+            <TypeBar />
           </Col>
         </Col>
         <Col md={9}>

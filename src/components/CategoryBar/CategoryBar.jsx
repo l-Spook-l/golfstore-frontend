@@ -11,8 +11,8 @@ const CategoryBar = observer(() => {
   const [show, setShow] = useState(true);
 
   return (
-    <Accordion bsPrefix="my-accordion" className="mt-3" defaultActiveKey="0">
-      <Accordion.Item className="border-0" eventKey="0">
+    <Accordion bsPrefix="my-accordion" defaultActiveKey="0">
+      <Accordion.Item eventKey="0">
         <Accordion.Header className="my-3" onClick={() => setShow(!show)}>
           <span className={style.accordionHeader}>Categories</span>
           <span className={style.arrow}>

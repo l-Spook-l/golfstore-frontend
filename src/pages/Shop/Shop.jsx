@@ -22,7 +22,7 @@ import {
 import Paginations from "../../components/UI/Paginations/Paginations";
 import PriceBar from "../../components/PriceBar";
 import CategoryBar from "../../components/CategoryBar/CategoryBar";
-import style from "./Shop.module.css"
+import style from "./Shop.module.css";
 
 const Shop = observer(() => {
   const { product } = useContext(Context);
@@ -45,8 +45,7 @@ const Shop = observer(() => {
         product.setTotalCount(data.count);
         //console.log('shop - data', data)
         //console.log('shop - data.results', data.results)
-      })
-      .finally(() => setLoading(false));
+      }).finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -70,8 +69,7 @@ const Shop = observer(() => {
         //console.log('shop - product selectedType slug', product.selectedType.slug)
         //console.log('shop - product type2222222', product.types.slug)
         //console.log('shop - product brand222', product.brands)
-      })
-      .finally(() => setLoading(false));
+      }).finally(() => setLoading(false));
   }, [
     product.selectedType,
     product.selectedBrand,
@@ -94,7 +92,7 @@ const Shop = observer(() => {
   console.log('shop - product types', product.types) */
 
   if (loading) {
-    return <Spinner animation='grow'/>
+    return <Spinner animation="grow" />;
   }
 
   return (
@@ -104,10 +102,7 @@ const Shop = observer(() => {
           {product.selectedType.length !== 0 ||
           product.selectedBrand.length !== 0 ||
           product.selectedCategory.length !== 0 ? (
-            <button
-              className={style.clearButton}
-              onClick={() => clearFilter()}
-            >
+            <button className={style.clearButton} onClick={() => clearFilter()}>
               Clear
             </button>
           ) : null}

@@ -1,19 +1,18 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Context } from "..";
 
 const PriceBar = observer(() => {
   const { product } = useContext(Context);
-  
-  const prices = product.products.map((item) => item.price)
-  console.log('ProceBar price', prices)
-  const minPrice = prices.reduce((min, price) => (price < min ? price : min), prices[0]);
-  const maxPrice = prices.reduce((max, price) => (price > max ? price : max), prices[0]);
-  console.log('ProceBar minPrice', minPrice)
-  console.log('ProceBar maxPrice', maxPrice) 
-  product.setPriceMin(minPrice)
-  product.setPriceMax(maxPrice)
+
+  useEffect(() => {
+    const prices = product.products.map((item) => item.price)
+    const minPrice = prices.reduce((min, price) => (price < min ? price : min), prices[0]);
+    const maxPrice = prices.reduce((max, price) => (price > max ? price : max), prices[0]);
+    product.setPriceMin(minPrice)
+    product.setPriceMax(maxPrice)
+  },[])
  
   const changeMinPrice = (e) => {
     product.setPriceMin(e.target.value)
@@ -24,10 +23,8 @@ const PriceBar = observer(() => {
   };
 
   return (
-    <div>
-
+    <Form>
       <Form.Label>Price Range:</Form.Label>
-
       <div className="d-flex justify-content-between align-items-center">
         <Form.Control
           type="number"
@@ -50,7 +47,7 @@ const PriceBar = observer(() => {
         />
       </div> 
       <hr />
-    </div>
+    </Form>
   );
 });
 

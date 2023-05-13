@@ -20,7 +20,7 @@ import BrandPage from "./pages/BrandPage/BrandPage";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 
 export const authRoutes = [
-  /*   {
+    {
     path: PROFILE_ROUTE,
     Component: Profile,
   },
@@ -28,7 +28,7 @@ export const authRoutes = [
     path: CHECKOUT_ROUTE,
     Component: CheckoutPage,
   },
-  */
+ 
 ];
 
 // Доступ всем
@@ -62,12 +62,12 @@ export const publicRoutes = [
     Component: Auth,
   },
   /* -------------------------- */
-  {
+  /* {
     path: CHECKOUT_ROUTE,
     Component: CheckoutPage,
   },
   {
     path: PROFILE_ROUTE,
     Component: Profile,
-  },
+  }, */
 ];

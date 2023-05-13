@@ -40,9 +40,8 @@ const CategoryPage = observer(() => {
         product.setProducts(data.results);
         product.setTotalCount(data.count);
         console.log("CategoryPage - fetchProductsByCategory - data", data);
-      }
-    );
-  }, []);
+      });
+  }, [slug]);
 
   useEffect(() => {
     fetchProductsByCategory(
@@ -150,9 +149,9 @@ const CategoryPage = observer(() => {
             onChange={(e) => product.setOrdering(e.target.value)}
           >
             <option value="">Sorted by</option>
-            <option value="-time_create">Новинки</option>
-            <option value="price">Цена (От дешевых до дорогих)</option>
-            <option value="-price">Цена (От дорогих до дешевых)</option>
+            <option value="-time_create">New Arrivals</option>
+            <option value="price">Price (Low to High)</option>
+            <option value="-price">Price (High to Low)</option>
           </Form.Select>
         </Col>
       </Row>

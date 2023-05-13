@@ -18,3 +18,61 @@
 .logoContainer:hover {
   color: antiquewhite;
 }
+
+.shopOnNavbar {
+  margin-right: 12px;
+  color: white;
+  font-size: 21px;
+  text-decoration: none;
+}
+
+.shopOnNavbar:hover {
+  color: rgb(255, 255, 255);
+}
+
+.dropdownMenuTitle {
+  color: white;
+  margin-right: 8px;
+  font-size: 22px;
+}
+
+.dropdownMenu {
+  color: black;
+  width: 140px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+
+.cart,
+.wishlist,
+.profile,
+.login,
+.logout {
+  position: relative;
+  margin-right: 1rem;
+  color: white;
+  font-size: 1.8rem;
+}
+
+.cart:hover,
+.wishlist:hover,
+.profile:hover,
+.login:hover,
+.logout:hover {
+  color: white;
+}
+
+.cartCount,
+.wishlistCount {
+  position: absolute;
+  top: 10px;
+  right: -5px;
+  color: white;
+  font-size: 1.1rem;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(50%, -50%);
+}

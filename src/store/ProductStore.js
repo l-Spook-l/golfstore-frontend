@@ -24,6 +24,9 @@ export default class ProductStore {
     this._page = 1
     this._totalCount = 0
     // this._limit = 0
+    // Для navBar
+    this._brandsForSelected = []
+    this._categoriesForSelected = []
     makeAutoObservable(this); //  делает все свойства класса наблюдаемыми (отслеживаемыми).
   }
 
@@ -100,6 +103,12 @@ setSelectedType принимает тип продукта и устанавли
     this._totalCount = count
   }
 
+  setBrandsForSelected (brands) {
+    this._brandsForSelected = brands
+  }
+  setCategoriesForSelected (categories) {
+    this._categoriesForSelected = categories
+  }
 
   /* 
   В классах MobX геттеры используются для получения значений приватных полей класса. 
@@ -152,6 +161,12 @@ setSelectedType принимает тип продукта и устанавли
     return this._totalCount
   }
 
+  get brandsForSelected() {
+    return this._brandsForSelected
+  }
+  get categoriesForSelected() {
+    return this._categoriesForSelected
+  }
 }
 
 

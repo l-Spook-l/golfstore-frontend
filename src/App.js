@@ -8,11 +8,13 @@ import { check } from "./http/userAPI";
 import Footer from "./components/Footer/Footer";
 import { observer } from "mobx-react-lite";
 import { $authHost } from "./http";
-import { fetchBasket, fetchListProductsBasket, fetchListProductsWishList, fetchWishList } from "./http/productAPI";
+import { fetchBasket, fetchBrands, fetchCategories, fetchListProductsBasket, fetchListProductsWishList, fetchWishList } from "./http/productAPI";
 
 const App = observer(() => {
   // оплучаем состоянию пользователя
   const {user} = useContext(Context)
+  const { product } = useContext(Context);
+
 /*   console.log('App user', user)
   console.log('App user user', user.user)
   console.log('App user user name', user.user.username) */
@@ -23,6 +25,8 @@ const App = observer(() => {
 
   // При открытии 1 раз делаем проверку
   useEffect(() => {
+    fetchBrands().then((data) => product.setBrandsForSelected(data));
+    fetchCategories().then((data) => product.setCategoriesForSelected(data));
     console.log('начал работать useEffect check', user)
     check().then((data) => {
       user.setUser(data)
