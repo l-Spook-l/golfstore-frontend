@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../index";
 import {
-  Badge,
   Button,
   Container,
   Nav,
@@ -125,7 +124,7 @@ const NavBar = observer(() => {
                 position: "relative",
                 marginLeft: "1rem",
               }}
-              to={user.isAuth ? { pathname: PROFILE_ROUTE, state: "cart" } : "#"}
+              to={{ pathname: PROFILE_ROUTE }} state="cart"
               onClick={!user.isAuth ? clickLogin : undefined}
             >
               <AiOutlineShoppingCart />
@@ -194,8 +193,7 @@ const NavBar = observer(() => {
                     position: "relative",
                     marginLeft: "1rem",
                   }}
-                  to={{ pathname: PROFILE_ROUTE }}
-                  state="userInfo"
+                  to={{ pathname: PROFILE_ROUTE }} state="userInfo"
                 >
                   <AiOutlineProfile />
                 </NavLink>
@@ -242,17 +240,6 @@ const NavBar = observer(() => {
         />
       )}
 
-      {/* <MyModal 
-      showModal={showModal}
-      setShowModal={modalClose} 
-      title={showLogin ? 'Форма авторизации' : 'Форма регистрации'} >
-        {showLogin 
-        ? 
-        <FormLogin onSwitchForm={handleSwitchForm} />
-        :
-        <FormRegister onSwitchForm={handleSwitchForm} />
-        }
-    </MyModal> */}
     </Container>
   );
 });

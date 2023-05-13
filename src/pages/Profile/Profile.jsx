@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../..";
-import { Accordion, Alert, Button, Card, Col, Container, Nav, Row } from "react-bootstrap";
+import { Alert, Col, Container, Nav, Row } from "react-bootstrap";
 import Cart from "../../components/Cart/Cart";
 import { useLocation } from "react-router-dom";
 import Subscribes from "../../components/Subscribes/Subscribes";
@@ -45,6 +45,7 @@ const Profile = observer(() => {
         break;
     }
   };
+  console.log("jsdfj;dskgf;ksdg;f activeTab", activeTab);
 
   return (
     <Container style={{ paddingTop: "63px" }}>
@@ -52,44 +53,40 @@ const Profile = observer(() => {
         <Col md={3} className={style.blockWithMenu}>
           <Nav className="d-flex flex-column">
             <Alert
-              className={style.alertMenu}
+              className={`${style.alertMenu} ${activeTab === "userInfo" ? style.alertMenuActive : ""}`}
               onClick={() => blurHandler("userInfo")}
             >
-              {user.user.first_name} {user.user.last_name}{" "}
-              <p>{user.user.email}</p>
+              {user.user.first_name} {user.user.last_name}
+              <span>{user.user.email}</span>
             </Alert>
             <hr />
             <Alert
-              className={style.alertMenu}
+              className={`${style.alertMenu} ${activeTab === "cart" ? style.alertMenuActive : ""}`}
               onClick={() => blurHandler("cart")}
-              active={activeTab === "cart" ? "true" : "false"}
             >
               My Cart
             </Alert>
+
             <Alert
-              className={style.alertMenu}
+              className={`${style.alertMenu} ${activeTab === "wishlist" ? style.alertMenuActive : ""}`}
               onClick={() => blurHandler("wishlist")}
-              active={activeTab === "wishlist" ? "true" : "false"}
             >
               Wishlist
             </Alert>
             <Alert
-              className={style.alertMenu}
+              className={`${style.alertMenu} ${activeTab === "subscribe" ? style.alertMenuActive : ""}`}
               onClick={() => blurHandler("subscribe")}
-              active={activeTab === "subscribe" ? "true" : "false"}
             >
               Subscriptions
             </Alert>
             <Alert
-              className={style.alertMenu}
+              className={`${style.alertMenu} ${activeTab === "wallet" ? style.alertMenuActive : ""}`}
               onClick={() => blurHandler("wallet")}
-              active={activeTab === "wallet" ? "true" : "false"}
             >
               My Wallet
             </Alert>
           </Nav>
         </Col>
-        
         <Col md={9}>{view}</Col>
       </Row>
     </Container>

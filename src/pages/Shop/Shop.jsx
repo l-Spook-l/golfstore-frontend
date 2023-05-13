@@ -22,6 +22,7 @@ import {
 import Paginations from "../../components/UI/Paginations/Paginations";
 import PriceBar from "../../components/PriceBar";
 import CategoryBar from "../../components/CategoryBar/CategoryBar";
+import style from "./Shop.module.css"
 
 const Shop = observer(() => {
   const { product } = useContext(Context);
@@ -92,9 +93,9 @@ const Shop = observer(() => {
   console.log('shop - product brands', product.brands)
   console.log('shop - product types', product.types) */
 
-  /* if (loading) {
+  if (loading) {
     return <Spinner animation='grow'/>
-  } */
+  }
 
   return (
     <Container style={{ paddingTop: "63px" }}>
@@ -103,12 +104,12 @@ const Shop = observer(() => {
           {product.selectedType.length !== 0 ||
           product.selectedBrand.length !== 0 ||
           product.selectedCategory.length !== 0 ? (
-            <Button
-              style={{ height: "46px", marginRight: "10px" }}
+            <button
+              className={style.clearButton}
               onClick={() => clearFilter()}
             >
-              Очистить
-            </Button>
+              Clear
+            </button>
           ) : null}
           {product.selectedCategory.map((el) => (
             <Alert

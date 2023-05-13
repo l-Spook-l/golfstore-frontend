@@ -16,7 +16,7 @@ export default class ProductStore {
 
     // 
     this._priceMin = 0
-    this._priceMax = 1
+    this._priceMax = 10000
     
     // Сортировка по, цене, дате создания
     this._ordering = ''
@@ -81,7 +81,6 @@ setSelectedType принимает тип продукта и устанавли
       this._selectedCategory = this._selectedCategory.filter((selectedCategory) => selectedCategory !== category)
     }
   }
-
 
   setPriceMin(price){
     this._priceMin = price

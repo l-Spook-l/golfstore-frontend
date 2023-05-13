@@ -1,34 +1,47 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { fetchOneCategory, fetchProductsByCategory } from '../../http/productAPI'
-import { Alert, Breadcrumb, Button, Col, Container, Form, Row } from 'react-bootstrap'
-import { observer } from 'mobx-react-lite'
-import { Context } from '../..'
-import PriceBar from '../../components/PriceBar'
-import BrandBar from '../../components/BrandBar/BrandBar'
-import Paginations from '../../components/UI/Paginations/Paginations'
-import ProductList from '../../components/ProductList'
-import TypeBar from '../../components/TypeBar/TypeBar'
-import { MAIN_ROUTE } from '../../utils/consts'
+import React, { useContext, useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
+import {
+  fetchOneCategory,
+  fetchProductsByCategory,
+} from "../../http/productAPI";
+import {
+  Alert,
+  Breadcrumb,
+  Button,
+  Col,
+  Container,
+  Form,
+  Row,
+} from "react-bootstrap";
+import { observer } from "mobx-react-lite";
+import { Context } from "../..";
+import PriceBar from "../../components/PriceBar";
+import BrandBar from "../../components/BrandBar/BrandBar";
+import Paginations from "../../components/UI/Paginations/Paginations";
+import ProductList from "../../components/ProductList";
+import TypeBar from "../../components/TypeBar/TypeBar";
+import { MAIN_ROUTE } from "../../utils/consts";
 
 const CategoryPage = observer(() => {
   const { product } = useContext(Context);
-  
-  const {slug} = useParams()
-  console.log('slug', slug)
+
+  const { slug } = useParams();
+  console.log("slug", slug);
 
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
     fetchOneCategory(slug).then((data) => {
-      product.setTypes(data.type)
-      product.setBrands(data.brand)
-      console.log('CategoryPage - fetchOneCategory - data', data)
-    })
-    fetchProductsByCategory(slug, null, null, 1, null, null, null).then((data) => {
-      product.setProducts(data.results);
-      product.setTotalCount(data.count);
-      console.log('CategoryPage - fetchProductsByCategory - data', data)
+      product.setTypes(data.type);
+      product.setBrands(data.brand);
+      console.log("CategoryPage - fetchOneCategory - data", data);
     });
+    fetchProductsByCategory(slug, null, null, 1, null, null, null).then(
+      (data) => {
+        product.setProducts(data.results);
+        product.setTotalCount(data.count);
+        console.log("CategoryPage - fetchProductsByCategory - data", data);
+      }
+    );
   }, []);
 
   useEffect(() => {
@@ -39,7 +52,7 @@ const CategoryPage = observer(() => {
       product.page,
       product.priceMin,
       product.priceMax,
-      product.ordering,
+      product.ordering
     ).then((data) => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
@@ -50,12 +63,19 @@ const CategoryPage = observer(() => {
       console.log('category page - product brand', product.brands)
       console.log('category page - product selectedType', product.selectedType) */
     });
-  }, [product.selectedType, product.selectedBrand, product.page, product.priceMin, product.priceMax, product.ordering]);
+  }, [
+    product.selectedType,
+    product.selectedBrand,
+    product.page,
+    product.priceMin,
+    product.priceMax,
+    product.ordering,
+  ]);
 
   const clearFilter = () => {
-    product.setSelectedType('clear')
-    product.setSelectedBrand('clear')
-  }
+    product.setSelectedType("clear");
+    product.setSelectedBrand("clear");
+  };
 
   //console.log('category', category)
   //console.log('category results', category.results[0].name)
@@ -64,63 +84,77 @@ const CategoryPage = observer(() => {
   //console.log('CategoryPage - product brands', product.brands)
   //console.log('CategoryPage - product types', product.types)
 
-  const category = slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  const category = slug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 
   return (
-    <Container style={{paddingTop: '63px'}}>
-      <Breadcrumb className='mt-2'>
-        <Breadcrumb.Item href={MAIN_ROUTE}>Home</Breadcrumb.Item>
+    <Container style={{ paddingTop: "63px" }}>
+      <Breadcrumb className="mt-2">
+        <Breadcrumb.Item>
+          <NavLink to={MAIN_ROUTE}>Home</NavLink>
+        </Breadcrumb.Item>
         <Breadcrumb.Item active>{category}</Breadcrumb.Item>
       </Breadcrumb>
       <Row className="mt-3">
         <Col md={10} className="d-flex flex-wrap mb-0 ">
-        {product.selectedType.length !== 0 || product.selectedBrand.length !== 0
-         ? <Button style={{height: '46px', marginRight: '10px'}} onClick={() => clearFilter()}>Очистить</Button>
-         : null
-         }
-          {product.selectedType.map((el) => 
-            <Alert 
+          {product.selectedType.length !== 0 ||
+          product.selectedBrand.length !== 0 ? (
+            <Button
+              style={{ height: "46px", marginRight: "10px" }}
+              onClick={() => clearFilter()}
+            >
+              Очистить
+            </Button>
+          ) : null}
+          {product.selectedType.map((el) => (
+            <Alert
               key={el.id}
-              variant="light" 
-              className="me-1 border text-dark p-2"  >
-              {el.name  }
-              <Button 
-                type="button" 
+              variant="light"
+              className="me-1 border text-dark p-2"
+            >
+              {el.name}
+              <Button
+                type="button"
                 className="ms-1 btn-close"
-                style={{fontSize: 12}}
-                aria-label="Close" 
-                onClick={() => product.setSelectedType(el)} 
+                style={{ fontSize: 12 }}
+                aria-label="Close"
+                onClick={() => product.setSelectedType(el)}
               ></Button>
             </Alert>
-            )}
+          ))}
 
-            {product.selectedBrand.map((el) =>
-              <Alert 
-                key={el.id} 
-                variant="light" 
-                className="me-1 border text-dark p-2"  >
-                {el.name}
-                <Button 
-                  type="button" 
-                  className="ms-1 btn-close"
-                  style={{fontSize: 12}}  
-                  aria-label="Close" 
-                  onClick={() => product.setSelectedBrand(el)} 
-                ></Button>
-              </Alert>
-            )}
+          {product.selectedBrand.map((el) => (
+            <Alert
+              key={el.id}
+              variant="light"
+              className="me-1 border text-dark p-2"
+            >
+              {el.name}
+              <Button
+                type="button"
+                className="ms-1 btn-close"
+                style={{ fontSize: 12 }}
+                aria-label="Close"
+                onClick={() => product.setSelectedBrand(el)}
+              ></Button>
+            </Alert>
+          ))}
         </Col>
-        
+
         <Col md={2} className="d-flex flex-wrap align-items-end">
           {/* Сортировка по убыванию и возрастанию цены, дате создания */}
-          <Form.Select className="mt-4" onChange={(e) => product.setOrdering(e.target.value)}>
+          <Form.Select
+            className="mt-4"
+            onChange={(e) => product.setOrdering(e.target.value)}
+          >
             <option value="">Sorted by</option>
             <option value="-time_create">Новинки</option>
             <option value="price">Цена (От дешевых до дорогих)</option>
             <option value="-price">Цена (От дорогих до дешевых)</option>
           </Form.Select>
         </Col>
-
       </Row>
       <hr />
       <Row>
@@ -138,6 +172,6 @@ const CategoryPage = observer(() => {
       </Row>
     </Container>
   );
-})
+});
 
-export default CategoryPage
+export default CategoryPage;

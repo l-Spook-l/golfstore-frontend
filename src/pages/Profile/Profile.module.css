@@ -1,23 +1,20 @@
 .alertMenu {
+  display: flex;
+  flex-direction: column;
   cursor: pointer;
-  background-color:burlywood;
+  background-color:rgb(255, 255, 255);
+  border: 1px solid rgba(0, 0, 0, 0.35);
   color: black;
 }
 
 .alertMenu:hover {
-  background-color:cadetblue;
+  background-color:rgb(99, 214, 151);
 }
 
-.alertMenu.active {
-  /* Стили для активного состояния */
-  background-color:rgb(42, 49, 49);
-
+.alertMenuActive {
+  background-color:rgb(99, 214, 151);
 }
 
-.alertMenu.inactive {
-  /* Стили для неактивного состояния */
-  background-color: darkgoldenrod;
-}
 .blockWithMenu {
-  margin: 70px 0 200px 0;
+  margin: 80px 0 200px 0;
 }

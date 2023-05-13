@@ -3,14 +3,15 @@ import { Button, Col, Container, Image, Row, Spinner } from "react-bootstrap";
 import { Context } from "../..";
 import { observer } from "mobx-react-lite";
 import { deleteProductFromBasket, fetchListProductsBasket } from "../../http/productAPI";
-import { NavLink } from "react-router-dom";
-import { CHECKOUT_ROUTE } from "../../utils/consts";
+import { NavLink, useNavigate } from "react-router-dom";
+import { CHECKOUT_ROUTE, PRODUCT_ROUTE } from "../../utils/consts";
 import style from "./Cart.module.css"
 
 const Basket = observer(() => {
   const { user } = useContext(Context);
 
   const [loading, setLoading] = useState(true)
+  const navigate = useNavigate();
 
   /* console.log('Basket user', user)
   console.log('Basket user user', user.user)
@@ -37,7 +38,12 @@ const Basket = observer(() => {
   }
 
   const totalPrice = user.basket.product.reduce((acc, el) => acc + el.product.price, 0);
-
+  const productSlug = (productName) => 
+    {
+      const name = productName.toLowerCase().replace(/\'/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      return name
+    } 
+    
   return (
     <Container style={{paddingTop: '63px'}}>
       <h2>My Cart</h2>
@@ -48,7 +54,9 @@ const Basket = observer(() => {
         {user.basket.product.map((el) => 
         <Row className="mt-3" key={el.product.id}>
           <Col md={2}>
-            <Image width={100} height={100} src={el.product.photo} />
+            <Image width={100} height={100} src={el.product.photo}
+            onClick={() => navigate(`${PRODUCT_ROUTE}/${productSlug(el.product.name)}`)}
+            />
           </Col>
           <Col md={6}>
             <h5>{el.product.name}</h5>

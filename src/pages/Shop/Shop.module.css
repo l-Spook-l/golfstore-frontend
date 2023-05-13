@@ -1,0 +1,15 @@
+.clearButton {
+  height: 46px;
+  width: 70px;
+  margin-right: 10px;
+  color: black;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 8px;
+}
+
+
+.clearButton:hover {
+  color: antiquewhite;
+  background-color: rgb(200, 0, 0);
+}
