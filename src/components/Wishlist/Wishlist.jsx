@@ -16,11 +16,14 @@ import {
 } from "../../http/productAPI";
 import { FaTimes } from "react-icons/fa";
 import style from "./Wishlist.module.css";
+import { PRODUCT_ROUTE } from "../../utils/consts";
+import { useNavigate } from "react-router-dom";
 
 const WishListPage = observer(() => {
   const { user } = useContext(Context);
 
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   /* console.log("wishList user wishList", user.wishList);
   console.log("wishList user wishList", user.wishList.id);
@@ -51,6 +54,12 @@ const WishListPage = observer(() => {
     user.setWishList({ id: wishListId, product: wishList });
   };
 
+  const productSlug = (productName) => 
+    {
+      const name = productName.toLowerCase().replace(/\'/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      return name
+    } 
+
   if (loading) {
     return <Spinner animation="grow" />;
   }
@@ -73,7 +82,9 @@ const WishListPage = observer(() => {
                 <FaTimes />
               </Button>
             </Col>
-            <Image width={180} height={180} src={el.product.photo} />
+            <Image width={180} height={180} src={el.product.photos[0]['image']} 
+            onClick={() => navigate(`${PRODUCT_ROUTE}/${productSlug(el.product.name)}`)}
+            />
             <div>{el.product.name}</div>
             <div className="m-auto">
               <div>{el.product.price} $</div>

@@ -10,3 +10,9 @@
   background-color: rgb(57, 176, 57);
   color: white;
 }
+
+.image {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}

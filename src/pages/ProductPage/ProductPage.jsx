@@ -7,6 +7,7 @@ import { CATEGORY_ROUTE, MAIN_ROUTE } from "../../utils/consts";
 import { Context } from "../..";
 import style from "./ProductPage.module.css";
 import PhotoModal from "../../components/UI/PhotoModal/PhotoModal";
+import ProductSlider from "../../components/UI/ProductSlider/ProductSlider";
 
 const ProductPage = () => {
   const { user } = useContext(Context);
@@ -68,16 +69,9 @@ const ProductPage = () => {
             onClick={() => openModal(product.photos[mainPhoto]["image"])}
             src={product.photos[mainPhoto]["image"]}
           />
-          <div className="d-flex">
-            {product.photos.map((el, id) => (
-              <Image
-                className={style.selectPhoto}
-                onClick={() => chageMainPhoto(id)}
-                src={el.image}
-              ></Image>
-            ))}
-          </div>
+          <ProductSlider photos={product.photos} onSelect={chageMainPhoto}/>
         </Col>
+
         <Col md={4}>
           <Row className="d-flex flex-column align-items-center">
             <h2>{product.name}</h2>

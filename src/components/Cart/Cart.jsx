@@ -54,7 +54,7 @@ const Basket = observer(() => {
         {user.basket.product.map((el) => 
         <Row className="mt-3" key={el.product.id}>
           <Col md={2}>
-            <Image width={100} height={100} src={el.product.photo}
+            <Image className={style.image} src={el.product.photos[0]['image']}
             onClick={() => navigate(`${PRODUCT_ROUTE}/${productSlug(el.product.name)}`)}
             />
           </Col>

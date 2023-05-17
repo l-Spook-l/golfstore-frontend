@@ -4,7 +4,7 @@ import { Context } from "../..";
 import { fetchBrands, fetchCategories, fetchProducts, fetchTypes } from "../../http/productAPI";
 import { NavLink, useNavigate } from "react-router-dom";
 import { BRAND_ROUTE, CATEGORY_ROUTE, PRODUCT_ROUTE, SHOP_ROUTE } from "../../utils/consts";
-import Slider from "../../components/UI/Slider/Slider";
+import SliderForMainPage from "../../components/UI/SliderForMainPage/SliderForMainPage";
 import { Button, Card, Col, Container, Fade, Image, Row, Spinner } from "react-bootstrap";
 import golf_clothing_photo from "../../assets/golf-clothing-main-page.png";
 import golf_brands_photo from "../../assets/golf-brands-main-page.png";
@@ -82,7 +82,7 @@ const MainPage = observer(() => {
 
   return (
     <div style={{paddingTop: '63px'}}>
-      <Slider />
+      <SliderForMainPage />
       <Container>
 
         <h2 className={style.sectionTitle}>Categories</h2>

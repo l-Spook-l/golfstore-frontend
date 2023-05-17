@@ -4,7 +4,7 @@ import sliderCallaway from "../../../assets/for main page callaway.png"
 import sliderElectronic from "../../../assets/trackman for main page.png"
 import sliderAdidas from "../../../assets/adidas for main page.png"
 
-import style from "./Slider.module.css"
+import style from "./SliderForMainPage.module.css"
 import { BRAND_ROUTE, CATEGORY_ROUTE } from "../../../utils/consts";
 import { NavLink } from "react-router-dom";
 
