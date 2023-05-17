@@ -18,20 +18,6 @@ const ProductItem = observer(({ product }) => {
 
   const navigate = useNavigate();
 
-  useEffect(
-    () => {
-      console.log("получил такой товар useEffect", product.name);
-      fetchListProductsBasket(user.basket.id).then((products) => {
-        user.setBasket({ id: user.basket.id, product: products.results });
-      });
-      fetchListProductsWishList(user.wishList.id)
-        .then((products) => {
-          user.setWishList({ id: user.wishList.id, product: products.results });
-        }).finally(() => setLoading(false));
-    },
-    [/* user.basket.product.length, user.wishList.product.length */]
-  );
-
   const [productOnBasket, setProductOnBasket] = useState(
     user.basket.product.filter((item) => item.product.id === product.id).length > 0
     ? <BsFillCartCheckFill />
@@ -154,7 +140,8 @@ const ProductItem = observer(({ product }) => {
           onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}
           width={200}
           height={200}
-          src={product.photo}
+          src={product.photos && product.photos.length > 0 ? product.photos[0].image : '#'}
+
         />
         <div onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}>
           {product.name}

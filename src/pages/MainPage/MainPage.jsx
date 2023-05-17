@@ -101,7 +101,7 @@ const MainPage = observer(() => {
         <Row style={{display: 'flex', justifyContent: 'space-around'}}>
           {product.products.slice(0, 4).map((el) => 
             <Card style={{ width: 280, cursor: "pointer",  }} border="light" key={el.id}>
-              <Image width={250} height={250} src={el.photo} 
+              <Image width={250} height={250} src={el.photos[0]['image']} 
                 onClick={() => navigate(`${PRODUCT_ROUTE}/${el.slug}`)}
               />
               <p>{el.name}</p>

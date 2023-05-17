@@ -1,0 +1,16 @@
+.mainPhoto {
+  width: 300px;
+  height: 300px;
+  cursor: pointer;
+}
+
+.selectPhoto {
+  width: 50px;
+  height: 50px;
+  margin: 10px 0 0 10px;
+  cursor: pointer;
+}
+
+.selectPhoto:hover {
+  border: 1px solid black;
+}

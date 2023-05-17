@@ -14,11 +14,11 @@ import {
 } from "react-bootstrap";
 import CategoryBar from "../../components/CategoryBar/CategoryBar";
 import TypeBar from "../../components/TypeBar/TypeBar";
-import PriceBar from "../../components/PriceBar";
+import PriceBar from "../../components/PriceBar/PriceBar";
 import ProductList from "../../components/ProductList";
 import Paginations from "../../components/UI/Paginations/Paginations";
 import { MAIN_ROUTE } from "../../utils/consts";
-import style from "./BrandPage.module.css"
+import style from "./BrandPage.module.css";
 
 const BrandPage = observer(() => {
   const { product } = useContext(Context);
@@ -97,10 +97,7 @@ const BrandPage = observer(() => {
         <Col md={10} className="d-flex flex-wrap mb-0 ">
           {product.selectedType.length !== 0 ||
           product.selectedBrand.length !== 0 ? (
-            <Button
-              className={style.clearButton}
-              onClick={() => clearFilter()}
-            >
+            <Button className={style.clearButton} onClick={() => clearFilter()}>
               Clear
             </Button>
           ) : null}

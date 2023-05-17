@@ -21,10 +21,10 @@ export const fetchProducts = async(type, brand, category, page, min_price, max_p
   const response = await $host.get('api/v1/product/', {params:{
     type, brand, category, page, min_price, max_price, ordering
   }})
-/*   console.log('product API - response', response)
+  console.log('product API - response', response)
   console.log('product API - type, brand, page', type, brand, page)
   console.log('product API - response data', response.data)
-  console.log('product API - response data result', response.data.results) */
+  console.log('product API - response data result', response.data.results)
   return response.data
 }
 

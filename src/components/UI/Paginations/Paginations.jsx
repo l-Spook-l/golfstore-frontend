@@ -6,7 +6,7 @@ import { Pagination } from 'react-bootstrap'
 const Paginations = observer(() => {
   const {product} = useContext(Context)
 
-  const limit = 25
+  const limit = 24
   // console.log('pagination product', product)
 
   const pagesCount = Math.ceil(product.totalCount / limit)

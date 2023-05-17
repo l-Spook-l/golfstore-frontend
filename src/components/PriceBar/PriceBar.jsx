@@ -1,25 +1,18 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import { Context } from "..";
+import React, { useContext, useState } from "react";
+import { Form } from "react-bootstrap";
+import { Context } from "../..";
+import style from "./PriceBar.module.css";
 
 const PriceBar = observer(() => {
   const { product } = useContext(Context);
 
-  useEffect(() => {
-    const prices = product.products.map((item) => item.price)
-    const minPrice = prices.reduce((min, price) => (price < min ? price : min), prices[0]);
-    const maxPrice = prices.reduce((max, price) => (price > max ? price : max), prices[0]);
-    product.setPriceMin(minPrice)
-    product.setPriceMax(maxPrice)
-  },[])
- 
   const changeMinPrice = (e) => {
-    product.setPriceMin(e.target.value)
+    product.setPriceMin(e.target.value);
   };
 
   const changeMaxPrice = (e) => {
-    product.setPriceMax(e.target.value)
+    product.setPriceMax(e.target.value);
   };
 
   return (
@@ -33,9 +26,8 @@ const PriceBar = observer(() => {
           max={product.priceMax}
           value={product.priceMin}
           onChange={changeMinPrice}
-          style={{ width: '45%' }}
-        />
-
+          className={style.customNumberInput}
+        />  $
         <Form.Control
           type="number"
           defaultValue={product.priceMax}
@@ -43,9 +35,9 @@ const PriceBar = observer(() => {
           max={product.priceMax}
           value={product.priceMax}
           onChange={changeMaxPrice}
-          style={{ width: '45%' }}
-        />
-      </div> 
+          className={style.customNumberInput}
+        />$
+      </div>
       <hr />
     </Form>
   );

@@ -17,7 +17,6 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-
   // Были ли мы в ipnut
   const [usernameDirty, setUsernameDirty] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);

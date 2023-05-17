@@ -1,29 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Breadcrumb,
-  Button,
-  Card,
-  Col,
-  Container,
-  Image,
-  Row,
-  Spinner,
-} from "react-bootstrap";
+import { Breadcrumb, Button, Card, Col, Container, Image, Row, Spinner } from "react-bootstrap";
 import { NavLink, useParams } from "react-router-dom";
 import { fetchOneProduct } from "../../http/productAPI";
 import Review from "../../components/Review/Review";
 import { CATEGORY_ROUTE, MAIN_ROUTE } from "../../utils/consts";
 import { Context } from "../..";
+import style from "./ProductPage.module.css";
+import PhotoModal from "../../components/UI/PhotoModal/PhotoModal";
 
 const ProductPage = () => {
+  const { user } = useContext(Context);
+
   const [product, setProduct] = useState({ info: [] });
-  const {user} = useContext(Context)
+
+  const [showModal, setShowModal] = useState(false);
+  const [mainPhoto, setMainPhoto] = useState(0);
+  const [selectedPhoto, setSelectedPhoto] = useState(0);
 
   // id нашего продукта
   const { slug } = useParams();
-  console.log("params in product one", { slug });
-  //console.log('product in product one', product)
-  //console.log('product in product one name', product.name)
 
   const [loading, setLoading] = useState(true);
 
@@ -31,22 +26,32 @@ const ProductPage = () => {
     fetchOneProduct(slug)
       .then((data) => setProduct(data))
       .finally(() => setLoading(false));
-    /* console.log('data one ', data) */
   }, []);
+
+  const openModal = (image) => {
+    setSelectedPhoto(image);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const chageMainPhoto = (id) => {
+    setMainPhoto(id);
+  };
 
   if (loading) {
     return <Spinner animation="grow" />;
   }
 
-  const typeSlug = product.category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  const typeSlug = product.category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
   return (
     <Container style={{ paddingTop: "100px" }}>
       <Breadcrumb>
         <Breadcrumb.Item>
-          <NavLink to={MAIN_ROUTE}>
-            Home
-          </NavLink>
+          <NavLink to={MAIN_ROUTE}>Home</NavLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
           <NavLink to={`${CATEGORY_ROUTE}/${typeSlug}`}>
@@ -54,17 +59,28 @@ const ProductPage = () => {
           </NavLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>
-      </Breadcrumb> 
+      </Breadcrumb>
       <hr />
       <Row className="mb-5">
-        <Col md={4}>
-          <Image width={300} height={300} src={product.photo} />
-          {/* {product.photo.map((el) => <Image width={50} height={50}></Image>)} */}
+        <Col md={4} className="d-flex flex-column">
+          <Image
+            className={style.mainPhoto}
+            onClick={() => openModal(product.photos[mainPhoto]["image"])}
+            src={product.photos[mainPhoto]["image"]}
+          />
+          <div className="d-flex">
+            {product.photos.map((el, id) => (
+              <Image
+                className={style.selectPhoto}
+                onClick={() => chageMainPhoto(id)}
+                src={el.image}
+              ></Image>
+            ))}
+          </div>
         </Col>
         <Col md={4}>
           <Row className="d-flex flex-column align-items-center">
             <h2>{product.name}</h2>
-            
           </Row>
         </Col>
         <Col md={4}>
@@ -78,35 +94,36 @@ const ProductPage = () => {
             }}
           >
             <h3>{product.price} $</h3>
-            <p>Quantity  - +</p>
+            <p>Quantity - +</p>
             <Button variant="outline-dark">Добавить в корзину</Button>
           </Card>
         </Col>
       </Row>
-      
+
       <div className="d-flex">
         <p>Reviews</p>
-        {user.isAuth 
-        ? 
-        <Col>
-          <Button>Add a review</Button> 
-        </Col> 
-        : <div></div>
-        }
-        
+        {user.isAuth ? (
+          <Col>
+            <Button>Add a review</Button>
+          </Col>
+        ) : (
+          <div></div>
+        )}
       </div>
-      
+
       {product.reviews.map((review) => (
         <Row key={review.id}>
           <Review
             key={review.id}
             username={review.username}
             comment={review.comment}
-            createdAt={review.created_at} 
+            createdAt={review.created_at}
           />
-         </Row>
+        </Row>
       ))}
-      
+      {showModal && (
+        <PhotoModal image={selectedPhoto} onClose={handleCloseModal} />
+      )}
     </Container>
   );
 };

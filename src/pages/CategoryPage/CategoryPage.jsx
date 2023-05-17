@@ -15,7 +15,7 @@ import {
 } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
-import PriceBar from "../../components/PriceBar";
+import PriceBar from "../../components/PriceBar/PriceBar";
 import BrandBar from "../../components/BrandBar/BrandBar";
 import Paginations from "../../components/UI/Paginations/Paginations";
 import ProductList from "../../components/ProductList";
@@ -40,7 +40,8 @@ const CategoryPage = observer(() => {
         product.setProducts(data.results);
         product.setTotalCount(data.count);
         console.log("CategoryPage - fetchProductsByCategory - data", data);
-      });
+      }
+    );
   }, [slug]);
 
   useEffect(() => {

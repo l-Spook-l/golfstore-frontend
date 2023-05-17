@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
   Alert,
+  Breadcrumb,
   Button,
   Col,
   Container,
@@ -20,9 +21,11 @@ import {
   fetchCategories,
 } from "../../http/productAPI";
 import Paginations from "../../components/UI/Paginations/Paginations";
-import PriceBar from "../../components/PriceBar";
+import PriceBar from "../../components/PriceBar/PriceBar";
 import CategoryBar from "../../components/CategoryBar/CategoryBar";
 import style from "./Shop.module.css";
+import { MAIN_ROUTE } from "../../utils/consts";
+import { NavLink } from "react-router-dom";
 
 const Shop = observer(() => {
   const { product } = useContext(Context);
@@ -45,7 +48,8 @@ const Shop = observer(() => {
         product.setTotalCount(data.count);
         //console.log('shop - data', data)
         //console.log('shop - data.results', data.results)
-      }).finally(() => setLoading(false));
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -69,7 +73,8 @@ const Shop = observer(() => {
         //console.log('shop - product selectedType slug', product.selectedType.slug)
         //console.log('shop - product type2222222', product.types.slug)
         //console.log('shop - product brand222', product.brands)
-      }).finally(() => setLoading(false));
+      })
+      .finally(() => setLoading(false));
   }, [
     product.selectedType,
     product.selectedBrand,
@@ -97,6 +102,12 @@ const Shop = observer(() => {
 
   return (
     <Container style={{ paddingTop: "63px" }}>
+      <Breadcrumb className="mt-2">
+        <Breadcrumb.Item>
+          <NavLink to={MAIN_ROUTE}>Home</NavLink>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item active>Shop All</Breadcrumb.Item>
+      </Breadcrumb>
       <Row className="mt-3">
         <Col md={10} className="d-flex flex-wrap mb-0 ">
           {product.selectedType.length !== 0 ||
