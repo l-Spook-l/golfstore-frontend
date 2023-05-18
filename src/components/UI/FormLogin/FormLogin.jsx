@@ -112,7 +112,7 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>Форма авторизации</Modal.Title>
+        <Modal.Title >Log In</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -157,9 +157,9 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
           
           <Row className="mt-2">
             <Col md={8} className="d-flex">
-              Нет аккаунта?
+              No account?
               <Button className="ms-2" type="button" onClick={onSwitchForm}>
-                Зарегистрируйтесь!
+                Sign up!
               </Button>
             </Col>
             <Col className="d-flex justify-content-end">

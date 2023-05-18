@@ -26,19 +26,9 @@ const Paginations = observer(() => {
 
   return (
     <Pagination className='mt-5'>
-      {/* {pages.map((page) => 
-        <Pagination.First 
-          key={page}
-          active={product.page === page}
-          onClick={() => product.setPage(page)}
-        >
-          {page}
-        </Pagination.First>
-      )} */}
       {pages.map((page) => 
         <div 
           key={page}
-          active={product.page === page}
           onClick={() => selectPage(page)}
           className={`${style.button} ${page === activePage ? style.buttonActive : style.buttonInactive}`}
         >

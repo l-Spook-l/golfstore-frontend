@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Breadcrumb, Button, Card, Col, Container, Image, Row, Spinner } from "react-bootstrap";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { fetchOneProduct } from "../../http/productAPI";
 import Review from "../../components/Review/Review";
 import { CATEGORY_ROUTE, MAIN_ROUTE } from "../../utils/consts";
@@ -22,7 +22,7 @@ const ProductPage = () => {
   const { slug } = useParams();
 
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchOneProduct(slug)
@@ -52,13 +52,11 @@ const ProductPage = () => {
   return (
     <Container style={{ paddingTop: "100px" }}>
       <Breadcrumb>
-        <Breadcrumb.Item>
-          <NavLink to={MAIN_ROUTE}>Home</NavLink>
+      <Breadcrumb.Item onClick={() => navigate(MAIN_ROUTE)}>
+          Home
         </Breadcrumb.Item>
-        <Breadcrumb.Item>
-          <NavLink to={`${CATEGORY_ROUTE}/${typeSlug}`}>
+        <Breadcrumb.Item onClick={() => navigate(`${CATEGORY_ROUTE}/${typeSlug}`)}>
             {product.category}
-          </NavLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>
       </Breadcrumb>

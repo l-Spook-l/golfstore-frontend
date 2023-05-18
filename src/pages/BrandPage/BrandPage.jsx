@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect } from "react";
 import { fetchOneBrand, fetchProductsByBrand } from "../../http/productAPI";
 import { Context } from "../..";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import {
   Alert,
   Breadcrumb,
@@ -26,7 +26,7 @@ const BrandPage = observer(() => {
 
   const { slug } = useParams();
   console.log("slug", slug);
-
+  const navigate = useNavigate();
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -40,7 +40,7 @@ const BrandPage = observer(() => {
       product.setTotalCount(data.count);
       console.log("brandPage - fetchProductsByBrand - data", data);
     });
-  }, [slug, user.isAuth]);
+  }, [slug]);
 
   useEffect(() => {
     fetchProductsByBrand(
@@ -90,8 +90,8 @@ const BrandPage = observer(() => {
   return (
     <Container className={style.forContainer}>
       <Breadcrumb className="mt-2">
-        <Breadcrumb.Item>
-          <NavLink to={MAIN_ROUTE}>Home</NavLink>
+      <Breadcrumb.Item onClick={() => navigate(MAIN_ROUTE)}>
+          Home
         </Breadcrumb.Item>
         <Breadcrumb.Item active>{brand}</Breadcrumb.Item>
       </Breadcrumb>

@@ -25,14 +25,14 @@ import PriceBar from "../../components/PriceBar/PriceBar";
 import CategoryBar from "../../components/CategoryBar/CategoryBar";
 import style from "./Shop.module.css";
 import { MAIN_ROUTE } from "../../utils/consts";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Shop = observer(() => {
   const { user } = useContext(Context);
   const { product } = useContext(Context);
 
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
   /* 
   console.log('shop - product page', product.page)
   console.log('shop - product types', product.types)
@@ -40,6 +40,7 @@ const Shop = observer(() => {
 
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
+    console.log('Перезагрузка shop')
     window.scrollTo(0, 0);
     fetchTypes().then((data) => product.setTypes(data));
     fetchBrands().then((data) => product.setBrands(data));
@@ -107,8 +108,8 @@ const Shop = observer(() => {
   return (
     <Container className={style.forContainer}>
       <Breadcrumb className="mt-2">
-        <Breadcrumb.Item>
-          <NavLink to={MAIN_ROUTE}>Home</NavLink>
+        <Breadcrumb.Item onClick={() => navigate(MAIN_ROUTE)}>
+          Home
         </Breadcrumb.Item>
         <Breadcrumb.Item active>Shop All</Breadcrumb.Item>
       </Breadcrumb>

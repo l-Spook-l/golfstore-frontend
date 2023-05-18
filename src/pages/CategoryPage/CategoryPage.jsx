@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import {
   fetchOneCategory,
   fetchProductsByCategory,
@@ -29,7 +29,7 @@ const CategoryPage = observer(() => {
 
   const { slug } = useParams();
   console.log("slug", slug);
-
+  const navigate = useNavigate();
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -45,7 +45,7 @@ const CategoryPage = observer(() => {
         console.log("CategoryPage - fetchProductsByCategory - data", data);
       }
     );
-  }, [slug, user.isAuth]);
+  }, [slug]);
 
   useEffect(() => {
     fetchProductsByCategory(
@@ -95,8 +95,8 @@ const CategoryPage = observer(() => {
   return (
     <Container className={style.forContainer}>
       <Breadcrumb className="mt-2">
-        <Breadcrumb.Item>
-          <NavLink to={MAIN_ROUTE}>Home</NavLink>
+      <Breadcrumb.Item onClick={() => navigate(MAIN_ROUTE)}>
+          Home
         </Breadcrumb.Item>
         <Breadcrumb.Item active>{category}</Breadcrumb.Item>
       </Breadcrumb>

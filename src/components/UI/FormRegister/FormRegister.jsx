@@ -115,7 +115,7 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>Форма регистрации</Modal.Title>
+        <Modal.Title>Sign up</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -177,14 +177,14 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
           
           <Row className="mt-2">
             <Col md={8} className="d-flex">
-              Есть аккаунт?
+              Already a member?
               <Button className="ms-2" type="button" onClick={onSwitchForm}>
-                Войдите!
+                Log In!
               </Button>
             </Col>
             <Col className="d-flex justify-content-end">
               <Button disabled={!formValid} onClick={() => registerUser()}>
-                Register
+                Sign Up
               </Button>
             </Col>
           </Row>
