@@ -12,9 +12,9 @@ const BrandBar = observer(() => {
 
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const toggleExpansion = () => {
+  /* const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
-  };
+  }; */
 
   return (
     <Accordion bsPrefix="my-accordion" className="mt-3" defaultActiveKey="0">

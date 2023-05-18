@@ -22,6 +22,7 @@ const Profile = observer(() => {
   const [view, setView] = useState(<UserInfo />);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     blurHandler(state);
   }, [state]);
 

@@ -141,7 +141,7 @@ const NavBar = observer(() => {
           <Nav>
             <NavLink
               className={style.cart}
-              to={{ pathname: PROFILE_ROUTE }}
+              to={user.isAuth ? { pathname: PROFILE_ROUTE } : undefined}
               state="cart"
               onClick={!user.isAuth ? clickLogin : undefined}
             >

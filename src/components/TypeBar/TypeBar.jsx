@@ -1,14 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useContext, useState } from "react";
-import {
-  Accordion,
-  AccordionButton,
-  Button,
-  Card,
-  Form,
-  ListGroup,
-  ListGroupItem,
-} from "react-bootstrap";
+import { Accordion, Form } from "react-bootstrap";
 import { Context } from "../../index";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import style from "./TypeBar.module.css";
@@ -41,7 +33,7 @@ const TypeBar = observer(() => {
           {product.types.map((type) => (
             <Form.Check
               key={type.id}
-              id={type.id}
+              id={type.id + 100}
               type="checkbox"
               label={type.name}
               checked={product.selectedType.includes(type)}

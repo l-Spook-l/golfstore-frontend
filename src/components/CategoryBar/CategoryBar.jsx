@@ -23,7 +23,7 @@ const CategoryBar = observer(() => {
           {product.categories.map((category) => (
             <Form.Check
               key={category.id}
-              id={category.id}
+              id={category.id + 200}
               type="checkbox"
               label={category.name}
               checked={product.selectedCategory.includes(category)}

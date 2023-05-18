@@ -21,6 +21,7 @@ import { MAIN_ROUTE } from "../../utils/consts";
 import style from "./BrandPage.module.css";
 
 const BrandPage = observer(() => {
+  const {user} = useContext(Context)
   const { product } = useContext(Context);
 
   const { slug } = useParams();
@@ -28,6 +29,7 @@ const BrandPage = observer(() => {
 
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchOneBrand(slug).then((data) => {
       product.setTypes(data.type);
       product.setCategories(data.categories);
@@ -38,7 +40,7 @@ const BrandPage = observer(() => {
       product.setTotalCount(data.count);
       console.log("brandPage - fetchProductsByBrand - data", data);
     });
-  }, [slug]);
+  }, [slug, user.isAuth]);
 
   useEffect(() => {
     fetchProductsByBrand(

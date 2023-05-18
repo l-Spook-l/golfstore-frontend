@@ -4,35 +4,54 @@ import { PRODUCT_ROUTE } from "../../utils/consts";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { BsCart, BsFillCartCheckFill } from "react-icons/bs";
-import { addProductToBasket, addProductToWishList, deleteProductFromWishList, fetchListProductsBasket, fetchListProductsWishList} from "../../http/productAPI";
+import {
+  addProductToBasket,
+  addProductToWishList,
+  deleteProductFromWishList,
+  fetchListProductsBasket,
+  fetchListProductsWishList,
+} from "../../http/productAPI";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
 import FormLogin from "../UI/FormLogin/FormLogin";
 import FormRegister from "../UI/FormRegister/FormRegister";
-import style from "./ProductItem.module.css"
+import style from "./ProductItem.module.css";
 
 const ProductItem = observer(({ product }) => {
   const { user } = useContext(Context);
 
   const [loading, setLoading] = useState(true);
 
+  const [isHovered, setIsHovered] = useState(false);
+  const [activeProduct, setActiveProduct] = useState(0);
+
   const navigate = useNavigate();
 
   const [productOnBasket, setProductOnBasket] = useState(
-    user.basket.product.filter((item) => item.product.id === product.id).length > 0
-    ? <BsFillCartCheckFill />
-    : <BsCart />
+    user.basket.product.filter((item) => item.product.id === product.id)
+      .length > 0 ? (
+      <BsFillCartCheckFill />
+    ) : (
+      <BsCart />
+    )
   );
 
   const [productOnWishList, setProductOnWishList] = useState(
-    user.wishList.product.filter((item) => item.product.id === product.id).length > 0 
-    ? <AiTwotoneHeart />
-    : <AiOutlineHeart />
+    user.wishList.product.filter((item) => item.product.id === product.id)
+      .length > 0 ? (
+      <AiTwotoneHeart />
+    ) : (
+      <AiOutlineHeart />
+    )
   );
 
   const addToWishlist = (wishListId, productId) => {
-    const wishList = user.wishList.product.filter((item) => item.product.id !== productId);
-    const productInWishList = user.wishList.product.filter((item) => item.product.id === product.id).length > 0 
+    const wishList = user.wishList.product.filter(
+      (item) => item.product.id !== productId
+    );
+    const productInWishList =
+      user.wishList.product.filter((item) => item.product.id === product.id)
+        .length > 0;
 
     if (productInWishList) {
       deleteProductFromWishList(wishListId, productId);
@@ -46,7 +65,7 @@ const ProductItem = observer(({ product }) => {
         wishlist: wishListId,
         product: productId,
       });
-  
+
       newProduct.then((result) =>
         user.setWishList({
           id: wishListId,
@@ -101,7 +120,7 @@ const ProductItem = observer(({ product }) => {
     setProductOnBasket(<BsFillCartCheckFill />);
   };
 
-  console.log("получил такой товар", product.name);
+  /* console.log("получил такой товар", product.name); */
 
   const [showModal, setShowModal] = useState(false);
 
@@ -120,7 +139,10 @@ const ProductItem = observer(({ product }) => {
     return <Spinner animation='grow'/>
   } */
 
-  console.log("qweqweqweqwe", user.isAuth);
+  const hoverProduct = (productId) => {
+    setIsHovered(true);
+    setActiveProduct(productId);
+  };
 
   return (
     <Col md={3} className="mt-3">
@@ -136,12 +158,19 @@ const ProductItem = observer(({ product }) => {
           {productOnWishList}
         </button>
         <Image
-          style={{cursor: "pointer"}}
+          style={{ cursor: "pointer" }}
           onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}
           width={200}
           height={200}
-          src={product.photos && product.photos.length > 0 ? product.photos[0].image : '#'}
-
+          src={
+            isHovered &&
+            activeProduct === product.id &&
+            product.photos.length > 1
+              ? product.photos[2]["image"]
+              : product.photos[0]["image"]
+          }
+          onMouseEnter={() => hoverProduct(product.id)}
+          onMouseLeave={() => setIsHovered(false)}
         />
         <div onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}>
           {product.name}
@@ -157,20 +186,19 @@ const ProductItem = observer(({ product }) => {
         </div>
       </Card>
 
-      {showLogin 
-      ?
+      {showLogin ? (
         <FormLogin
           show={showModal}
           onHide={() => setShowModal(false)}
           onSwitchForm={handleSwitchForm}
         />
-      :
+      ) : (
         <FormRegister
           show={showModal}
           onHide={() => setShowModal(false)}
           onSwitchForm={handleSwitchForm}
         />
-      }
+      )}
     </Col>
   );
 });

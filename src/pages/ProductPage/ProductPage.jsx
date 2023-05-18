@@ -24,6 +24,7 @@ const ProductPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchOneProduct(slug)
       .then((data) => setProduct(data))
       .finally(() => setLoading(false));

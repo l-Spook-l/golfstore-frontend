@@ -1,27 +1,32 @@
 import { observer } from 'mobx-react-lite'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Context } from '../../..'
 import { Pagination } from 'react-bootstrap'
+import style from "./Paginations.module.css"
 
 const Paginations = observer(() => {
   const {product} = useContext(Context)
 
   const limit = 24
-  // console.log('pagination product', product)
 
   const pagesCount = Math.ceil(product.totalCount / limit)
   const pages = []
 
-  // console.log('pagesCount', pagesCount)
-  // console.log('pages', pages)
+  const [activePage, setActivePage] = useState(1)
 
   for (let i = 0; i < pagesCount; i++) {
     pages.push(i + 1)
   }
 
+  const selectPage = (page) => {
+    product.setPage(page)
+    setActivePage(page)
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   return (
     <Pagination className='mt-5'>
-      {pages.map((page) => 
+      {/* {pages.map((page) => 
         <Pagination.First 
           key={page}
           active={product.page === page}
@@ -29,6 +34,16 @@ const Paginations = observer(() => {
         >
           {page}
         </Pagination.First>
+      )} */}
+      {pages.map((page) => 
+        <div 
+          key={page}
+          active={product.page === page}
+          onClick={() => selectPage(page)}
+          className={`${style.button} ${page === activePage ? style.buttonActive : style.buttonInactive}`}
+        >
+          {page}
+        </div>
       )}
     </Pagination>
   )

@@ -28,6 +28,7 @@ import { MAIN_ROUTE } from "../../utils/consts";
 import { NavLink } from "react-router-dom";
 
 const Shop = observer(() => {
+  const { user } = useContext(Context);
   const { product } = useContext(Context);
 
   const [loading, setLoading] = useState(true);
@@ -39,6 +40,7 @@ const Shop = observer(() => {
 
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchTypes().then((data) => product.setTypes(data));
     fetchBrands().then((data) => product.setBrands(data));
     fetchCategories().then((data) => product.setCategories(data));
@@ -91,6 +93,8 @@ const Shop = observer(() => {
     product.setSelectedCategory("clear");
   };
 
+  console.log('jaewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwweq', user.isAuth)
+
   /* console.log("shop - product", product);
   console.log('shop - product selectedType', product.selectedType)
   console.log('shop - product brands', product.brands)
@@ -101,7 +105,7 @@ const Shop = observer(() => {
   }
 
   return (
-    <Container style={{ paddingTop: "63px" }}>
+    <Container className={style.forContainer}>
       <Breadcrumb className="mt-2">
         <Breadcrumb.Item>
           <NavLink to={MAIN_ROUTE}>Home</NavLink>

@@ -21,8 +21,10 @@ import Paginations from "../../components/UI/Paginations/Paginations";
 import ProductList from "../../components/ProductList";
 import TypeBar from "../../components/TypeBar/TypeBar";
 import { MAIN_ROUTE } from "../../utils/consts";
+import style from "./CategoryPage.module.css"
 
 const CategoryPage = observer(() => {
+  const {user} = useContext(Context)
   const { product } = useContext(Context);
 
   const { slug } = useParams();
@@ -30,6 +32,7 @@ const CategoryPage = observer(() => {
 
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchOneCategory(slug).then((data) => {
       product.setTypes(data.type);
       product.setBrands(data.brand);
@@ -42,7 +45,7 @@ const CategoryPage = observer(() => {
         console.log("CategoryPage - fetchProductsByCategory - data", data);
       }
     );
-  }, [slug]);
+  }, [slug, user.isAuth]);
 
   useEffect(() => {
     fetchProductsByCategory(
@@ -90,7 +93,7 @@ const CategoryPage = observer(() => {
     .join(" ");
 
   return (
-    <Container style={{ paddingTop: "63px" }}>
+    <Container className={style.forContainer}>
       <Breadcrumb className="mt-2">
         <Breadcrumb.Item>
           <NavLink to={MAIN_ROUTE}>Home</NavLink>
@@ -102,10 +105,10 @@ const CategoryPage = observer(() => {
           {product.selectedType.length !== 0 ||
           product.selectedBrand.length !== 0 ? (
             <Button
-              style={{ height: "46px", marginRight: "10px" }}
+              className={style.clearButton}
               onClick={() => clearFilter()}
             >
-              Очистить
+              Clear
             </Button>
           ) : null}
           {product.selectedType.map((el) => (

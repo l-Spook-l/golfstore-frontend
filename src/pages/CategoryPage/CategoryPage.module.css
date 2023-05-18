@@ -1,5 +1,5 @@
 .forContainer {
-  margin-bottom: 100px;
+  margin-bottom: 340px;
   padding-top: 63px;
 }
 
@@ -12,7 +12,6 @@
   border: 1px solid rgba(0, 0, 0, 0.35);
   border-radius: 8px;
 }
-
 
 .clearButton:hover {
   color: antiquewhite;

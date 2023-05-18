@@ -12,6 +12,7 @@ const CheckoutPage = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchListProductsBasket(user.basket.id).then((products) => {
       user.setBasket({id: user.basket.id , product: products.results})
     }).finally(() => setLoading(false));
