@@ -127,3 +127,18 @@ export const deleteProductFromWishList = async(basketId, productId) => {
   const response = await $host.delete(`api/v1/wishlist-product/${basketId}/${productId}`)
   return response.data
 }
+
+export const createReview = async(comment, product, user, parent=null) => {
+  const response = await $host.post('api/v1/review/', {comment, product, user, parent})
+  return response.data
+}
+
+export const deleteReview = async(reviewId) => {
+  const response = await $host.delete(`api/v1/review/${reviewId}`)
+  return response.data
+}
+
+export const updateReview = async(reviewId, comment) => {
+  const response = await $host.patch(`api/v1/review/${reviewId}/`, {comment})
+  return response.data
+}

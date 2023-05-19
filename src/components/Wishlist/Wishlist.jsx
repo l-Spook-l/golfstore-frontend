@@ -68,7 +68,10 @@ const WishListPage = observer(() => {
     <Container style={{ paddingTop: "63px" }}>
       <Row>
         <h2>Wishlist</h2>
-        {user.wishList.product.map((el) => (
+        {user.wishList.product.length > 0 
+        ?
+        <div className="d-flex">
+          {user.wishList.product.map((el) => (
           <Card
             border="light"
             key={el.product.id}
@@ -91,6 +94,11 @@ const WishListPage = observer(() => {
             </div>
           </Card>
         ))}
+        </div>
+        :
+        <h4 className="mt-5 text-muted">Wishlist is empty </h4>
+        }
+        
       </Row>
     </Container>
   );

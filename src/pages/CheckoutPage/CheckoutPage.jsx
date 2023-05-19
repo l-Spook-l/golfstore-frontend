@@ -5,25 +5,32 @@ import { Context } from '../..';
 import CheckoutForm from '../../components/UI/CheckoutForm/CheckoutForm';
 import { NavLink } from 'react-router-dom';
 import { PROFILE_ROUTE } from '../../utils/consts';
+import { observer } from 'mobx-react-lite';
 
-const CheckoutPage = () => {
+const CheckoutPage = observer(() => {
   const { user } = useContext(Context);
 
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    
     fetchListProductsBasket(user.basket.id).then((products) => {
       user.setBasket({id: user.basket.id , product: products.results})
+      console.log('Checkout products', products)
     }).finally(() => setLoading(false));
+    console.log('Checkout useEffect')
   },[])
 
   
   if (loading) {
-    return <Spinner animation='grow'/>
+    return <Spinner style={{marginTop: '200px'}} animation='grow'/>
   }
 
   const totalPrice = user.basket.product.reduce((acc, el) => acc + el.product.price, 0);
+
+  console.log('Checkout user.basket.product', user.basket.product)
+
 
   return (
     <Container className="my-5" style={{paddingTop: '63px'}}>
@@ -51,7 +58,7 @@ const CheckoutPage = () => {
             <p>Price {el.product.price} $</p> 
           </Col>
           <Col md={2}>
-          <p>Quantity {el.quantity  }</p>
+          <p>Quantity {el.quantity}</p>
           </Col>
           <hr className='mt-3'/>
         </Row>
@@ -66,6 +73,6 @@ const CheckoutPage = () => {
       <CheckoutForm/>
     </Container>
   );
-}
+})
 
 export default CheckoutPage

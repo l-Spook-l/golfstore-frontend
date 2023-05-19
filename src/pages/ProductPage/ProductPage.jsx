@@ -1,46 +1,70 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Breadcrumb, Button, Card, Col, Container, Image, Row, Spinner } from "react-bootstrap";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { fetchOneProduct } from "../../http/productAPI";
+import { Breadcrumb, Button, Card, Col, Container, Image, Row, Spinner} from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import { createReview, fetchOneProduct } from "../../http/productAPI";
 import Review from "../../components/Review/Review";
 import { CATEGORY_ROUTE, MAIN_ROUTE } from "../../utils/consts";
 import { Context } from "../..";
 import style from "./ProductPage.module.css";
 import PhotoModal from "../../components/UI/PhotoModal/PhotoModal";
 import ProductSlider from "../../components/UI/ProductSlider/ProductSlider";
+import ReviewForm from "../../components/UI/ReviewForm/ReviewForm";
+import { observer } from "mobx-react-lite";
 
-const ProductPage = () => {
+const ProductPage = observer(() => {
   const { user } = useContext(Context);
-
-  const [product, setProduct] = useState({ info: [] });
-
-  const [showModal, setShowModal] = useState(false);
-  const [mainPhoto, setMainPhoto] = useState(0);
-  const [selectedPhoto, setSelectedPhoto] = useState(0);
-
   // id нашего продукта
   const { slug } = useParams();
 
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  const [product, setProduct] = useState({ info: [] });
+
+  const [showModalPhoto, setShowModalPhoto] = useState(false);
+  const [showModalAddReview, setShowModalAddReview] = useState(false);
+
+  const [mainPhoto, setMainPhoto] = useState(0);
+  const [selectedPhoto, setSelectedPhoto] = useState(0);
+
+  const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     window.scrollTo(0, 0);
+    
     fetchOneProduct(slug)
       .then((data) => setProduct(data))
       .finally(() => setLoading(false));
+      console.log('product opage review', product.reviews)
   }, []);
 
-  const openModal = (image) => {
+  const openModalPhoto = (image) => {
     setSelectedPhoto(image);
-    setShowModal(true);
+    setShowModalPhoto(true);
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const handleCloseModalPhoto = () => {
+    setShowModalPhoto(false);
   };
 
   const chageMainPhoto = (id) => {
     setMainPhoto(id);
+  };
+
+  const openModalAddReview = () => {
+    setShowModalAddReview(true)
+  };
+
+  const handleCloseModalAddReview = () => {
+    setShowModalAddReview(false)
+  }
+
+  const handleSubmitReview = (review) => {
+    // Выполните необходимые действия с комментарием, например, отправьте его на сервер или обновите состояние компонента
+    console.log('Submitted review:', user.user.id);
+    console.log('Submitted review:', review);
+    const currentDate = new Date()
+    console.log('Submitted review:', currentDate);
+    createReview(review, product.id, user.user.id)
   };
 
   if (loading) {
@@ -52,11 +76,13 @@ const ProductPage = () => {
   return (
     <Container style={{ paddingTop: "100px" }}>
       <Breadcrumb>
-      <Breadcrumb.Item onClick={() => navigate(MAIN_ROUTE)}>
+        <Breadcrumb.Item onClick={() => navigate(MAIN_ROUTE)}>
           Home
         </Breadcrumb.Item>
-        <Breadcrumb.Item onClick={() => navigate(`${CATEGORY_ROUTE}/${typeSlug}`)}>
-            {product.category}
+        <Breadcrumb.Item
+          onClick={() => navigate(`${CATEGORY_ROUTE}/${typeSlug}`)}
+        >
+          {product.category}
         </Breadcrumb.Item>
         <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>
       </Breadcrumb>
@@ -65,10 +91,10 @@ const ProductPage = () => {
         <Col md={4} className="d-flex flex-column">
           <Image
             className={style.mainPhoto}
-            onClick={() => openModal(product.photos[mainPhoto]["image"])}
+            onClick={() => openModalPhoto(product.photos[mainPhoto]["image"])}
             src={product.photos[mainPhoto]["image"]}
           />
-          <ProductSlider photos={product.photos} onSelect={chageMainPhoto}/>
+          <ProductSlider photos={product.photos} onSelect={chageMainPhoto} />
         </Col>
 
         <Col md={4}>
@@ -88,7 +114,7 @@ const ProductPage = () => {
           >
             <h3>{product.price} $</h3>
             <p>Quantity - +</p>
-            <Button variant="outline-dark">Добавить в корзину</Button>
+            <Button variant="outline-dark">Add to cart</Button>
           </Card>
         </Col>
       </Row>
@@ -96,8 +122,8 @@ const ProductPage = () => {
       <div className="d-flex">
         <p>Reviews</p>
         {user.isAuth ? (
-          <Col>
-            <Button>Add a review</Button>
+          <Col className=" d-flex justify-content-end" md={7}>
+            <Button className="bg-success" onClick={() => openModalAddReview()}>Add a review</Button>
           </Col>
         ) : (
           <div></div>
@@ -105,20 +131,28 @@ const ProductPage = () => {
       </div>
 
       {product.reviews.map((review) => (
-        <Row key={review.id}>
+        <Row key={review.id} className="">
           <Review
             key={review.id}
+            reviewId={review.id}
+            userId={review.user}
             username={review.username}
             comment={review.comment}
             createdAt={review.created_at}
           />
         </Row>
       ))}
-      {showModal && (
-        <PhotoModal image={selectedPhoto} onClose={handleCloseModal} />
+
+      {showModalPhoto && (
+        <PhotoModal image={selectedPhoto} onClose={handleCloseModalPhoto} />
       )}
+      {showModalAddReview && (
+        <ReviewForm show={showModalAddReview} onHide={handleCloseModalAddReview} onSubmit={handleSubmitReview} state={'Add review'}/>
+      )}
+      
+
     </Container>
   );
-};
+});
 
 export default ProductPage;
