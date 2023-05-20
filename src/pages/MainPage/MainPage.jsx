@@ -103,10 +103,10 @@ const MainPage = observer(() => {
   console.log('shop - product typesqqq', product.selectedType)
   console.log('shop - product brands', product.brands) */
 
-  if (loading) {
+  /* if (loading) {
     return <Spinner animation="grow" />;
   }
-
+ */
   console.log("MainPage");
 
   return (

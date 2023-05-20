@@ -142,7 +142,7 @@ const NavBar = observer(() => {
             <NavLink
               className={style.cart}
               to={user.isAuth ? { pathname: PROFILE_ROUTE } : undefined}
-              state="cart"
+              state="basket"
               onClick={!user.isAuth ? clickLogin : undefined}
             >
               <AiOutlineShoppingCart />

@@ -2,16 +2,18 @@ import React, { useContext, useEffect, useState } from "react";
 import { Button, Col, Container, Image, Row, Spinner } from "react-bootstrap";
 import { Context } from "../..";
 import { observer } from "mobx-react-lite";
-import { deleteProductFromBasket, fetchListProductsBasket } from "../../http/productAPI";
+import { deleteProductFromBasket, fetchListProductsBasket, updateQuantityProductInBasket } from "../../http/productAPI";
 import { NavLink, useNavigate } from "react-router-dom";
 import { CHECKOUT_ROUTE, PRODUCT_ROUTE } from "../../utils/consts";
-import style from "./Cart.module.css"
+import style from "./Basket.module.css"
 
 const Basket = observer(() => {
   const { user } = useContext(Context);
 
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate();
+
+  const [changeQuantity, setChangeQuantity] = useState(true)
 
   /* console.log('Basket user', user)
   console.log('Basket user user', user.user)
@@ -25,7 +27,7 @@ const Basket = observer(() => {
       user.setBasket({id: user.basket.id , product: products.results})
     }).finally(() => setLoading(false));
     console.log('Basket useEffect')
-  },[/* user.basket.product.length */])
+  },[changeQuantity])
 
   const deleteProduct = (basketId, productId) => {
     deleteProductFromBasket(basketId, productId)
@@ -37,16 +39,31 @@ const Basket = observer(() => {
     return <Spinner animation='grow'/>
   }
 
-  const totalPrice = user.basket.product.reduce((acc, el) => acc + el.product.price, 0);
+  const totalPrice = user.basket.product.reduce((acc, el) => {
+    return acc + (el.product.price * el.quantity)
+  }, 0);
+
   const productSlug = (productName) => 
     {
       const name = productName.toLowerCase().replace(/\'/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
       return name
     } 
     
+  const changeQuantityPlus = (basketId, productId, quantity, price) => {
+    updateQuantityProductInBasket(basketId, productId, quantity)
+    setChangeQuantity(!changeQuantity)
+    //setTotalPrice(totalPrice + price)
+  }
+  
+  const changeQuantityMinus = (basketId, productId, quantity, price) => {
+    updateQuantityProductInBasket(basketId, productId, quantity)
+    setChangeQuantity(!changeQuantity)
+    //setTotalPrice(totalPrice - price)
+  }
+
   return (
     <Container style={{paddingTop: '63px'}}>
-      <h2>My Cart</h2>
+      <h2>My Basket</h2>
       {user.basket.product.length > 0 
         ? 
         <Row className="my-1">
@@ -60,7 +77,13 @@ const Basket = observer(() => {
           </Col>
           <Col md={6}>
             <h5>{el.product.name}</h5>
-            <p>Quantity {el.quantity}</p>
+            <div>
+              Quantity 
+              <button disabled={el.quantity === 1} onClick={() => changeQuantityMinus(user.basket.id, el.product.id, el.quantity - 1, el.price)}>-</button>
+              {el.quantity}
+              <button onClick={() => changeQuantityPlus(user.basket.id, el.product.id, el.quantity + 1, el.price)}>+</button>
+                
+            </div>
             <p>{el.product.price} $</p>
           </Col>
           <Col md={2}>
@@ -75,9 +98,8 @@ const Basket = observer(() => {
           <NavLink className={style.buttonOrder} to={CHECKOUT_ROUTE}>Place Order</NavLink>
         </Col>
       </Row>
-        : <h4 className="mt-5 text-muted">Cart is empty </h4>
+        : <h4 className="mt-5 text-muted">Basket is empty </h4>
         }
-      
 
     </Container>
   );

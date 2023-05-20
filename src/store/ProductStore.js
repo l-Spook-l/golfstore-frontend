@@ -13,6 +13,7 @@ export default class ProductStore {
     this._selectedType = []
     this._selectedBrand = []
     this._selectedCategory = []
+    this._selectedProduct = [{reviews: []}]
 
     // 
     this._priceMin = 0
@@ -85,6 +86,10 @@ setSelectedType принимает тип продукта и устанавли
     }
   }
 
+  setSelectedProduct(product) {
+    this._selectedProduct = product
+  }
+
   setPriceMin(price){
     this._priceMin = price
   }
@@ -152,6 +157,10 @@ setSelectedType принимает тип продукта и устанавли
   }
   get selectedCategory() {
     return this._selectedCategory;
+  }
+
+  get selectedProduct() {
+    return this._selectedProduct
   }
 
   get page() {

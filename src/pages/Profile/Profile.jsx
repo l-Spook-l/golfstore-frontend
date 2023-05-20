@@ -2,13 +2,13 @@ import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../..";
 import { Alert, Col, Container, Nav, Row } from "react-bootstrap";
-import Cart from "../../components/Cart/Cart";
 import { useLocation } from "react-router-dom";
 import Subscribes from "../../components/Subscribes/Subscribes";
 import Wallet from "../../components/Wallet/Wallet";
 import style from "./Profile.module.css";
 import UserInfo from "../../components/UserInfo/UserInfo";
 import Wishlist from "../../components/Wishlist/Wishlist";
+import Basket from "../../components/Basket/Basket";
 
 const Profile = observer(() => {
   const { user } = useContext(Context);
@@ -32,8 +32,8 @@ const Profile = observer(() => {
       case "userInfo":
         setView(<UserInfo />);
         break;
-      case "cart":
-        setView(<Cart />);
+      case "basket":
+        setView(<Basket />);
         break;
       case "wishlist":
         setView(<Wishlist />);
@@ -46,7 +46,6 @@ const Profile = observer(() => {
         break;
     }
   };
-  console.log("jsdfj;dskgf;ksdg;f activeTab", activeTab);
 
   return (
     <Container style={{ paddingTop: "63px" }}>
@@ -62,10 +61,10 @@ const Profile = observer(() => {
             </Alert>
             <hr />
             <Alert
-              className={`${style.alertMenu} ${activeTab === "cart" ? style.alertMenuActive : ""}`}
-              onClick={() => blurHandler("cart")}
+              className={`${style.alertMenu} ${activeTab === "basket" ? style.alertMenuActive : ""}`}
+              onClick={() => blurHandler("basket")}
             >
-              My Cart
+              My Basket
             </Alert>
 
             <Alert

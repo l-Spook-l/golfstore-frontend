@@ -95,6 +95,11 @@ export const deleteProductFromBasket = async(basketId, productId) => {
   return response.data
 }
 
+export const updateQuantityProductInBasket = async(basketId, productId, quantity) => {
+  const responce = await $host.patch(`api/v1/basket-product/${basketId}/${productId}`, {quantity})
+  return responce.data
+}
+
 export const createWishListForUser = async(userId)  => {
   const response = await $host.post('api/v1/wishlist/', userId)
   console.log('product API - createWishListForUser response', response)

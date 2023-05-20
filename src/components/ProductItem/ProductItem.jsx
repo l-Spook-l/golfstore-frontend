@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card, Col, Image, Spinner } from "react-bootstrap";
-import { PRODUCT_ROUTE } from "../../utils/consts";
+import { Card, Col, Image } from "react-bootstrap";
+import { PRODUCT_ROUTE, PROFILE_ROUTE } from "../../utils/consts";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { BsCart, BsFillCartCheckFill } from "react-icons/bs";
@@ -8,8 +8,6 @@ import {
   addProductToBasket,
   addProductToWishList,
   deleteProductFromWishList,
-  fetchListProductsBasket,
-  fetchListProductsWishList,
 } from "../../http/productAPI";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
@@ -20,30 +18,25 @@ import style from "./ProductItem.module.css";
 const ProductItem = observer(({ product }) => {
   const { user } = useContext(Context);
 
-  const [loading, setLoading] = useState(true);
-
   const [isHovered, setIsHovered] = useState(false);
   const [activeProduct, setActiveProduct] = useState(0);
 
   const navigate = useNavigate();
 
-  const [productOnBasket, setProductOnBasket] = useState(
-    user.basket.product.filter((item) => item.product.id === product.id)
-      .length > 0 ? (
-      <BsFillCartCheckFill />
-    ) : (
-      <BsCart />
-    )
-  );
+  const [productOnBasket, setProductOnBasket] = useState();
 
-  const [productOnWishList, setProductOnWishList] = useState(
+  const [productOnWishList, setProductOnWishList] = useState();
+
+  useEffect(() => {
+    user.basket.product.filter((item) => item.product.id === product.id)
+      .length > 0
+      ? setProductOnBasket(<BsFillCartCheckFill />)
+      : setProductOnBasket(<BsCart />);
     user.wishList.product.filter((item) => item.product.id === product.id)
-      .length > 0 ? (
-      <AiTwotoneHeart />
-    ) : (
-      <AiOutlineHeart />
-    )
-  );
+      .length > 0
+      ? setProductOnWishList(<AiTwotoneHeart />)
+      : setProductOnWishList(<AiOutlineHeart />);
+  }, [user.wishList.product.length, user.basket.product.length]);
 
   const addToWishlist = (wishListId, productId) => {
     const wishList = user.wishList.product.filter(
@@ -93,34 +86,41 @@ const ProductItem = observer(({ product }) => {
     const basket = user.basket.product.filter(
       (item) => item.product.id !== productId
     );
-    const newProduct = addProductToBasket({
-      basket: basketId,
-      product: productId,
-    });
 
-    newProduct.then((result) =>
-      user.setBasket({
-        id: basketId,
-        product: [
-          ...basket,
-          {
-            basket: result.basket,
-            id: result.id,
-            product: {
-              id: product.id,
-              name: product.name,
-              photos: product.photos,
-              price: product.price,
+    const productInCart =
+      user.basket.product.filter((item) => item.product.id === product.id)
+        .length > 0;
+
+    if (productInCart) {
+      navigate(`${PROFILE_ROUTE}`, {state: 'basket'});
+    } else {
+      const newProduct = addProductToBasket({
+        basket: basketId,
+        product: productId,
+      });
+  
+      newProduct.then((result) =>
+        user.setBasket({
+          id: basketId,
+          product: [
+            ...basket,
+            {
+              basket: result.basket,
+              id: result.id,
+              product: {
+                id: product.id,
+                name: product.name,
+                photos: product.photos,
+                price: product.price,
+              },
+              quantity: 2,
             },
-            quantity: 2,
-          },
-        ],
-      })
-    );
-    setProductOnBasket(<BsFillCartCheckFill />);
+          ],
+        })
+      );
+      setProductOnBasket(<BsFillCartCheckFill />);
+    }
   };
-
-  /* console.log("получил такой товар", product.name); */
 
   const [showModal, setShowModal] = useState(false);
 
@@ -134,10 +134,6 @@ const ProductItem = observer(({ product }) => {
     setShowModal(true);
     setShowLogin(true);
   };
-
-  /* if (loading) {
-    return <Spinner animation='grow'/>
-  } */
 
   const hoverProduct = (productId) => {
     setIsHovered(true);
@@ -172,17 +168,21 @@ const ProductItem = observer(({ product }) => {
           onMouseEnter={() => hoverProduct(product.id)}
           onMouseLeave={() => setIsHovered(false)}
         />
-        <div onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}>
+        <div style={{ cursor: "pointer" }} onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}>
           {product.name}
         </div>
         <div className="mt-1 d-flex justify-content-between align-items-center">
           <div>{product.price} $</div>
-          <NavLink
-            style={{ fontSize: "1.3rem", color: "black" }}
-            onClick={() => addToBasket(user.basket.id, product.id)}
+          <div
+            style={{ fontSize: "1.3rem", color: "black", cursor: 'pointer' }}
+            onClick={() =>  {
+              user.isAuth
+                ? addToBasket(user.basket.id, product.id)
+                : clickLogin()
+            }}
           >
             {productOnBasket}
-          </NavLink>
+          </div>
         </div>
       </Card>
 

@@ -100,10 +100,10 @@ const Shop = observer(() => {
   console.log('shop - product selectedType', product.selectedType)
   console.log('shop - product brands', product.brands)
   console.log('shop - product types', product.types) */
-
-  if (loading) {
+  
+  /* if (loading) {
     return <Spinner animation="grow" />;
-  }
+  } */
 
   return (
     <Container className={style.forContainer}>
@@ -197,7 +197,7 @@ const Shop = observer(() => {
             <BrandBar />
           </Col>
         </Col>
-        <Col md={9}>
+        <Col md={9} >
           <ProductList />
           <Paginations />
         </Col>

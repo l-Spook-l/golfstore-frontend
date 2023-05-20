@@ -13,12 +13,10 @@ import { observer } from "mobx-react-lite";
 
 const ProductPage = observer(() => {
   const { user } = useContext(Context);
-  // id нашего продукта
+  const { product } = useContext(Context);
   const { slug } = useParams();
 
   const navigate = useNavigate();
-
-  const [product, setProduct] = useState({ info: [] });
 
   const [showModalPhoto, setShowModalPhoto] = useState(false);
   const [showModalAddReview, setShowModalAddReview] = useState(false);
@@ -29,13 +27,10 @@ const ProductPage = observer(() => {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    window.scrollTo(0, 0);
-    
     fetchOneProduct(slug)
-      .then((data) => setProduct(data))
+      .then((data) => product.setSelectedProduct(data))
       .finally(() => setLoading(false));
-      console.log('product opage review', product.reviews)
-  }, []);
+  }, [/* product.selectedProduct.reviews */]);
 
   const openModalPhoto = (image) => {
     setSelectedPhoto(image);
@@ -59,19 +54,14 @@ const ProductPage = observer(() => {
   }
 
   const handleSubmitReview = (review) => {
-    // Выполните необходимые действия с комментарием, например, отправьте его на сервер или обновите состояние компонента
-    console.log('Submitted review:', user.user.id);
-    console.log('Submitted review:', review);
-    const currentDate = new Date()
-    console.log('Submitted review:', currentDate);
-    createReview(review, product.id, user.user.id)
+    createReview(review, product.selectedProduct.id, user.user.id)
   };
 
   if (loading) {
     return <Spinner animation="grow" />;
   }
 
-  const typeSlug = product.category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  const typeSlug = product.selectedProduct.category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
   return (
     <Container style={{ paddingTop: "100px" }}>
@@ -82,24 +72,24 @@ const ProductPage = observer(() => {
         <Breadcrumb.Item
           onClick={() => navigate(`${CATEGORY_ROUTE}/${typeSlug}`)}
         >
-          {product.category}
+          {product.selectedProduct.category}
         </Breadcrumb.Item>
-        <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>
+        <Breadcrumb.Item active>{product.selectedProduct.name}</Breadcrumb.Item>
       </Breadcrumb>
       <hr />
       <Row className="mb-5">
         <Col md={4} className="d-flex flex-column">
           <Image
             className={style.mainPhoto}
-            onClick={() => openModalPhoto(product.photos[mainPhoto]["image"])}
-            src={product.photos[mainPhoto]["image"]}
+            onClick={() => openModalPhoto(product.selectedProduct.photos[mainPhoto]["image"])}
+            src={product.selectedProduct.photos[mainPhoto]["image"]}
           />
-          <ProductSlider photos={product.photos} onSelect={chageMainPhoto} />
+          <ProductSlider photos={product.selectedProduct.photos} onSelect={chageMainPhoto} />
         </Col>
 
         <Col md={4}>
           <Row className="d-flex flex-column align-items-center">
-            <h2>{product.name}</h2>
+            <h2>{product.selectedProduct.name}</h2>
           </Row>
         </Col>
         <Col md={4}>
@@ -112,15 +102,14 @@ const ProductPage = observer(() => {
               border: "5px solid lightgray",
             }}
           >
-            <h3>{product.price} $</h3>
-            <p>Quantity - +</p>
+            <h3>{product.selectedProduct.price} $</h3>
             <Button variant="outline-dark">Add to cart</Button>
           </Card>
         </Col>
       </Row>
 
       <div className="d-flex">
-        <p>Reviews</p>
+        <h4>Reviews</h4>
         {user.isAuth ? (
           <Col className=" d-flex justify-content-end" md={7}>
             <Button className="bg-success" onClick={() => openModalAddReview()}>Add a review</Button>
@@ -130,7 +119,7 @@ const ProductPage = observer(() => {
         )}
       </div>
 
-      {product.reviews.map((review) => (
+      {product.selectedProduct.reviews.map((review) => (
         <Row key={review.id} className="">
           <Review
             key={review.id}
@@ -150,7 +139,6 @@ const ProductPage = observer(() => {
         <ReviewForm show={showModalAddReview} onHide={handleCloseModalAddReview} onSubmit={handleSubmitReview} state={'Add review'}/>
       )}
       
-
     </Container>
   );
 });

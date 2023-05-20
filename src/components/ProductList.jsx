@@ -6,9 +6,9 @@ import ProductItem from "./ProductItem/ProductItem";
 
 const ProductList = observer(() => {
   const { product } = useContext(Context);
-  // console.log('product list ,product.products', product.products)
+
   return (
-    <Row className="">
+    <Row className="d-flex flex-wrap">
       {product.products.map((el) => (
         <ProductItem key={el.id} product={el} />
       ))}

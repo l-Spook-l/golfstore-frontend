@@ -70,7 +70,7 @@ const WishListPage = observer(() => {
         <h2>Wishlist</h2>
         {user.wishList.product.length > 0 
         ?
-        <div className="d-flex">
+        <div className="d-flex flex-wrap">
           {user.wishList.product.map((el) => (
           <Card
             border="light"

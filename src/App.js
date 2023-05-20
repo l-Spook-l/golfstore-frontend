@@ -11,7 +11,7 @@ import { $authHost } from "./http";
 import { fetchBasket, fetchBrands, fetchCategories, fetchListProductsBasket, fetchListProductsWishList, fetchWishList } from "./http/productAPI";
 
 const App = observer(() => {
-  // оплучаем состоянию пользователя
+  // получаем состоянию пользователя
   const {user} = useContext(Context)
   const { product } = useContext(Context);
 

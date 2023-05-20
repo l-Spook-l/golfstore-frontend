@@ -12,6 +12,7 @@ import {
   Container,
   Form,
   Row,
+  Spinner,
 } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
@@ -21,12 +22,12 @@ import Paginations from "../../components/UI/Paginations/Paginations";
 import ProductList from "../../components/ProductList";
 import TypeBar from "../../components/TypeBar/TypeBar";
 import { MAIN_ROUTE } from "../../utils/consts";
-import style from "./CategoryPage.module.css"
+import style from "./CategoryPage.module.css";
 
 const CategoryPage = observer(() => {
-  const {user} = useContext(Context)
+  const { user } = useContext(Context);
   const { product } = useContext(Context);
-
+  const [loading, setLoading] = useState(true);
   const { slug } = useParams();
   console.log("slug", slug);
   const navigate = useNavigate();
@@ -38,14 +39,14 @@ const CategoryPage = observer(() => {
       product.setBrands(data.brand);
       console.log("CategoryPage - fetchOneCategory - data", data);
     });
-    fetchProductsByCategory(slug, null, null, 1, null, null, null).then(
-      (data) => {
+    fetchProductsByCategory(slug, null, null, 1, null, null, null)
+      .then((data) => {
         product.setProducts(data.results);
         product.setTotalCount(data.count);
         console.log("CategoryPage - fetchProductsByCategory - data", data);
-      }
-    );
-  }, [slug]);
+      })
+      .finally(() => setLoading(false));
+  }, [slug, user.wishList.product]);
 
   useEffect(() => {
     fetchProductsByCategory(
@@ -92,10 +93,14 @@ const CategoryPage = observer(() => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 
+  /* if (loading) {
+    return <Spinner animation="grow" />;
+  } */
+
   return (
     <Container className={style.forContainer}>
       <Breadcrumb className="mt-2">
-      <Breadcrumb.Item onClick={() => navigate(MAIN_ROUTE)}>
+        <Breadcrumb.Item onClick={() => navigate(MAIN_ROUTE)}>
           Home
         </Breadcrumb.Item>
         <Breadcrumb.Item active>{category}</Breadcrumb.Item>
@@ -104,10 +109,7 @@ const CategoryPage = observer(() => {
         <Col md={10} className="d-flex flex-wrap mb-0 ">
           {product.selectedType.length !== 0 ||
           product.selectedBrand.length !== 0 ? (
-            <Button
-              className={style.clearButton}
-              onClick={() => clearFilter()}
-            >
+            <Button className={style.clearButton} onClick={() => clearFilter()}>
               Clear
             </Button>
           ) : null}

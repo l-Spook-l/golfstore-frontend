@@ -27,10 +27,11 @@ const CheckoutPage = observer(() => {
     return <Spinner style={{marginTop: '200px'}} animation='grow'/>
   }
 
-  const totalPrice = user.basket.product.reduce((acc, el) => acc + el.product.price, 0);
+  const totalPrice = user.basket.product.reduce((acc, el) => {
+    return acc + (el.product.price * el.quantity)
+  }, 0);
 
   console.log('Checkout user.basket.product', user.basket.product)
-
 
   return (
     <Container className="my-5" style={{paddingTop: '63px'}}>
@@ -49,7 +50,7 @@ const CheckoutPage = observer(() => {
         {user.basket.product.map((el) => (
         <Row className="m-1" key={el.product.id}>
           <Col md={1}>
-            <Image width={70} height={70} src={el.product.photo} />
+            <Image width={70} height={70} src={el.product.photos[0]['image']} />
           </Col>
           <Col md={5}>
             <h5>{el.product.name}</h5>

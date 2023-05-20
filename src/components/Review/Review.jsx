@@ -5,6 +5,7 @@ import moment from "moment";
 import { Context } from "../..";
 import { deleteReview, updateReview } from "../../http/productAPI";
 import ReviewForm from "../UI/ReviewForm/ReviewForm";
+import { AiFillDelete, AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 
 const Review = ({ reviewId, userId, username, comment, createdAt }) => {
   const {user} = useContext(Context) 
@@ -42,7 +43,7 @@ const Review = ({ reviewId, userId, username, comment, createdAt }) => {
 
   return (
     <Row>
-      <Col md={7}>
+      <Col md={8}>
         <Card className={style.reviewCard}>
           <Card.Body>
             <Card.Title className={style.cardTitle}>
@@ -50,8 +51,8 @@ const Review = ({ reviewId, userId, username, comment, createdAt }) => {
               {user.isAuth && userId === user.user.id
               ? 
               <div>
-                <Button onClick={() => deleteReview(reviewId)}>Delete</Button>
-                <Button onClick={() => openModalUpdateReview(reviewId)}>Update</Button>
+                <button className={style.butthonUpdateReview} onClick={() => openModalUpdateReview(reviewId)}><AiOutlineEdit/></button>
+                <button className={style.butthonDeleteReview} onClick={() => deleteReview(reviewId)}><AiOutlineDelete/></button>
               </div>
               :  null
               }
