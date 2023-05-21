@@ -13,39 +13,37 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
   const navigate = useNavigate();
 
   //const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   // Были ли мы в ipnut
-  const [usernameDirty, setUsernameDirty] = useState(false);
+  const [emailDirty, setemailDirty] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
   // Ошибка полей
-  const [usernameError, setUsernameError] = useState("username не может быть пустым");
-  //const [emailError, setEmailError] = useState('Email не может быть пустым')
+  const [emailError, setEmailError] = useState('Email не может быть пустым')
   const [passwordError, setPasswordError] = useState("password не может быть пустым");
 
   // Общая проверка валидации формы
   const [formValid, setFormValid] = useState(false);
 
   useEffect(() => {
-    if (usernameError || passwordError) {
+    if (emailError || passwordError) {
       setFormValid(false);
     } else {
       setFormValid(true);
     }
-  }, [usernameError, passwordError]);
+  }, [emailError, passwordError]);
 
   const loginUser = () => {
     try {
-      const userData = login(username, password);
+      const userData = login(email, password);
       //console.log("Auth login-userData", userData);
 
       userData.then((data) => {
         console.log('userData.then((data)', data)
         user.setUser(data)
         user.setIsAuth(true);
-
       })
 
       console.log("Auth user", user);
@@ -58,7 +56,7 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
     }
   };
 
-  /*   const emailHandler = (e) => {
+  const emailHandler = (e) => {
     setEmail(e.target.value)
     const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if (!re.test(String(e.target.value).toLowerCase())) {
@@ -66,21 +64,7 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
     } else {
       setEmailError('')
     }
-  } */
-
-  const usernameHandler = (e) => {
-    setUsername(e.target.value);
-    console.log("usernameHandler", e.target.value);
-    console.log("e.target.value < 3", e.target.value.length < 3);
-    if (e.target.value.length < 3) {
-      setUsernameError("username должен быть длиннее 8 символов");
-      if (!e.target.value) {
-        setUsernameError("username не может быть пустым");
-      }
-    } else {
-      setUsernameError("");
-    }
-  };
+  }
 
   const passwordHandler = (e) => {
     setPassword(e.target.value);
@@ -96,8 +80,8 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
 
   const blurHandler = (e) => {
     switch (e.target.name) {
-      case "username":
-        setUsernameDirty(true);
+      case "email":
+        setemailDirty(true);
         break;
       case "password":
         setPasswordDirty(true);
@@ -120,14 +104,14 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
             <Form.Label>Email Adress</Form.Label>
             <Form.Control
               onBlur={(e) => blurHandler(e)}
-              name="username"
-              type="text"
-              placeholder="Enter username"
-              value={username}
-              onChange={(e) => usernameHandler(e)}
+              name="email"
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => emailHandler(e)}
             />
-            {usernameDirty && usernameError && (
-              <Form.Text className="text-danger">{usernameError}</Form.Text>
+            {emailDirty && emailError && (
+              <Form.Text className="text-danger">{emailError}</Form.Text>
             )}
           </Form.Group>
           <Form.Group controlId="formBasicPassword">

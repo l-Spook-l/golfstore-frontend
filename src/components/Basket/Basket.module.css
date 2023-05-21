@@ -16,3 +16,13 @@
   height: 100px;
   cursor: pointer;
 }
+
+.buttonChangeQuantity {
+  margin: 0 8px;
+  font-size: 18px;
+  border: none;
+}
+
+.buttonChangeQuantity:hover {
+  background-color: limegreen;
+}

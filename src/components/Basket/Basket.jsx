@@ -52,13 +52,11 @@ const Basket = observer(() => {
   const changeQuantityPlus = (basketId, productId, quantity, price) => {
     updateQuantityProductInBasket(basketId, productId, quantity)
     setChangeQuantity(!changeQuantity)
-    //setTotalPrice(totalPrice + price)
   }
   
   const changeQuantityMinus = (basketId, productId, quantity, price) => {
     updateQuantityProductInBasket(basketId, productId, quantity)
     setChangeQuantity(!changeQuantity)
-    //setTotalPrice(totalPrice - price)
   }
 
   return (
@@ -77,12 +75,13 @@ const Basket = observer(() => {
           </Col>
           <Col md={6}>
             <h5>{el.product.name}</h5>
-            <div>
-              Quantity 
-              <button disabled={el.quantity === 1} onClick={() => changeQuantityMinus(user.basket.id, el.product.id, el.quantity - 1, el.price)}>-</button>
-              {el.quantity}
-              <button onClick={() => changeQuantityPlus(user.basket.id, el.product.id, el.quantity + 1, el.price)}>+</button>
-                
+            <div className="d-flex">
+              Quantity
+              <div className="1">
+                <button className={style.buttonChangeQuantity} disabled={el.quantity === 1} onClick={() => changeQuantityMinus(user.basket.id, el.product.id, el.quantity - 1, el.price)}>-</button>
+                {el.quantity}
+                <button className={style.buttonChangeQuantity} onClick={() => changeQuantityPlus(user.basket.id, el.product.id, el.quantity + 1, el.price)}>+</button>
+              </div>
             </div>
             <p>{el.product.price} $</p>
           </Col>

@@ -2,9 +2,10 @@ import jwt_decode from "jwt-decode";
 import { $authHost, $host } from "./index";
 import { createBasketForUser, createWishListForUser } from "./productAPI";
 
-export const registration = async (username, password, email) => {
+export const registration = async (first_name, last_name, email, password) => {
   // response - ответ от сервера
-  const response = await $host.post("auth/users/", { username, password, email });
+  console.log('registration', first_name, last_name, email, password)
+  const response = await $host.post("auth/users/", { first_name, last_name, email, password });
   //localStorage.setItem("token", response.token); // глянь на этот ответ 2:11:7
   console.log("регистрация response", response);
   createBasketForUser({user: response.data.id})
@@ -15,8 +16,8 @@ export const registration = async (username, password, email) => {
   return response.data
 };
 
-export const login = async (username, password) => {
-  const response = await $host.post("auth/jwt/create/", { username, password });
+export const login = async (email, password) => {
+  const response = await $host.post("auth/jwt/create/", { email, password });
   localStorage.setItem("token", response.data.access); // глянь на этот ответ 2:11:7
   console.log("авторизация response", response); 
   console.log("авторизация data", response.data);

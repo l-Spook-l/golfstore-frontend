@@ -13,44 +13,43 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
 
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [showPassword, setShowPassword] = useState(false);
 
   // Были ли мы в ipnut
-  const [usernameDirty, setUsernameDirty] = useState(false);
+  const [firstNameDirty, setFirstNameDirty] = useState(false);
+  const [lastNameDirty, setLastNameDirty] = useState(false);
   const [emailDirty, setEmailDirty] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
   // Ошибка полей
-  const [usernameError, setUsernameError] = useState(
-    "username не может быть пустым"
-  );
+  const [firstNameError, setFirstNameError] = useState("first name не может быть пустым");
+  const [lastNameError, setLastNameError] = useState("last name не может быть пустым");
   const [emailError, setEmailError] = useState("Email не может быть пустым");
-  const [passwordError, setPasswordError] = useState(
-    "password не может быть пустым"
-  );
+  const [passwordError, setPasswordError] = useState("password не может быть пустым");
 
   // Общая проверка валидации формы
   const [formValid, setFormValid] = useState(false);
 
   useEffect(() => {
-    if (usernameError || passwordError) {
+    if (firstNameError || lastNameError || passwordError || emailError) {
       setFormValid(false);
     } else {
       setFormValid(true);
     }
-  }, [usernameError, passwordError]);
+  }, [firstNameError, lastNameError, passwordError, emailError]);
 
   const registerUser = () => {
     try {
-      const userData = registration(username, password, email);
+      const userData = registration(firstName, lastName, email, password);
       console.log("Auth registration-userData", userData);
-
-      user.setUser(userData);
-      user.setIsAuth(true);
+      //user.setUser(userData);
+      //user.setIsAuth(true);
       console.log("Auth user", user);
-
+      onSwitchForm()
       onHide()
       navigate(MAIN_ROUTE);
     } catch (error) {
@@ -64,6 +63,8 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
     setEmail(e.target.value);
     const re =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    console.log('test email !!!!!!!!!!!!',!re.test(String(e.target.value).toLowerCase()))
+    console.log('test email ',re.test(String(e.target.value).toLowerCase()))
     if (!re.test(String(e.target.value).toLowerCase())) {
       setEmailError("Некоректный email");
     } else {
@@ -71,17 +72,27 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
     }
   };
 
-  const usernameHandler = (e) => {
-    setUsername(e.target.value);
-    console.log("usernameHandler", e.target.value);
-    console.log("e.target.value > 4", e.target.value.length > 4);
+  const firstNameHandler = (e) => {
+    setFirstName(e.target.value);
     if (e.target.value.length < 4) {
-      setUsernameError("username должен быть длиннее 4 символов");
+      setFirstNameError("username должен быть длиннее 4 символов");
       if (!e.target.value) {
-        setUsernameError("username не может быть пустым");
+        setFirstNameError("username не может быть пустым");
       }
     } else {
-      setUsernameError("");
+      setFirstNameError("");
+    }
+  };
+
+  const lastNameHandler = (e) => {
+    setLastName(e.target.value);
+    if (e.target.value.length < 4) {
+      setLastNameError("username должен быть длиннее 4 символов");
+      if (!e.target.value) {
+        setLastNameError("username не может быть пустым");
+      }
+    } else {
+      setLastNameError("");
     }
   };
 
@@ -99,11 +110,17 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
 
   const blurHandler = (e) => {
     switch (e.target.name) {
-      case "username":
-        setUsernameDirty(true);
+      case "firstName":
+        setFirstNameDirty(true);
+        break;
+      case "lastName":
+        setLastNameDirty(true);
         break;
       case "password":
         setPasswordDirty(true);
+        break;
+      case "email":
+        setEmailDirty(true);
         break;
     }
   };
@@ -125,7 +142,7 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
             <Form.Control
               onBlur={(e) => blurHandler(e)}
               name="email"
-              type="wmail"
+              type="email"
               placeholder="Enter email"
               value={email}
               onChange={(e) => emailHandler(e)}
@@ -136,17 +153,32 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
           </Form.Group>
 
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>Username</Form.Label>
+            <Form.Label>First name</Form.Label>
             <Form.Control
               onBlur={(e) => blurHandler(e)}
-              name="username"
+              name="firstName"
               type="text"
-              placeholder="Enter username"
-              value={username}
-              onChange={(e) => usernameHandler(e)}
+              placeholder="Enter first name"
+              value={firstName}
+              onChange={(e) => firstNameHandler(e)}
             />
-            {usernameDirty && usernameError && (
-              <Form.Text className="text-danger">{usernameError}</Form.Text>
+            {firstNameDirty && firstNameError && (
+              <Form.Text className="text-danger">{firstNameError}</Form.Text>
+            )}
+          </Form.Group>
+
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Last name</Form.Label>
+            <Form.Control
+              onBlur={(e) => blurHandler(e)}
+              name="lastName"
+              type="text"
+              placeholder="Enter last name"
+              value={lastName}
+              onChange={(e) => lastNameHandler(e)}
+            />
+            {lastNameDirty && lastNameError && (
+              <Form.Text className="text-danger">{lastNameError}</Form.Text>
             )}
           </Form.Group>
 
@@ -193,39 +225,6 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
     </Modal>
 
   );
-  /*   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  }
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Здесь можно добавить логику отправки данных на сервер и обработки ошибок
-    console.log('Email:', email);
-    console.log('Password:', password);
-  }
-
-  const register = () => {
-    user.setIsAuth(true)
-  }
-
-  return (
-    <Form onSubmit={handleSubmit}>
-      <h1>Register Form</h1>
-      <input type="email" value={email} onChange={handleEmailChange} placeholder="Email" />
-      <input type="password" value={password} onChange={handlePasswordChange} placeholder="Password" />
-      <Button onClick={register} type="submit">Register</Button>
-      <div>
-        Уже есть аккаунт? <button type="button" onClick={onSwitchForm}>Войдите!</button>
-      </div>
-    </Form>
-  ); */
 });
 
 export default FormRegister;
