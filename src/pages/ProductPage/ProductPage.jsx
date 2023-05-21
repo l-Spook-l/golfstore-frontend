@@ -1,5 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Breadcrumb, Button, Card, Col, Container, Image, Row, Spinner} from "react-bootstrap";
+import {
+  Breadcrumb,
+  Button,
+  Card,
+  Col,
+  Container,
+  Image,
+  Row,
+  Spinner,
+} from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { createReview, fetchOneProduct } from "../../http/productAPI";
 import Review from "../../components/Review/Review";
@@ -25,12 +34,17 @@ const ProductPage = observer(() => {
   const [selectedPhoto, setSelectedPhoto] = useState(0);
 
   const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    fetchOneProduct(slug)
-      .then((data) => product.setSelectedProduct(data))
-      .finally(() => setLoading(false));
-  }, [/* product.selectedProduct.reviews */]);
+
+  useEffect(
+    () => {
+      fetchOneProduct(slug)
+        .then((data) => product.setSelectedProduct(data))
+        .finally(() => setLoading(false));
+    },
+    [
+      /* product.selectedProduct.reviews */
+    ]
+  );
 
   const openModalPhoto = (image) => {
     setSelectedPhoto(image);
@@ -46,22 +60,25 @@ const ProductPage = observer(() => {
   };
 
   const openModalAddReview = () => {
-    setShowModalAddReview(true)
+    setShowModalAddReview(true);
   };
 
   const handleCloseModalAddReview = () => {
-    setShowModalAddReview(false)
-  }
+    setShowModalAddReview(false);
+  };
 
   const handleSubmitReview = (review) => {
-    createReview(review, product.selectedProduct.id, user.user.id)
+    createReview(review, product.selectedProduct.id, user.user.id);
   };
 
   if (loading) {
     return <Spinner animation="grow" />;
   }
 
-  const typeSlug = product.selectedProduct.category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  const typeSlug = product.selectedProduct.category
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
   return (
     <Container style={{ paddingTop: "100px" }}>
@@ -81,10 +98,15 @@ const ProductPage = observer(() => {
         <Col md={4} className="d-flex flex-column">
           <Image
             className={style.mainPhoto}
-            onClick={() => openModalPhoto(product.selectedProduct.photos[mainPhoto]["image"])}
+            onClick={() =>
+              openModalPhoto(product.selectedProduct.photos[mainPhoto]["image"])
+            }
             src={product.selectedProduct.photos[mainPhoto]["image"]}
           />
-          <ProductSlider photos={product.selectedProduct.photos} onSelect={chageMainPhoto} />
+          <ProductSlider
+            photos={product.selectedProduct.photos}
+            onSelect={chageMainPhoto}
+          />
         </Col>
 
         <Col md={4}>
@@ -108,37 +130,48 @@ const ProductPage = observer(() => {
         </Col>
       </Row>
 
-      <div className="d-flex">
+      <div className="d-flex mb-3">
         <h4>Reviews</h4>
         {user.isAuth ? (
           <Col className=" d-flex justify-content-end" md={7}>
-            <Button className="bg-success" onClick={() => openModalAddReview()}>Add a review</Button>
+            <Button className="bg-success" onClick={() => openModalAddReview()}>
+              Add a review
+            </Button>
           </Col>
         ) : (
           <div></div>
         )}
       </div>
-
-      {product.selectedProduct.reviews.map((review) => (
-        <Row key={review.id} className="">
-          <Review
-            key={review.id}
-            reviewId={review.id}
-            userId={review.user}
-            username={review.username}
-            comment={review.comment}
-            createdAt={review.created_at}
-          />
-        </Row>
-      ))}
+      {product.selectedProduct.reviews.length > 0 ? (
+        <div>
+          {product.selectedProduct.reviews.map((review) => (
+            <Row key={review.id} className="">
+              <Review
+                key={review.id}
+                reviewId={review.id}
+                userId={review.user}
+                first_name={review.first_name}
+                comment={review.comment}
+                createdAt={review.created_at}
+              />
+            </Row>
+          ))}
+        </div>
+      ) : (
+        <p className={style.noneReviews}>This product does not have any reviews yet. Be the first to leave a review! </p>
+      )}
 
       {showModalPhoto && (
         <PhotoModal image={selectedPhoto} onClose={handleCloseModalPhoto} />
       )}
       {showModalAddReview && (
-        <ReviewForm show={showModalAddReview} onHide={handleCloseModalAddReview} onSubmit={handleSubmitReview} state={'Add review'}/>
+        <ReviewForm
+          show={showModalAddReview}
+          onHide={handleCloseModalAddReview}
+          onSubmit={handleSubmitReview}
+          state={"Add review"}
+        />
       )}
-      
     </Container>
   );
 });

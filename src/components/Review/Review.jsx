@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import style from "./Review.module.css";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import moment from "moment";
 import { Context } from "../..";
 import { deleteReview, updateReview } from "../../http/productAPI";
 import ReviewForm from "../UI/ReviewForm/ReviewForm";
-import { AiFillDelete, AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
+import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 
-const Review = ({ reviewId, userId, username, comment, createdAt }) => {
+const Review = ({ reviewId, userId, first_name, comment, createdAt }) => {
   const {user} = useContext(Context) 
 
   const [showModalUpdateReview, setShowModalUpdateReview] = useState(false);
@@ -37,7 +37,6 @@ const Review = ({ reviewId, userId, username, comment, createdAt }) => {
   }
 
   const handleUpdateReview = (comment) => {
-    // Выполните необходимые действия с комментарием, например, отправьте его на сервер или обновите состояние компонента
     updateReview(reviewId, comment)
   };
 
@@ -47,7 +46,7 @@ const Review = ({ reviewId, userId, username, comment, createdAt }) => {
         <Card className={style.reviewCard}>
           <Card.Body>
             <Card.Title className={style.cardTitle}>
-              {username}
+              {first_name}
               {user.isAuth && userId === user.user.id
               ? 
               <div>
@@ -63,7 +62,7 @@ const Review = ({ reviewId, userId, username, comment, createdAt }) => {
         </Card>
       </Col>
       {showModalUpdateReview && (
-        <ReviewForm show={showModalUpdateReview} onHide={handleCloseModalUpdateReview} onSubmit={handleUpdateReview} state={'Update'}/>
+        <ReviewForm show={showModalUpdateReview} onHide={handleCloseModalUpdateReview} onSubmit={handleUpdateReview} state={'Update'} oldComment={comment}/>
       )}
     </Row>
   );

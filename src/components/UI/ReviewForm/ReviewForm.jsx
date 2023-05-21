@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 
-const ReviewForm = ({ show, onHide, onSubmit, state }) => {
-  const [comment, setComment] = useState('');
+const ReviewForm = ({ show, onHide, onSubmit, state, oldComment }) => {
+  const [comment, setComment] = useState(oldComment !== undefined ? oldComment : '');
 
   const handleSubmit = () => {
     onSubmit(comment);
@@ -11,7 +11,7 @@ const ReviewForm = ({ show, onHide, onSubmit, state }) => {
   };
 
   return (
-    <Modal show={show} onHide={onHide} centered>
+    <Modal size="lg" show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
         <Modal.Title>{state}</Modal.Title>
       </Modal.Header>
@@ -20,7 +20,7 @@ const ReviewForm = ({ show, onHide, onSubmit, state }) => {
           <Form.Group controlId="comment">
             <Form.Control
               as="textarea"
-              rows={3}
+              rows={8}
               placeholder="Enter your comment"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
