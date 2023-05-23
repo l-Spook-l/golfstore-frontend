@@ -46,6 +46,17 @@
   border-radius: 5px;
 }
 
+.blockPriceAndButtonToBasket {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 32px;
+  border: "5px solid lightgray";
+}
+
 .noneReviews {
   margin-bottom: 110px;
 }

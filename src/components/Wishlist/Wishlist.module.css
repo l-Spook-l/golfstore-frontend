@@ -3,32 +3,32 @@
   cursor: pointer;
 }
 
-.cardProductButton {
+.deleteProductButton {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  width: 30px;
+  height: 30px;
   background-color: transparent;
   border: none;
   padding: 0;
   margin: 0;
 }
 
-.cardProductButton:focus {
+.deleteProductButton:focus {
   outline: none;
 }
 
-.cardProductButton:hover {
+.deleteProductButton:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.cardProductButton > svg {
+.deleteProductButton > svg {
   width: 100%;
   height: 100%;
   color: #999;
 }
 
-.cardProductButton > svg:hover {
+.deleteProductButton > svg:hover {
   color: #ff0000;
 }

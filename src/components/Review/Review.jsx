@@ -7,7 +7,7 @@ import { deleteReview, updateReview } from "../../http/productAPI";
 import ReviewForm from "../UI/ReviewForm/ReviewForm";
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 
-const Review = ({ reviewId, userId, first_name, comment, createdAt }) => {
+const Review = ({ reviewId, userId, first_name, comment, createdAt, changeReview }) => {
   const {user} = useContext(Context) 
 
   const [showModalUpdateReview, setShowModalUpdateReview] = useState(false);
@@ -38,6 +38,12 @@ const Review = ({ reviewId, userId, first_name, comment, createdAt }) => {
 
   const handleUpdateReview = (comment) => {
     updateReview(reviewId, comment)
+    changeReview()
+  };
+
+  const handleDeleteReview = () => {
+    deleteReview(reviewId)
+    changeReview()
   };
 
   return (
@@ -51,7 +57,7 @@ const Review = ({ reviewId, userId, first_name, comment, createdAt }) => {
               ? 
               <div>
                 <button className={style.butthonUpdateReview} onClick={() => openModalUpdateReview(reviewId)}><AiOutlineEdit/></button>
-                <button className={style.butthonDeleteReview} onClick={() => deleteReview(reviewId)}><AiOutlineDelete/></button>
+                <button className={style.butthonDeleteReview} onClick={() => handleDeleteReview()}><AiOutlineDelete/></button>
               </div>
               :  null
               }

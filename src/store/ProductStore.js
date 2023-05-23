@@ -13,7 +13,7 @@ export default class ProductStore {
     this._selectedType = []
     this._selectedBrand = []
     this._selectedCategory = []
-    this._selectedProduct = [{reviews: []}]
+    this._selectedProduct = [{reviews: {comment : ''}}]
 
     // 
     this._priceMin = 0
@@ -24,7 +24,7 @@ export default class ProductStore {
 
     this._page = 1
     this._totalCount = 0
-    // this._limit = 0
+
     // Для navBar
     this._brandsForSelected = []
     this._categoriesForSelected = []

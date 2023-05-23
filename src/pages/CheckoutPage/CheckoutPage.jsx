@@ -17,12 +17,9 @@ const CheckoutPage = observer(() => {
     
     fetchListProductsBasket(user.basket.id).then((products) => {
       user.setBasket({id: user.basket.id , product: products.results})
-      console.log('Checkout products', products)
     }).finally(() => setLoading(false));
-    console.log('Checkout useEffect')
   },[])
 
-  
   if (loading) {
     return <Spinner style={{marginTop: '200px'}} animation='grow'/>
   }
@@ -37,9 +34,9 @@ const CheckoutPage = observer(() => {
     <Container className="my-5" style={{paddingTop: '63px'}}>
       <h2>Order checkout</h2>
       <Row className='mt-2 d-flex justify-content-between'>
-        <Col md={3}>
+        <Col md={4}>
           <h5>Your contact information</h5>
-          <p>{user.user.first_name} {user.user.last_name} {user.user.email}</p>
+          <p>Name: {user.user.first_name} {user.user.last_name}, Email: {user.user.email}</p>
         </Col>
         <Col md={3}>
           <NavLink to={{pathname: PROFILE_ROUTE}} state='basket'>Edit order</NavLink>

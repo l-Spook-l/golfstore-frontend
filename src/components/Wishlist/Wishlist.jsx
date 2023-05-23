@@ -80,7 +80,7 @@ const WishListPage = observer(() => {
             <Col md={{ span: 2, offset: 10 }} className="text-right">
               <Button
                 onClick={() => deleteProduct(user.wishList.id, el.product.id)}
-                className={style.cardProductButton}
+                className={style.deleteProductButton}
               >
                 <FaTimes />
               </Button>

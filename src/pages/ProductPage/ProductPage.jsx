@@ -10,7 +10,7 @@ import {
   Spinner,
 } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { createReview, fetchOneProduct } from "../../http/productAPI";
+import { createReview, deleteReview, fetchOneProduct } from "../../http/productAPI";
 import Review from "../../components/Review/Review";
 import { CATEGORY_ROUTE, MAIN_ROUTE } from "../../utils/consts";
 import { Context } from "../..";
@@ -29,6 +29,7 @@ const ProductPage = observer(() => {
 
   const [showModalPhoto, setShowModalPhoto] = useState(false);
   const [showModalAddReview, setShowModalAddReview] = useState(false);
+  const [changeReviews, setChangeReviews] = useState(true);
 
   const [mainPhoto, setMainPhoto] = useState(0);
   const [selectedPhoto, setSelectedPhoto] = useState(0);
@@ -39,9 +40,21 @@ const ProductPage = observer(() => {
 
   useEffect(() => {
     fetchOneProduct(slug)
-      .then((data) => product.setSelectedProduct(data))
+      .then((data) => {
+        console.log('useEffect data', data)
+        product.setSelectedProduct(data)
+      })
       .finally(() => setLoading(false));
-  }, []);
+    /* console.log(
+      "product.selectedProduct.reviews.length product.selectedProduct",
+      product.selectedProduct
+    );
+    console.log(
+      "product.selectedProduct.reviews.length product.selectedProduct.reviews",
+      product.selectedProduct.reviews
+    ); */
+    console.log('ProductPage useEffect')
+  }, [changeReviews]);
 
   const openModalPhoto = (image) => {
     setSelectedPhoto(image);
@@ -66,8 +79,10 @@ const ProductPage = observer(() => {
 
   const handleSubmitReview = (review) => {
     createReview(review, product.selectedProduct.id, user.user.id);
+    setChangeReviews(!changeReviews)
   };
 
+  
   if (loading) {
     return <Spinner animation="grow" />;
   }
@@ -88,7 +103,20 @@ const ProductPage = observer(() => {
   });
 
   const productOptions = Object.keys(separateOptions);
-  console.log("productOptions productOptions productOptions", productOptions);
+  //console.log("productOptions productOptions productOptions", productOptions);
+
+  console.log(
+    "product.selectedProduct product.selectedProduct",
+    product.selectedProduct
+  );
+ /*  console.log(
+    "product.selectedProduct.reviews.length product.selectedProduct.reviews",
+    product.selectedProduct.reviews
+  );
+  console.log(
+    "product.selectedProduct.reviews.length product.selectedProduct.reviews.length",
+    product.selectedProduct.reviews.length
+  ); */
 
   const changeOptions = (title, description) => {
     if (options === undefined) {
@@ -106,9 +134,28 @@ const ProductPage = observer(() => {
     }
     console.log("test test selectedOptions 2", options);
   };
-
+  const updateAndChangeReview = () => {
+    setChangeReviews(!changeReviews)
+  }
   console.log("selectedOptions", options);
-
+  console.log("changeReviewschangeReviews", changeReviews);
+  const handleDeleteReview = (reviewId) => {
+    setChangeReviews(!changeReviews)
+    deleteReview(reviewId)
+    const reviews = product.selectedProduct.reviews.filter(
+      (review) => review.id !== reviewId
+    );
+    console.log('delete func', reviews)
+    console.log(
+      "delete func product.selectedProduct 1",
+      product.selectedProduct
+    );
+    product.setSelectedProduct({ ...product.selectedProduct, reviews: reviews });
+    console.log(
+      "delete func product.selectedProduct 2",
+      product.selectedProduct
+    );
+  };
   return (
     <Container className={style.forContainer}>
       <Breadcrumb>
@@ -164,17 +211,9 @@ const ProductPage = observer(() => {
         </Col>
 
         <Col md={4}>
-          <Card
-            className="d=flex flex-column align-items-center justify-content-around"
-            style={{
-              width: 300,
-              height: 300,
-              fontSize: 32,
-              border: "5px solid lightgray",
-            }}
-          >
+          <Card className={style.blockPriceAndButtonToBasket}>
             <h3>{product.selectedProduct.price} $</h3>
-            <Button variant="outline-dark">Add to cart</Button>
+            <Button variant="outline-dark">Add to basket</Button>
           </Card>
         </Col>
       </Row>
@@ -202,14 +241,16 @@ const ProductPage = observer(() => {
                 first_name={review.first_name}
                 comment={review.comment}
                 createdAt={review.created_at}
+                changeReview={updateAndChangeReview}
               />
+              <Button onClick={() => handleDeleteReview(review.id)}>delete</Button>
             </Row>
           ))}
         </div>
       ) : (
         <p className={style.noneReviews}>
           This product does not have any reviews yet. Be the first to leave a
-          review!{" "}
+          review!
         </p>
       )}
 
