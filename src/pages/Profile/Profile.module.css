@@ -1,3 +1,7 @@
+.forContainer {
+  padding-top: 63px;
+}
+
 .alertMenu {
   display: flex;
   flex-direction: column;
@@ -16,5 +20,5 @@
 }
 
 .blockWithMenu {
-  margin: 80px 0 200px 0;
+  margin: 70px 0 210px 0;
 }

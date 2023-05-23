@@ -162,7 +162,7 @@ const ProductItem = observer(({ product }) => {
             isHovered &&
             activeProduct === product.id &&
             product.photos.length > 1
-              ? product.photos[2]["image"]
+              ? product.photos[1]["image"]
               : product.photos[0]["image"]
           }
           onMouseEnter={() => hoverProduct(product.id)}

@@ -21,12 +21,12 @@ const CardForm = () => {
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Card number</Form.Label>
-              <Form.Control type="text" placeholder="Введите номер карты" />
+              <Form.Control type="text" placeholder="Enter card number" />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Expiration date</Form.Label>
-              <Form.Control type="text" placeholder="Введите срок действия" />
+              <Form.Control type="text" placeholder="Enter expiration date" />
             </Form.Group>
           </Form>
         </Modal.Body>

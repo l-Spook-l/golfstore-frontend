@@ -1,13 +1,9 @@
-import Auth from "./pages/Auth/Auth";
 import Shop from "./pages/Shop/Shop";
 import Profile from "./pages/Profile/Profile";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import MainPage from "./pages/MainPage/MainPage";
 import {
-  ADMIN_ROUTE,
   PRODUCT_ROUTE,
-  LOGIN_ROUTE,
-  REGISTER_ROUTE,
   SHOP_ROUTE,
   PROFILE_ROUTE,
   MAIN_ROUTE,
@@ -53,21 +49,4 @@ export const publicRoutes = [
     path: PRODUCT_ROUTE + "/:slug",
     Component: ProductPage,
   },
-  {
-    path: LOGIN_ROUTE,
-    Component: Auth,
-  },
-  {
-    path: REGISTER_ROUTE,
-    Component: Auth,
-  },
-  /* -------------------------- */
-  /* {
-    path: CHECKOUT_ROUTE,
-    Component: CheckoutPage,
-  },
-  {
-    path: PROFILE_ROUTE,
-    Component: Profile,
-  }, */
 ];

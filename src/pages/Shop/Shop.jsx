@@ -92,9 +92,9 @@ const Shop = observer(() => {
     product.setSelectedType("clear");
     product.setSelectedBrand("clear");
     product.setSelectedCategory("clear");
+    product.setPriceMin(0)
+    product.setPriceMax(10000)
   };
-
-  console.log('jaewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwweq', user.isAuth)
 
   /* console.log("shop - product", product);
   console.log('shop - product selectedType', product.selectedType)

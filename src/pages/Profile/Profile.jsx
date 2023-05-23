@@ -48,7 +48,7 @@ const Profile = observer(() => {
   };
 
   return (
-    <Container style={{ paddingTop: "63px" }}>
+    <Container className={style.forContainer}>
       <Row className="">
         <Col md={3} className={style.blockWithMenu}>
           <Nav className="d-flex flex-column">

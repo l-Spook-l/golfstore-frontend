@@ -1,3 +1,7 @@
+.forContainer {
+  padding-top: 100px;
+}
+
 .mainPhoto {
   width: 300px;
   height: 300px;
@@ -16,6 +20,33 @@
   border: 1px solid black;
 }
 
+.optionsTitle {
+  margin-top: 1rem;
+  font-size: 19px;
+}
+
+.options {
+  margin-right: 1rem;
+  padding: 7px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.options:hover {
+  color: beige;
+  background-color: black;
+}
+
+.optionsSelect {
+  margin-right: 1rem;
+  padding: 7px;
+  color: beige;
+  background-color: black;
+  border-radius: 5px;
+}
+
 .noneReviews {
   margin-bottom: 110px;
 }
+

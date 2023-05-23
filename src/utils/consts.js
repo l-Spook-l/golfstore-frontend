@@ -1,8 +1,5 @@
-export const ADMIN_ROUTE = '/admin'
 export const MAIN_ROUTE = '/'
 export const SHOP_ROUTE = '/shop'
-export const LOGIN_ROUTE = '/login'
-export const REGISTER_ROUTE = '/register'
 export const PROFILE_ROUTE = '/profile'
 export const PRODUCT_ROUTE = '/product'
 export const CATEGORY_ROUTE = '/category'

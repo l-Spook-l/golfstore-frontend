@@ -4,7 +4,7 @@ import style from "./Subscribes.module.css";
 
 const Subscribes = () => {
   return (
-    <Container style={{ paddingTop: "63px" }}>
+    <Container className={style.forContainer}>
       <h2>Subscriptions</h2>
       <Row className={style.row}>
         <Col md={6}>

@@ -42,7 +42,7 @@ const CheckoutPage = observer(() => {
           <p>{user.user.first_name} {user.user.last_name} {user.user.email}</p>
         </Col>
         <Col md={3}>
-          <NavLink to={{pathname: PROFILE_ROUTE}} state='cart'>Edit order</NavLink>
+          <NavLink to={{pathname: PROFILE_ROUTE}} state='basket'>Edit order</NavLink>
         </Col>
       </Row>
       <Row className="mt-5">

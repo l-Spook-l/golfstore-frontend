@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../../index";
 import { Button, Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -9,10 +9,8 @@ import FormRegister from "../UI/FormRegister/FormRegister";
 import {
   BRAND_ROUTE,
   CATEGORY_ROUTE,
-  LOGIN_ROUTE,
   MAIN_ROUTE,
   PROFILE_ROUTE,
-  REGISTER_ROUTE,
   SHOP_ROUTE,
 } from "../../utils/consts";
 import {
@@ -124,18 +122,7 @@ const NavBar = observer(() => {
                 </NavDropdown.Item>
               ))}
             </NavDropdown>
-            {/* <NavLink
-              className="text-muted text-decoration-none ms-2"
-              to={LOGIN_ROUTE}
-            >
-              LOGIN_ROUTE
-            </NavLink>
-            <NavLink
-              className="text-muted text-decoration-none ms-2"
-              to={REGISTER_ROUTE}
-            >
-              REGISTER_ROUTE
-            </NavLink> */}
+            
           </Nav>
 
           <Nav>

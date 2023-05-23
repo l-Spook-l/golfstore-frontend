@@ -26,10 +26,10 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
   const [emailDirty, setEmailDirty] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
   // Ошибка полей
-  const [firstNameError, setFirstNameError] = useState("first name не может быть пустым");
-  const [lastNameError, setLastNameError] = useState("last name не может быть пустым");
-  const [emailError, setEmailError] = useState("Email не может быть пустым");
-  const [passwordError, setPasswordError] = useState("password не может быть пустым");
+  const [firstNameError, setFirstNameError] = useState("First name cannot be empty");
+  const [lastNameError, setLastNameError] = useState("Last name cannot be empty");
+  const [emailError, setEmailError] = useState("Email cannot be empty");
+  const [passwordError, setPasswordError] = useState("Password cannot be empty");
 
   // Общая проверка валидации формы
   const [formValid, setFormValid] = useState(false);
@@ -63,10 +63,8 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
     setEmail(e.target.value);
     const re =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    console.log('test email !!!!!!!!!!!!',!re.test(String(e.target.value).toLowerCase()))
-    console.log('test email ',re.test(String(e.target.value).toLowerCase()))
     if (!re.test(String(e.target.value).toLowerCase())) {
-      setEmailError("Некоректный email");
+      setEmailError("Invalid email");
     } else {
       setEmailError("");
     }
@@ -75,9 +73,9 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
   const firstNameHandler = (e) => {
     setFirstName(e.target.value);
     if (e.target.value.length < 4) {
-      setFirstNameError("username должен быть длиннее 4 символов");
+      setFirstNameError("First name must be longer than 4 characters");
       if (!e.target.value) {
-        setFirstNameError("username не может быть пустым");
+        setFirstNameError("First name cannot be empty");
       }
     } else {
       setFirstNameError("");
@@ -87,9 +85,9 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
   const lastNameHandler = (e) => {
     setLastName(e.target.value);
     if (e.target.value.length < 4) {
-      setLastNameError("username должен быть длиннее 4 символов");
+      setLastNameError("Last name must be longer than 4 characters");
       if (!e.target.value) {
-        setLastNameError("username не может быть пустым");
+        setLastNameError("Last name cannot be empty");
       }
     } else {
       setLastNameError("");
@@ -99,9 +97,9 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
   const passwordHandler = (e) => {
     setPassword(e.target.value);
     if (e.target.value.length < 8) {
-      setPasswordError("Пароль должен быть длиннее 8 символов");
+      setPasswordError("Password must be longer than 8 characters");
       if (!e.target.value) {
-        setPasswordError("password не может быть пустым");
+        setPasswordError("Password cannot be empty");
       }
     } else {
       setPasswordError("");

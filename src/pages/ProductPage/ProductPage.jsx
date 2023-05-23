@@ -33,18 +33,15 @@ const ProductPage = observer(() => {
   const [mainPhoto, setMainPhoto] = useState(0);
   const [selectedPhoto, setSelectedPhoto] = useState(0);
 
+  const [options, setOptions] = useState();
+
   const [loading, setLoading] = useState(true);
 
-  useEffect(
-    () => {
-      fetchOneProduct(slug)
-        .then((data) => product.setSelectedProduct(data))
-        .finally(() => setLoading(false));
-    },
-    [
-      /* product.selectedProduct.reviews */
-    ]
-  );
+  useEffect(() => {
+    fetchOneProduct(slug)
+      .then((data) => product.setSelectedProduct(data))
+      .finally(() => setLoading(false));
+  }, []);
 
   const openModalPhoto = (image) => {
     setSelectedPhoto(image);
@@ -80,8 +77,40 @@ const ProductPage = observer(() => {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
+  const separateOptions = {};
+
+  product.selectedProduct.options.forEach((option) => {
+    const { title, ...rest } = option;
+    if (!separateOptions.hasOwnProperty(title)) {
+      separateOptions[title] = [];
+    }
+    separateOptions[title].push(rest);
+  });
+
+  const productOptions = Object.keys(separateOptions);
+  console.log("productOptions productOptions productOptions", productOptions);
+
+  const changeOptions = (title, description) => {
+    if (options === undefined) {
+      const newOptions = productOptions.reduce((acc, option) => {
+        acc[option] = "";
+        return acc;
+      }, {});
+      newOptions[title] = description;
+      setOptions(newOptions);
+      console.log("test test selectedOptions", options);
+      console.log("test test title", title);
+      console.log("test test description", description);
+    } else {
+      setOptions({ ...options, [title]: description });
+    }
+    console.log("test test selectedOptions 2", options);
+  };
+
+  console.log("selectedOptions", options);
+
   return (
-    <Container style={{ paddingTop: "100px" }}>
+    <Container className={style.forContainer}>
       <Breadcrumb>
         <Breadcrumb.Item onClick={() => navigate(MAIN_ROUTE)}>
           Home
@@ -112,8 +141,28 @@ const ProductPage = observer(() => {
         <Col md={4}>
           <Row className="d-flex flex-column align-items-center">
             <h2>{product.selectedProduct.name}</h2>
+            {Object.keys(separateOptions).map((title) => (
+              <div key={title}>
+                <p className={style.optionsTitle}>{title}:</p>
+                {separateOptions[title].map((option) => (
+                  <span
+                    onClick={() => changeOptions(title, option.description)}
+                    className={
+                      options !== undefined &&
+                      Object.values(options).includes(option.description)
+                        ? style.optionsSelect
+                        : style.options
+                    }
+                    key={option.id}
+                  >
+                    {option.description}
+                  </span>
+                ))}
+              </div>
+            ))}
           </Row>
         </Col>
+
         <Col md={4}>
           <Card
             className="d=flex flex-column align-items-center justify-content-around"
@@ -158,7 +207,10 @@ const ProductPage = observer(() => {
           ))}
         </div>
       ) : (
-        <p className={style.noneReviews}>This product does not have any reviews yet. Be the first to leave a review! </p>
+        <p className={style.noneReviews}>
+          This product does not have any reviews yet. Be the first to leave a
+          review!{" "}
+        </p>
       )}
 
       {showModalPhoto && (
