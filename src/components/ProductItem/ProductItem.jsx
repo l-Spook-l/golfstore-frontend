@@ -1,14 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Card, Col, Image } from "react-bootstrap";
 import { PRODUCT_ROUTE, PROFILE_ROUTE } from "../../utils/consts";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { BsCart, BsFillCartCheckFill } from "react-icons/bs";
-import {
-  addProductToBasket,
-  addProductToWishList,
-  deleteProductFromWishList,
-} from "../../http/productAPI";
+import { addProductToBasket, addProductToWishList, deleteProductFromWishList } from "../../http/productAPI";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
 import FormLogin from "../UI/FormLogin/FormLogin";
@@ -28,29 +24,26 @@ const ProductItem = observer(({ product }) => {
   const [productOnWishList, setProductOnWishList] = useState();
 
   useEffect(() => {
-    user.basket.product.filter((item) => item.product.id === product.id)
-      .length > 0
+    console.log('useEffect prodcut item')
+    user.basket.product.filter((item) => item.product.id === product.id).length > 0
       ? setProductOnBasket(<BsFillCartCheckFill />)
       : setProductOnBasket(<BsCart />);
-    user.wishList.product.filter((item) => item.product.id === product.id)
-      .length > 0
+    user.wishList.product.filter((item) => item.product.id === product.id).length > 0
       ? setProductOnWishList(<AiTwotoneHeart />)
       : setProductOnWishList(<AiOutlineHeart />);
-  }, [user.wishList.product.length, user.basket.product.length]);
+  }, []);
 
   const addToWishlist = (wishListId, productId) => {
     const wishList = user.wishList.product.filter(
       (item) => item.product.id !== productId
     );
     const productInWishList =
-      user.wishList.product.filter((item) => item.product.id === product.id)
-        .length > 0;
+      user.wishList.product.filter((item) => item.product.id === product.id).length > 0;
 
     if (productInWishList) {
       deleteProductFromWishList(wishListId, productId);
-      const wishList = user.wishList.product.filter(
-        (item) => item.product.id !== productId
-      );
+      const wishList = user.wishList.product.filter((item) => item.product.id !== productId);
+
       user.setWishList({ id: wishListId, product: wishList });
       setProductOnWishList(<AiOutlineHeart />);
     } else {
@@ -83,15 +76,11 @@ const ProductItem = observer(({ product }) => {
   };
 
   const addToBasket = (basketId, productId) => {
-    const basket = user.basket.product.filter(
-      (item) => item.product.id !== productId
-    );
+    const basket = user.basket.product.filter((item) => item.product.id !== productId);
 
-    const productInCart =
-      user.basket.product.filter((item) => item.product.id === product.id)
-        .length > 0;
+    const productInBasket = user.basket.product.filter((item) => item.product.id === product.id).length > 0;
 
-    if (productInCart) {
+    if (productInBasket) {
       navigate(`${PROFILE_ROUTE}`, {state: 'basket'});
     } else {
       const newProduct = addProductToBasket({
@@ -113,7 +102,7 @@ const ProductItem = observer(({ product }) => {
                 photos: product.photos,
                 price: product.price,
               },
-              quantity: 2,
+              quantity: 1,
             },
           ],
         })

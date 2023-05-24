@@ -6,10 +6,11 @@ import { Context } from "../..";
 import { deleteReview, updateReview } from "../../http/productAPI";
 import ReviewForm from "../UI/ReviewForm/ReviewForm";
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
+import { observer } from "mobx-react-lite";
 
-const Review = ({ reviewId, userId, first_name, comment, createdAt, changeReview }) => {
+const Review = observer(({ reviewId, userId, first_name, comment, createdAt, changeReview }) => {
   const {user} = useContext(Context) 
-
+  const { product } = useContext(Context);
   const [showModalUpdateReview, setShowModalUpdateReview] = useState(false);
 
   const now = moment();
@@ -43,7 +44,10 @@ const Review = ({ reviewId, userId, first_name, comment, createdAt, changeReview
 
   const handleDeleteReview = () => {
     deleteReview(reviewId)
-    changeReview()
+    const reviews = product.selectedProduct.reviews.filter(
+      (review) => review.id !== reviewId
+    );
+    product.setSelectedProduct({ ...product.selectedProduct, reviews: reviews });
   };
 
   return (
@@ -72,6 +76,6 @@ const Review = ({ reviewId, userId, first_name, comment, createdAt, changeReview
       )}
     </Row>
   );
-};
+});
 
 export default Review;

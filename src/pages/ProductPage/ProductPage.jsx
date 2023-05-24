@@ -1,18 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Breadcrumb,
-  Button,
-  Card,
-  Col,
-  Container,
-  Image,
-  Row,
-  Spinner,
-} from "react-bootstrap";
+import { Breadcrumb, Button, Card, Col, Container, Image, Row, Spinner} from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { createReview, deleteReview, fetchOneProduct } from "../../http/productAPI";
+import { addProductToBasket, createReview, fetchOneProduct } from "../../http/productAPI";
 import Review from "../../components/Review/Review";
-import { CATEGORY_ROUTE, MAIN_ROUTE } from "../../utils/consts";
+import { CATEGORY_ROUTE, MAIN_ROUTE, PROFILE_ROUTE } from "../../utils/consts";
 import { Context } from "../..";
 import style from "./ProductPage.module.css";
 import PhotoModal from "../../components/UI/PhotoModal/PhotoModal";
@@ -40,20 +31,8 @@ const ProductPage = observer(() => {
 
   useEffect(() => {
     fetchOneProduct(slug)
-      .then((data) => {
-        console.log('useEffect data', data)
-        product.setSelectedProduct(data)
-      })
+      .then((data) => product.setSelectedProduct(data))
       .finally(() => setLoading(false));
-    /* console.log(
-      "product.selectedProduct.reviews.length product.selectedProduct",
-      product.selectedProduct
-    );
-    console.log(
-      "product.selectedProduct.reviews.length product.selectedProduct.reviews",
-      product.selectedProduct.reviews
-    ); */
-    console.log('ProductPage useEffect')
   }, [changeReviews]);
 
   const openModalPhoto = (image) => {
@@ -79,18 +58,14 @@ const ProductPage = observer(() => {
 
   const handleSubmitReview = (review) => {
     createReview(review, product.selectedProduct.id, user.user.id);
-    setChangeReviews(!changeReviews)
+    setChangeReviews(!changeReviews);
   };
 
-  
   if (loading) {
     return <Spinner animation="grow" />;
   }
 
-  const typeSlug = product.selectedProduct.category
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
+  const typeSlug = product.selectedProduct.category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
   const separateOptions = {};
 
@@ -103,20 +78,6 @@ const ProductPage = observer(() => {
   });
 
   const productOptions = Object.keys(separateOptions);
-  //console.log("productOptions productOptions productOptions", productOptions);
-
-  console.log(
-    "product.selectedProduct product.selectedProduct",
-    product.selectedProduct
-  );
- /*  console.log(
-    "product.selectedProduct.reviews.length product.selectedProduct.reviews",
-    product.selectedProduct.reviews
-  );
-  console.log(
-    "product.selectedProduct.reviews.length product.selectedProduct.reviews.length",
-    product.selectedProduct.reviews.length
-  ); */
 
   const changeOptions = (title, description) => {
     if (options === undefined) {
@@ -126,36 +87,51 @@ const ProductPage = observer(() => {
       }, {});
       newOptions[title] = description;
       setOptions(newOptions);
-      console.log("test test selectedOptions", options);
-      console.log("test test title", title);
-      console.log("test test description", description);
     } else {
       setOptions({ ...options, [title]: description });
     }
-    console.log("test test selectedOptions 2", options);
   };
+
   const updateAndChangeReview = () => {
-    setChangeReviews(!changeReviews)
-  }
-  console.log("selectedOptions", options);
-  console.log("changeReviewschangeReviews", changeReviews);
-  const handleDeleteReview = (reviewId) => {
-    setChangeReviews(!changeReviews)
-    deleteReview(reviewId)
-    const reviews = product.selectedProduct.reviews.filter(
-      (review) => review.id !== reviewId
-    );
-    console.log('delete func', reviews)
-    console.log(
-      "delete func product.selectedProduct 1",
-      product.selectedProduct
-    );
-    product.setSelectedProduct({ ...product.selectedProduct, reviews: reviews });
-    console.log(
-      "delete func product.selectedProduct 2",
-      product.selectedProduct
-    );
+    setChangeReviews(!changeReviews);
   };
+
+  const addToBasket = (basketId, productId) => {
+    const basket = user.basket.product.filter((item) => item.product.id !== productId);
+
+    const productInBasket =
+      user.basket.product.filter((item) => item.product.id === productId).length > 0;
+
+    if (productInBasket) {
+      navigate(`${PROFILE_ROUTE}`, { state: "basket" });
+    } else {
+      const newProduct = addProductToBasket({
+        basket: basketId,
+        product: productId,
+      });
+
+      newProduct.then((result) =>
+        user.setBasket({
+          id: basketId,
+          product: [
+            ...basket,
+            {
+              basket: result.basket,
+              id: result.id,
+              product: {
+                id: product.selectedProduct.id,
+                name: product.selectedProduct.name,
+                photos: product.selectedProduct.photos,
+                price: product.selectedProduct.price,
+              },
+              quantity: 1,
+            },
+          ],
+        })
+      );
+    }
+  };
+
   return (
     <Container className={style.forContainer}>
       <Breadcrumb>
@@ -174,9 +150,7 @@ const ProductPage = observer(() => {
         <Col md={4} className="d-flex flex-column">
           <Image
             className={style.mainPhoto}
-            onClick={() =>
-              openModalPhoto(product.selectedProduct.photos[mainPhoto]["image"])
-            }
+            onClick={() => openModalPhoto(product.selectedProduct.photos[mainPhoto]["image"])}
             src={product.selectedProduct.photos[mainPhoto]["image"]}
           />
           <ProductSlider
@@ -193,6 +167,7 @@ const ProductPage = observer(() => {
                 <p className={style.optionsTitle}>{title}:</p>
                 {separateOptions[title].map((option) => (
                   <span
+                    key={option.id}
                     onClick={() => changeOptions(title, option.description)}
                     className={
                       options !== undefined &&
@@ -200,7 +175,6 @@ const ProductPage = observer(() => {
                         ? style.optionsSelect
                         : style.options
                     }
-                    key={option.id}
                   >
                     {option.description}
                   </span>
@@ -213,7 +187,36 @@ const ProductPage = observer(() => {
         <Col md={4}>
           <Card className={style.blockPriceAndButtonToBasket}>
             <h3>{product.selectedProduct.price} $</h3>
-            <Button variant="outline-dark">Add to basket</Button>
+            {user.isAuth
+             ? (
+              <div>
+                {user.basket.product.filter(
+                  (item) => item.product.id === product.selectedProduct.id).length > 0 
+                  ? (
+                  <Button
+                    variant="outline-dark"
+                    onClick={() =>
+                      navigate(`${PROFILE_ROUTE}`, { state: "basket" })
+                    }
+                  >
+                    Product already basket
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() =>
+                      addToBasket(user.basket.id, product.selectedProduct.id)
+                    }
+                    variant="outline-dark"
+                  >
+                    Add to basket
+                  </Button>
+                )}
+              </div>
+            ) : (
+              <Button disabled variant="outline-dark">
+                Login to add item to basket
+              </Button>
+            )}
           </Card>
         </Col>
       </Row>
@@ -243,7 +246,6 @@ const ProductPage = observer(() => {
                 createdAt={review.created_at}
                 changeReview={updateAndChangeReview}
               />
-              <Button onClick={() => handleDeleteReview(review.id)}>delete</Button>
             </Row>
           ))}
         </div>
