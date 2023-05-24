@@ -8,6 +8,7 @@ export default class ProductStore {
     this._brands = []  // массив полученных брэндов
     this._categories = []
     this._products = []  // массив полученных продуктов
+    this._searchProducts = []
 
     // Выделять выбранный тип, брэнд, категорию
     this._selectedType = []
@@ -15,7 +16,6 @@ export default class ProductStore {
     this._selectedCategory = []
     this._selectedProduct = [{reviews: {comment : ''}}]
 
-    // 
     this._priceMin = 0
     this._priceMax = 10000
     
@@ -50,6 +50,9 @@ setSelectedType принимает тип продукта и устанавли
   }
   setProducts(products) {
     this._products = products;
+  }
+  setSearchProducts(products){
+    this._searchProducts = products
   }
 
   // Выделять выбранный тип
@@ -135,6 +138,9 @@ setSelectedType принимает тип продукта и устанавли
   }
   get products() {
     return this._products;
+  }
+  get searchProducts() {
+    return this._searchProducts
   }
 
   // Выделять выбранный тип

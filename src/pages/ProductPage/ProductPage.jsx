@@ -33,7 +33,7 @@ const ProductPage = observer(() => {
     fetchOneProduct(slug)
       .then((data) => product.setSelectedProduct(data))
       .finally(() => setLoading(false));
-  }, [changeReviews]);
+  }, [changeReviews, slug]);
 
   const openModalPhoto = (image) => {
     setSelectedPhoto(image);

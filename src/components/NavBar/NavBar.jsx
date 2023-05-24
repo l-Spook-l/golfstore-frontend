@@ -23,6 +23,7 @@ import {
 import style from "./NavBar.module.css";
 
 import { GiGolfFlag } from "react-icons/gi";
+import SearchBar from "../SearchBar/SearchBar";
 
 // observer позволяет создавать компоненты, которые автоматически обновляются при изменении данных, отслеживаемых с помощью MobX.
 const NavBar = observer(() => {
@@ -92,6 +93,7 @@ const NavBar = observer(() => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto align-items-center">
             {/* Навигаци вместо <a> - react-router-dom*/}
+            <SearchBar/>
             <NavLink
               className={style.shopOnNavbar}
               to={SHOP_ROUTE}
