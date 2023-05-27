@@ -124,7 +124,6 @@ const NavBar = observer(() => {
                 </NavDropdown.Item>
               ))}
             </NavDropdown>
-            
           </Nav>
 
           <Nav>

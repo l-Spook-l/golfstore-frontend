@@ -21,3 +21,7 @@
 .titleOnSlider {
   font-size: 38px;
 }
+
+.carouselItem {
+  height: 600px;
+}

@@ -27,10 +27,14 @@ import style from "./CategoryPage.module.css";
 const CategoryPage = observer(() => {
   const { user } = useContext(Context);
   const { product } = useContext(Context);
-  const [loading, setLoading] = useState(true);
+
   const { slug } = useParams();
   console.log("slug", slug);
+
+  const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
+
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -38,7 +42,7 @@ const CategoryPage = observer(() => {
       product.setTypes(data.type);
       product.setBrands(data.brand);
       console.log("CategoryPage - fetchOneCategory - data", data);
-    });
+    })
     fetchProductsByCategory(slug, null, null, 1, null, null, null)
       .then((data) => {
         product.setProducts(data.results);
@@ -46,7 +50,7 @@ const CategoryPage = observer(() => {
         console.log("CategoryPage - fetchProductsByCategory - data", data);
       })
       .finally(() => setLoading(false));
-  }, [slug, user.wishList.product]);
+  }, []);
 
   useEffect(() => {
     fetchProductsByCategory(
@@ -61,11 +65,11 @@ const CategoryPage = observer(() => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
 
-      /* console.log('category page - data', data)
-      console.log('category page - data results', data.results)
-      console.log('category page - product types', product.types)
-      console.log('category page - product brand', product.brands)
-      console.log('category page - product selectedType', product.selectedType) */
+      //console.log('category page - data', data)
+      //console.log('category page - data results', data.results)
+      //console.log('category page - product types', product.types)
+      //console.log('category page - product brand', product.brands)
+      //console.log('category page - product selectedType', product.selectedType)
     });
   }, [
     product.selectedType,
@@ -74,6 +78,7 @@ const CategoryPage = observer(() => {
     product.priceMin,
     product.priceMax,
     product.ordering,
+    slug, user.wishList.product
   ]);
 
   const clearFilter = () => {
@@ -93,9 +98,9 @@ const CategoryPage = observer(() => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 
-  /* if (loading) {
+  if (loading) {
     return <Spinner animation="grow" />;
-  } */
+  }
 
   return (
     <Container className={style.forContainer}>

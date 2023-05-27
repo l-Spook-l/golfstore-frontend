@@ -8,8 +8,8 @@ export const registration = async (first_name, last_name, email, password) => {
   const response = await $host.post("auth/users/", { first_name, last_name, email, password });
   //localStorage.setItem("token", response.token); // глянь на этот ответ 2:11:7
   console.log("регистрация response", response);
-  createBasketForUser({user: response.data.id})
-  createWishListForUser({user: response.data.id})
+  createBasketForUser({user: response.data.id})  // создаем корзину
+  createWishListForUser({user: response.data.id})  // создаем список желаний 
   //console.log("регистрация jwt_decode(response.data.access)", jwt_decode(response.data.access)); 
   console.log("регистрация data", response.data);
   // return jwt_decode(response.data.access);

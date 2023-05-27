@@ -21,12 +21,14 @@ import { MAIN_ROUTE } from "../../utils/consts";
 import style from "./BrandPage.module.css";
 
 const BrandPage = observer(() => {
-  const {user} = useContext(Context)
+  const { user } = useContext(Context)
   const { product } = useContext(Context);
 
   const { slug } = useParams();
   console.log("slug", slug);
+
   const navigate = useNavigate();
+  
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -40,7 +42,7 @@ const BrandPage = observer(() => {
       product.setTotalCount(data.count);
       console.log("brandPage - fetchProductsByBrand - data", data);
     });
-  }, [slug]);
+  }, []);
 
   useEffect(() => {
     fetchProductsByBrand(
@@ -69,6 +71,7 @@ const BrandPage = observer(() => {
     product.priceMin,
     product.priceMax,
     product.ordering,
+    slug, user.wishList.product
   ]);
 
   const clearFilter = () => {

@@ -26,7 +26,6 @@ import CategoryBar from "../../components/CategoryBar/CategoryBar";
 import style from "./Shop.module.css";
 import { MAIN_ROUTE } from "../../utils/consts";
 import { NavLink, useNavigate } from "react-router-dom";
-import SearchBar from "../../components/SearchBar/SearchBar";
 
 const Shop = observer(() => {
   const { user } = useContext(Context);
@@ -45,15 +44,7 @@ const Shop = observer(() => {
     window.scrollTo(0, 0);
     fetchTypes().then((data) => product.setTypes(data));
     fetchBrands().then((data) => product.setBrands(data));
-    fetchCategories().then((data) => product.setCategories(data));
-    fetchProducts(null, null, null, 1, null, null, null, null)
-      .then((data) => {
-        product.setProducts(data.results);
-        product.setTotalCount(data.count);
-        //console.log('shop - data', data)
-        //console.log('shop - data.results', data.results)
-      })
-      .finally(() => setLoading(false));
+    fetchCategories().then((data) => product.setCategories(data)).finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -65,7 +56,6 @@ const Shop = observer(() => {
       product.priceMin,
       product.priceMax,
       product.ordering,
-      product.searchProducts,
     )
       .then((data) => {
         product.setProducts(data.results);
@@ -88,7 +78,6 @@ const Shop = observer(() => {
     product.priceMin,
     product.priceMax,
     product.ordering,
-    product.searchProducts,
   ]);
 
   const clearFilter = () => {
@@ -97,7 +86,6 @@ const Shop = observer(() => {
     product.setSelectedCategory("clear");
     product.setPriceMin(0)
     product.setPriceMax(10000)
-    product.setSearchProducts('')
   };
 
   /* console.log("shop - product", product);
@@ -195,7 +183,6 @@ const Shop = observer(() => {
       <Row>
         <Col md={3}>
           <Col md={9}>
-            {/* <SearchBar/> */}
             <CategoryBar />
             <PriceBar />
             <TypeBar />

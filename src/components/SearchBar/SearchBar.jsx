@@ -1,133 +1,102 @@
-/* import { observer } from "mobx-react-lite";
-import React, { useContext, useState } from "react";
-import { Context } from "../..";
-import { Accordion, Dropdown, Form } from "react-bootstrap";
-import style from "./SearchBar.module.css";
-import { useNavigate } from "react-router-dom";
-import { PRODUCT_ROUTE } from "../../utils/consts";
-
-const SearchBar = observer(({ onSearch }) => {
-  const { product } = useContext(Context);
-  const navigate = useNavigate();
-  const [show, setShow] = useState(true);
-
-
-  return (
-    <div>
-      <Dropdown>
-        <Dropdown.Toggle className="me-5" bsPrefix="my-dropdown"  id="products-dropdown">
-          <Form.Control
-            type="text"
-            className={style.myForm}
-            placeholder="Введите название товара"
-            value={product.searchProducts}
-            onChange={(e) => product.setSearchProducts(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.keyCode === 13) {
-                // Выполнить действие по нажатию кнопки Enter
-                console.log('Нажата кнопка Enter');
-                // Добавьте здесь код для выполнения желаемого действия
-              }}}
-          />
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {product.products.map((productItem) => (
-            <Dropdown.Item key={productItem.id} onClick={() => navigate(`${PRODUCT_ROUTE}/${productItem}`)}>
-              {productItem.name}
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
-    </div>
-  );
-});
-
-export default SearchBar;
-
-
-
- */
-
-
-
 import { observer } from "mobx-react-lite";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../..";
 import { Dropdown, Form, Image } from "react-bootstrap";
 import style from "./SearchBar.module.css";
 import { useNavigate } from "react-router-dom";
 import { PRODUCT_ROUTE } from "../../utils/consts";
+import { fetchProducts } from "../../http/productAPI";
+import { AiOutlineClose } from "react-icons/ai";
 
 const SearchBar = observer(() => {
   const { product } = useContext(Context);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    fetchProducts(
+      null,
+      null,
+      null,
+      1,
+      null,
+      null,
+      null,
+      product.selectedSearchProducts
+    ).then((data) => {
+      product.setSearchProducts(data.results);
+      console.log("useEffect SearchBar", data);
+    }); //.finally(() => setLoading(false));
+  }, [product.selectedSearchProducts]);
+
+  const clearSearch = () => {
+    product.setSelectedSearchProducts("");
+  };
+
   return (
-    <div>
-      <Dropdown>
-        <Dropdown.Toggle
-          className="me-5"
-          bsPrefix="my-dropdown"
-          id="products-dropdown"
-        >
+    <Dropdown className="me-4">
+      <Dropdown.Toggle bsPrefix="my-dropdown-toggle" className={style.myDropdownToggle}>
+        <div className="d-flex" >
           <Form.Control
             type="text"
-            className={style.myForm}
-            placeholder="Введите название товара"
-            value={product.searchProducts}
-            onChange={(e) => product.setSearchProducts(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.keyCode === 13) {
-                // Выполнить действие по нажатию кнопки Enter
-                console.log("Нажата кнопка Enter");
-                // Добавьте здесь код для выполнения желаемого действия
-              }
-            }}
+            className={style.myInput}
+            placeholder="Enter the product name"
+            value={product.selectedSearchProducts}
+            onChange={(e) => product.setSelectedSearchProducts(e.target.value)}
           />
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-        {product.products.length !== 0 
-        ? product.products.length > 4 
-          ? product.products.slice(0, 4).map((productItem) => (
-            <Dropdown.Item
-              key={productItem.id}
-              onClick={() => navigate(`${PRODUCT_ROUTE}/${productItem.slug}`)}
-            >
-              <div>
-                <Image
-                  className={style.image}
-                  src={productItem.photos[0]["image"]}
-                />
-                {productItem.name}
-              </div>
-            </Dropdown.Item>
-          ))
-          : product.products.slice(0, product.products.length).map((productItem) => (
-            <Dropdown.Item
-              key={productItem.id}
-              onClick={() => navigate(`${PRODUCT_ROUTE}/${productItem.slug}`)}
-            >
-              <div>
-                <Image
-                  className={style.image}
-                  src={productItem.photos[0]["image"]}
-                />
-                {productItem.name}
-              </div>
-            </Dropdown.Item>
-          ))
-        : <div>Нету ааа</div>
-        }
-          
-        </Dropdown.Menu>
-      </Dropdown>
-    </div>
+          {product.selectedSearchProducts.length > 0 && (
+            <div className={style.clearSearch} onClick={() => clearSearch()}>
+              <AiOutlineClose />
+            </div>
+          )}
+        </div>
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu className={style.dropdownMenu}>
+        {product.searchProducts.length !== 0 ? (
+          product.searchProducts.length > 4 ? (
+            product.searchProducts.slice(0, 4).map((productItem) => (
+              <Dropdown.Item
+                key={productItem.id}
+                className={style.dropdownItem}
+                onClick={() => navigate(`${PRODUCT_ROUTE}/${productItem.slug}`)}
+              >
+                <div>
+                  <Image
+                    className={style.image}
+                    src={productItem.photos[0]["image"]}
+                  />
+                  {productItem.name}
+                </div>
+              </Dropdown.Item>
+            ))
+          ) : (
+            product.searchProducts
+              .slice(0, product.searchProducts.length)
+              .map((productItem) => (
+                <Dropdown.Item
+                  key={productItem.id}
+                  onClick={() =>
+                    navigate(`${PRODUCT_ROUTE}/${productItem.slug}`)
+                  }
+                >
+                  <div>
+                    <Image
+                      className={style.image}
+                      src={productItem.photos[0]["image"]}
+                    />
+                    {productItem.name}
+                  </div>
+                </Dropdown.Item>
+              ))
+          )
+        ) : (
+          <div className="p-1">
+            No results found for your query. Please refine your search
+          </div>
+        )}
+      </Dropdown.Menu>
+    </Dropdown>
   );
 });
 
 export default SearchBar;
-
-
-
-
-

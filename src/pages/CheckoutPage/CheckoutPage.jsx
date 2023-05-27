@@ -12,7 +12,7 @@ const CheckoutPage = observer(() => {
 
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
+ /*  useEffect(() => {
     window.scrollTo(0, 0);
     
     fetchListProductsBasket(user.basket.id).then((products) => {
@@ -22,14 +22,14 @@ const CheckoutPage = observer(() => {
 
   if (loading) {
     return <Spinner style={{marginTop: '200px'}} animation='grow'/>
-  }
+  } */
 
   const totalPrice = user.basket.product.reduce((acc, el) => {
     return acc + (el.product.price * el.quantity)
   }, 0);
 
   console.log('Checkout user.basket.product', user.basket.product)
-
+  window.scrollTo(0, 0);
   return (
     <Container className="my-5" style={{paddingTop: '63px'}}>
       <h2>Order checkout</h2>

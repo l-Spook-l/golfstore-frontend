@@ -20,7 +20,6 @@ import {
   Card,
   Col,
   Container,
-  Fade,
   Image,
   Row,
   Spinner,
@@ -37,7 +36,6 @@ const MainPage = observer(() => {
   const [loading, setLoading] = useState(true);
 
   const [countCategoryOnMainPage, setCountCategoryOnMainPage] = useState(3);
-  const [countTypesOnMainPage, setCountTypesOnMainPage] = useState(3);
   const [countBrandsOnMainPage, setCountBrandsOnMainPage] = useState(4);
 
   const [isHovered, setIsHovered] = useState(false);
@@ -50,7 +48,6 @@ const MainPage = observer(() => {
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
     window.scrollTo(0, 0);
-    // fetchTypes().then((data) => product.setTypes(data));
     fetchBrands().then((data) => product.setBrands(data));
     fetchCategories().then((data) => product.setCategories(data));
     fetchProducts(null, null, null, 1, null, null, null)
@@ -75,28 +72,6 @@ const MainPage = observer(() => {
     setIsHovered(true);
     setActiveProduct(productId);
   };
-
-  /* useEffect(() => {
-    fetchProducts(
-      product.selectedType.map((el) => el.slug).join(", "),
-      product.selectedBrand.map((el) => el.slug).join(", "),
-      product.page,
-      product.priceMin,
-      product.priceMax,
-      product.ordering,
-    ).then((data) => {
-      product.setProducts(data.results);
-      product.setTotalCount(data.count);
-
-      //console.log('shop - data222', data)
-      //console.log('shop - data222 results222', data.results)
-      //console.log('shop - product types', product.types)
-      //console.log('shop - product selectedType', product.selectedType)
-      //console.log('shop - product selectedType id', product.selectedType.slug)
-      //console.log('shop - product type2222222', product.types.slug)
-      //console.log('shop - product brand222', product.brands) 
-    });
-  }, [product.selectedType, product.selectedBrand, product.page, product.priceMin, product.priceMax, product.ordering]); */
 
   /* console.log("shop - product", product);
   console.log("shop - product products", product.products);

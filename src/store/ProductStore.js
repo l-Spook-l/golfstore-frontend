@@ -6,15 +6,17 @@ export default class ProductStore {
   constructor() {
     this._types = []  // массив полученных типов
     this._brands = []  // массив полученных брэндов
-    this._categories = []
+    this._categories = []  
     this._products = []  // массив полученных продуктов
-    this._searchProducts = []
+    this._searchProducts = []  // массив для поиска товара по названию
 
     // Выделять выбранный тип, брэнд, категорию
     this._selectedType = []
     this._selectedBrand = []
     this._selectedCategory = []
     this._selectedProduct = [{reviews: {comment : ''}}]
+
+    this._selectedSearchProducts = ''
 
     this._priceMin = 0
     this._priceMax = 10000
@@ -93,6 +95,10 @@ setSelectedType принимает тип продукта и устанавли
     this._selectedProduct = product
   }
 
+  setSelectedSearchProducts(product) {
+    this._selectedSearchProducts = product
+  }
+
   setPriceMin(price){
     this._priceMin = price
   }
@@ -167,6 +173,10 @@ setSelectedType принимает тип продукта и устанавли
 
   get selectedProduct() {
     return this._selectedProduct
+  }
+
+  get selectedSearchProducts() {
+    return this._selectedSearchProducts
   }
 
   get page() {

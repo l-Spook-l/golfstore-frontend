@@ -8,11 +8,11 @@ import { check } from "./http/userAPI";
 import Footer from "./components/Footer/Footer";
 import { observer } from "mobx-react-lite";
 import { $authHost } from "./http";
-import { fetchBasket, fetchBrands, fetchCategories, fetchListProductsBasket, fetchListProductsWishList, fetchWishList } from "./http/productAPI";
+import { fetchBasket, fetchBrands, fetchCategories, fetchListProductsBasket, fetchListProductsWishList, fetchProducts, fetchWishList } from "./http/productAPI";
 
 const App = observer(() => {
   // получаем состоянию пользователя
-  const {user} = useContext(Context)
+  const { user } = useContext(Context)
   const { product } = useContext(Context);
 
 /*   console.log('App user', user)

@@ -35,10 +35,10 @@ const Basket = observer(() => {
     user.setBasket({id: basketId , product: basket})
   }
 
-  if (loading) {
+  /* if (loading) {
     return <Spinner animation='grow'/>
   }
-
+ */
   const totalPrice = user.basket.product.reduce((acc, el) => {
     return acc + (el.product.price * el.quantity)
   }, 0);
@@ -49,12 +49,12 @@ const Basket = observer(() => {
       return name
     } 
     
-  const changeQuantityPlus = (basketId, productId, quantity, price) => {
+  const changeQuantityPlus = (basketId, productId, quantity) => {
     updateQuantityProductInBasket(basketId, productId, quantity)
     setChangeQuantity(!changeQuantity)
   }
   
-  const changeQuantityMinus = (basketId, productId, quantity, price) => {
+  const changeQuantityMinus = (basketId, productId, quantity) => {
     updateQuantityProductInBasket(basketId, productId, quantity)
     setChangeQuantity(!changeQuantity)
   }
@@ -78,9 +78,9 @@ const Basket = observer(() => {
             <div className="d-flex">
               Quantity
               <div className="1">
-                <button className={style.buttonChangeQuantity} disabled={el.quantity === 1} onClick={() => changeQuantityMinus(user.basket.id, el.product.id, el.quantity - 1, el.price)}>-</button>
+                <button className={style.buttonChangeQuantity} disabled={el.quantity === 1} onClick={() => changeQuantityMinus(user.basket.id, el.product.id, el.quantity - 1)}>-</button>
                 {el.quantity}
-                <button className={style.buttonChangeQuantity} onClick={() => changeQuantityPlus(user.basket.id, el.product.id, el.quantity + 1, el.price)}>+</button>
+                <button className={style.buttonChangeQuantity} onClick={() => changeQuantityPlus(user.basket.id, el.product.id, el.quantity + 1)}>+</button>
               </div>
             </div>
             <p>{el.product.price} $</p>
