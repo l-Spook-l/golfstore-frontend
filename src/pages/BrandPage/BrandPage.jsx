@@ -37,12 +37,12 @@ const BrandPage = observer(() => {
       product.setCategories(data.categories);
       console.log("brandPage - fetchOneBrand - data", data);
     });
-    fetchProductsByBrand(slug, null, null, 1, null, null, null).then((data) => {
+    /* fetchProductsByBrand(slug, null, null, 1, null, null, null).then((data) => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
       console.log("brandPage - fetchProductsByBrand - data", data);
-    });
-  }, []);
+    }); */
+  }, [slug]);
 
   useEffect(() => {
     fetchProductsByBrand(

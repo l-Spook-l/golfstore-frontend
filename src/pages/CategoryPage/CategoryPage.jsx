@@ -43,16 +43,16 @@ const CategoryPage = observer(() => {
       product.setBrands(data.brand);
       console.log("CategoryPage - fetchOneCategory - data", data);
     })
-    fetchProductsByCategory(slug, null, null, 1, null, null, null)
+    /* fetchProductsByCategory(slug, null, null, 1, null, null, null)
       .then((data) => {
         product.setProducts(data.results);
         product.setTotalCount(data.count);
         console.log("CategoryPage - fetchProductsByCategory - data", data);
-      })
-      //.finally(() => setLoading(false));
-  }, []);
+      }).finally(() => setLoading(false)); */
+  }, [slug]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchProductsByCategory(
       slug,
       product.selectedType.map((el) => el.slug).join(", "),
@@ -70,7 +70,7 @@ const CategoryPage = observer(() => {
       //console.log('category page - product types', product.types)
       //console.log('category page - product brand', product.brands)
       //console.log('category page - product selectedType', product.selectedType)
-    });
+    }).finally(() => setLoading(false));
   }, [
     product.selectedType,
     product.selectedBrand,
@@ -98,9 +98,9 @@ const CategoryPage = observer(() => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 
- /*  if (loading) {
+  if (loading) {
     return <Spinner animation="grow" />;
-  } */
+  }
 
   return (
     <Container className={style.forContainer}>

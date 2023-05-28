@@ -37,14 +37,12 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
 
   const loginUser = () => {
     login(email, password).then((userData) => {
-      //console.log('loginUser userData', userData)
       user.setUser(userData)
       user.setIsAuth(true)
       setLoginError(false)
       onHide()
     })
     .catch((error) => {
-      //console.log('loginUser error', error)
       setLoginError(true)
     });
   };
@@ -131,9 +129,9 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
             )}
           </Form.Group>
 
-          <Form.Group className="mt-2" controlId="formBasicCheckbox">
+          {/* <Form.Group className="mt-2" controlId="formBasicCheckbox">
             <Form.Check type="checkbox" label="Remember me" />
-          </Form.Group>
+          </Form.Group> */}
           
           <Row className="mt-2">
             <Col md={8} className="d-flex">

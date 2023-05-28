@@ -62,9 +62,6 @@ const UserInfo = () => {
           <Accordion.Body>
             <Row>
               <Col md={3}>
-                <p>Login (Mobile phone)</p>
-              </Col>
-              <Col md={3}>
                 <p>Login (Email)</p>
                 {user.user.email}
               </Col>
