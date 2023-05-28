@@ -142,12 +142,12 @@ const MainPage = observer(() => {
         <Row className="justify-content-center mb-5">
           {product.brands.slice(0, countBrandsOnMainPage).map((el) => (
             <Col md={3} key={el.id}>
-              <Button
+              <button
                 className={style.buttonBrands}
                 onClick={() => navigate(`${BRAND_ROUTE}/${el.slug}`)}
               >
                 {el.name}
-              </Button>
+              </button>
             </Col>
           ))}
           {countBrandsOnMainPage < product.brands.length && (

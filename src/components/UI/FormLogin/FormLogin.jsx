@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Button, Col, Form, InputGroup, Modal, Row } from "react-bootstrap";
 import { Context } from "../../..";
 import { useNavigate } from "react-router-dom";
-import { MAIN_ROUTE } from "../../../utils/consts";
 import { login } from "../../../http/userAPI";
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
 
@@ -12,7 +11,6 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
 
   const navigate = useNavigate();
 
-  //const [email, setEmail] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +25,8 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
   // Общая проверка валидации формы
   const [formValid, setFormValid] = useState(false);
 
+  const [loginError, setLoginError] = useState(false)
+
   useEffect(() => {
     if (emailError || passwordError) {
       setFormValid(false);
@@ -36,22 +36,17 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
   }, [emailError, passwordError]);
 
   const loginUser = () => {
-    try {
-      const userData = login(email, password);
-
-      userData.then((data) => {
-        user.setUser(data)
-        user.setIsAuth(true);
-      })
-
-      console.log("Auth user", user);
+    login(email, password).then((userData) => {
+      console.log('loginUser userData', userData)
+      user.setUser(userData)
+      user.setIsAuth(true)
+      setLoginError(false)
       onHide()
-      //navigate(MAIN_ROUTE);
-    } catch (error) {
-      console.log("error", error);
-      console.log("error.response", error.response);
-      alert(error.response.data.message);
-    }
+    })
+    .catch(error => {
+      console.log('loginUser error', error)
+      setLoginError(true)
+    });
   };
 
   const emailHandler = (e) => {
@@ -98,6 +93,9 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
+          {loginError && (
+              <Form.Text className="text-danger">Invalid login or password</Form.Text>
+          )}
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email Adress</Form.Label>
             <Form.Control

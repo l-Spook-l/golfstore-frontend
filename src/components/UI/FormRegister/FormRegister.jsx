@@ -34,6 +34,8 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
   // Общая проверка валидации формы
   const [formValid, setFormValid] = useState(false);
 
+  const [registrationError, setRegistrationError] = useState(false)
+
   useEffect(() => {
     if (firstNameError || lastNameError || passwordError || emailError) {
       setFormValid(false);
@@ -43,26 +45,63 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
   }, [firstNameError, lastNameError, passwordError, emailError]);
 
   const registerUser = () => {
-    try {
+    /* try {
       const userData = registration(firstName, lastName, email, password);
       console.log("Auth registration-userData", userData);
       //user.setUser(userData);
       //user.setIsAuth(true);
       console.log("Auth user", user);
       onSwitchForm()
-      onHide()
+      //onHide()
       navigate(MAIN_ROUTE);
     } catch (error) {
       console.log("error", error);
       console.log("error.response", error.response);
       alert(error.response.data.message);
-    }
+    } */
+    registration(firstName, lastName, email, password).then((userData) => {
+      setRegistrationError(false)
+      onSwitchForm()
+      navigate(MAIN_ROUTE);
+    })
+    .catch((error) => {
+      console.log('Statu registration', error)
+      console.log('Statu registration', error.response.data)
+      console.log('Statu registration', Object.keys(error.response.data)[0])
+      //console.log('Statu registration', error.response.data['email'][0])
+      //console.log('Statu registration', error.response.data['email'][0][0].toUpperCase())
+      //console.log('Statu registration', error.response.data['email'][0].slice(1))
+      //const message = error.response.data['email'][0][0].toUpperCase() + error.response.data['email'][0].slice(1)
+      //console.log('message', message)
+      switch (Object.keys(error.response.data)[0]) {
+        case "email":
+          setEmailError(error.response.data['email'][0][0].toUpperCase() + error.response.data['email'][0].slice(1))
+          break
+        case "password":
+          setPasswordError(error.response.data['password'][0][0].toUpperCase() + error.response.data['password'][0].slice(1))
+          break
+      }
+      //setRegistrationError(true)
+    });
+    /* 
+
+    
+----------------------------------------------
+
+    login(email, password).then((userData) => {
+      user.setUser(userData)
+      user.setIsAuth(true)
+      setLoginError(false)
+      onHide()
+    })
+    .catch(error => {
+      setLoginError(true)
+    }); */
   };
 
   const emailHandler = (e) => {
     setEmail(e.target.value);
-    const re =
-      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if (!re.test(String(e.target.value).toLowerCase())) {
       setEmailError("Invalid email");
     } else {
@@ -134,7 +173,9 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
-
+        {registrationError && (
+              <Form.Text className="text-danger">Invalid login or password</Form.Text>
+          )}
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email Adress</Form.Label>
             <Form.Control
