@@ -27,6 +27,8 @@
   position: absolute;
   width: 411px;
   padding: 5px;
+  max-height: 225px;
+  overflow-y: auto  ;
   background-color: rgb(245, 239, 239);
   border-radius: 5px;
 }

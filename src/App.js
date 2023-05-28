@@ -28,10 +28,12 @@ const App = observer(() => {
     fetchBrands().then((data) => product.setBrandsForSelected(data));
     fetchCategories().then((data) => product.setCategoriesForSelected(data));
     console.log('начал работать useEffect check', user)
+    
     check().then((data) => {
       user.setUser(data)
       user.setIsAuth(true)
-      console.log('начал работать check', user)
+      console.log('начал работать check user', user)
+      console.log('начал работать check data', data)
       fetchBasket(user.user.id).then((data) => {
         console.log('App basket data one ', data)
         fetchListProductsBasket(data.id).then((products) => {
@@ -48,6 +50,9 @@ const App = observer(() => {
           console.log('App fetchListProductsWishList products results', products.results)
         })
       })
+    }).catch(error => {
+      console.log('Error login', error);
+      // Обработка других ошибок, возникших при выполнении запроса
     }).finally(() => setLoading(false))
   },[user.isAuth])
   

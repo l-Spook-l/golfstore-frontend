@@ -37,14 +37,14 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
 
   const loginUser = () => {
     login(email, password).then((userData) => {
-      console.log('loginUser userData', userData)
+      //console.log('loginUser userData', userData)
       user.setUser(userData)
       user.setIsAuth(true)
       setLoginError(false)
       onHide()
     })
-    .catch(error => {
-      console.log('loginUser error', error)
+    .catch((error) => {
+      //console.log('loginUser error', error)
       setLoginError(true)
     });
   };

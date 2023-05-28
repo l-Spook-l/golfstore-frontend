@@ -36,7 +36,11 @@
   font-size: 22px;
 }
 
-.dropdownMenu {
+.dropdownItem:active {
+  background-color: rgb(221, 245, 245);
+}
+
+.buttonLink {
   color: black;
   width: 140px;
   border: 1px solid rgba(0, 0, 0, 0.25);

@@ -13,16 +13,8 @@ const SearchBar = observer(() => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchProducts(
-      null,
-      null,
-      null,
-      1,
-      null,
-      null,
-      null,
-      product.selectedSearchProducts
-    ).then((data) => {
+    fetchProducts( null, null, null, 1, null, null, null, product.selectedSearchProducts)
+    .then((data) => {
       product.setSearchProducts(data.results);
       console.log("useEffect SearchBar", data);
     }); //.finally(() => setLoading(false));
@@ -54,7 +46,7 @@ const SearchBar = observer(() => {
       <Dropdown.Menu className={style.dropdownMenu}>
         {product.searchProducts.length !== 0 ? (
           product.searchProducts.length > 4 ? (
-            product.searchProducts.slice(0, 4).map((productItem) => (
+            product.searchProducts.map((productItem) => (
               <Dropdown.Item
                 key={productItem.id}
                 className={style.dropdownItem}

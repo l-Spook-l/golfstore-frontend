@@ -1,6 +1,5 @@
 import { makeAutoObservable } from "mobx"
 
-// Проверка на авторизацию, глянь видос о mobx
 // _ - переменная не может быть изменена
 export default class UserStore {
   constructor() {

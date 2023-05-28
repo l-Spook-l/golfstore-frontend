@@ -49,7 +49,7 @@ const CategoryPage = observer(() => {
         product.setTotalCount(data.count);
         console.log("CategoryPage - fetchProductsByCategory - data", data);
       })
-      .finally(() => setLoading(false));
+      //.finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -98,9 +98,9 @@ const CategoryPage = observer(() => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 
-  if (loading) {
+ /*  if (loading) {
     return <Spinner animation="grow" />;
-  }
+  } */
 
   return (
     <Container className={style.forContainer}>

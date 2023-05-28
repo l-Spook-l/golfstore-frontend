@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, InputGroup, Modal, Row } from "react-bootstrap";
-import { Context } from "../../..";
 import { useNavigate } from "react-router-dom";
 import { registration } from "../../../http/userAPI";
 import { MAIN_ROUTE } from "../../../utils/consts";
@@ -9,7 +8,6 @@ import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
 
 
 const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
-  const { user } = useContext(Context);
 
   const navigate = useNavigate();
 
@@ -34,7 +32,6 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
   // Общая проверка валидации формы
   const [formValid, setFormValid] = useState(false);
 
-  const [registrationError, setRegistrationError] = useState(false)
 
   useEffect(() => {
     if (firstNameError || lastNameError || passwordError || emailError) {
@@ -45,34 +42,11 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
   }, [firstNameError, lastNameError, passwordError, emailError]);
 
   const registerUser = () => {
-    /* try {
-      const userData = registration(firstName, lastName, email, password);
-      console.log("Auth registration-userData", userData);
-      //user.setUser(userData);
-      //user.setIsAuth(true);
-      console.log("Auth user", user);
-      onSwitchForm()
-      //onHide()
-      navigate(MAIN_ROUTE);
-    } catch (error) {
-      console.log("error", error);
-      console.log("error.response", error.response);
-      alert(error.response.data.message);
-    } */
     registration(firstName, lastName, email, password).then((userData) => {
-      setRegistrationError(false)
       onSwitchForm()
       navigate(MAIN_ROUTE);
     })
     .catch((error) => {
-      console.log('Statu registration', error)
-      console.log('Statu registration', error.response.data)
-      console.log('Statu registration', Object.keys(error.response.data)[0])
-      //console.log('Statu registration', error.response.data['email'][0])
-      //console.log('Statu registration', error.response.data['email'][0][0].toUpperCase())
-      //console.log('Statu registration', error.response.data['email'][0].slice(1))
-      //const message = error.response.data['email'][0][0].toUpperCase() + error.response.data['email'][0].slice(1)
-      //console.log('message', message)
       switch (Object.keys(error.response.data)[0]) {
         case "email":
           setEmailError(error.response.data['email'][0][0].toUpperCase() + error.response.data['email'][0].slice(1))
@@ -81,22 +55,7 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
           setPasswordError(error.response.data['password'][0][0].toUpperCase() + error.response.data['password'][0].slice(1))
           break
       }
-      //setRegistrationError(true)
     });
-    /* 
-
-    
-----------------------------------------------
-
-    login(email, password).then((userData) => {
-      user.setUser(userData)
-      user.setIsAuth(true)
-      setLoginError(false)
-      onHide()
-    })
-    .catch(error => {
-      setLoginError(true)
-    }); */
   };
 
   const emailHandler = (e) => {
@@ -111,8 +70,8 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
 
   const firstNameHandler = (e) => {
     setFirstName(e.target.value);
-    if (e.target.value.length < 4) {
-      setFirstNameError("First name must be longer than 4 characters");
+    if (e.target.value.length < 5) {
+      setFirstNameError("First name must be longer than 5 characters");
       if (!e.target.value) {
         setFirstNameError("First name cannot be empty");
       }
@@ -123,8 +82,8 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
 
   const lastNameHandler = (e) => {
     setLastName(e.target.value);
-    if (e.target.value.length < 4) {
-      setLastNameError("Last name must be longer than 4 characters");
+    if (e.target.value.length < 5) {
+      setLastNameError("Last name must be longer than 5 characters");
       if (!e.target.value) {
         setLastNameError("Last name cannot be empty");
       }
@@ -173,9 +132,6 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
-        {registrationError && (
-              <Form.Text className="text-danger">Invalid login or password</Form.Text>
-          )}
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email Adress</Form.Label>
             <Form.Control
@@ -262,7 +218,6 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
         </Form>
       </Modal.Body>
     </Modal>
-
   );
 });
 

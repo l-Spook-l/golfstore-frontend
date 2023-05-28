@@ -6,20 +6,8 @@ import MyModal from "../../components/UI/MyModal/MyModal";
 import { observer } from "mobx-react-lite";
 import FormLogin from "../UI/FormLogin/FormLogin";
 import FormRegister from "../UI/FormRegister/FormRegister";
-import {
-  BRAND_ROUTE,
-  CATEGORY_ROUTE,
-  MAIN_ROUTE,
-  PROFILE_ROUTE,
-  SHOP_ROUTE,
-} from "../../utils/consts";
-import {
-  AiOutlineShoppingCart,
-  AiOutlineHeart,
-  AiOutlineProfile,
-  AiOutlineLogin,
-  AiOutlineLogout,
-} from "react-icons/ai";
+import { BRAND_ROUTE, CATEGORY_ROUTE, MAIN_ROUTE, PROFILE_ROUTE, SHOP_ROUTE } from "../../utils/consts";
+import { AiOutlineShoppingCart, AiOutlineHeart, AiOutlineProfile, AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
 import style from "./NavBar.module.css";
 
 import { GiGolfFlag } from "react-icons/gi";
@@ -32,10 +20,9 @@ const NavBar = observer(() => {
 
   const navigate = useNavigate(); // для перехода по страницам
 
-  /* Для модального окна */
   const [showModal, setShowModal] = useState(false);
 
-  // Кнопка выхода из профиля
+  // Выход из профиля
   const logOut = () => {
     user.setUser({});
     user.setIsAuth(false);
@@ -58,21 +45,11 @@ const NavBar = observer(() => {
   };
 
   console.log("Работает Navbar");
-  console.log(
-    "Работает Navbar user.basket.product.length",
-    user.basket.product.length
-  );
-  console.log(
-    "Navbar product.categoriesForSelected",
-    product.categoriesForSelected
-  );
+  console.log("Работает Navbar user.basket.product.length", user.basket.product.length);
+  console.log("Navbar product.categoriesForSelected", product.categoriesForSelected);
 
   return (
     <Container>
-      {/* collapseOnSelect: сворачивает меню в одну кнопку при ширине (expand)
-    expand: при какой ширине будет сворачиваться меню
-    bg: атрибут задает фоновый цвет (background color) для навигационного меню. 
-    variant: атрибут задает вариант (стиль) оформления навигационного меню. */}
       <Navbar
         collapseOnSelect
         expand="lg"
@@ -81,18 +58,13 @@ const NavBar = observer(() => {
         className="fixed-top"
         style={{ height: "63px" }}
       >
-        {/* fluid указывает на то, что контейнер будет занимать всю доступную ширину родительского элемента. */}
-        {/* Навигаци вместо <a> */}
         <NavLink className={style.logoContainer} to={MAIN_ROUTE}>
           <GiGolfFlag className={style.logo} />
           <span className={style.logoText}>Spook Golf</span>
         </NavLink>
-        {/* Navbar.Toggle - Кнопка которая появиться при уменьшении экрана и вней будут эл-ты которы находять в блоке с нужным - id*/}
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        {/* если ширина маленькая, меню которое внутри этого блока, будет светнуто в кнопку) */}
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto align-items-center">
-            {/* Навигаци вместо <a> - react-router-dom*/}
             <SearchBar/>
             <NavLink
               className={style.shopOnNavbar}
@@ -102,9 +74,9 @@ const NavBar = observer(() => {
             </NavLink>
             <NavDropdown className={style.dropdownMenuTitle} title="Brands" id="collasible-nav-dropdown-brands">
               {product.brandsForSelected.map((el) => (
-                <NavDropdown.Item key={el.id}>
+                <NavDropdown.Item key={el.id} className={style.dropdownItem}>
                   <button
-                    className={style.dropdownMenu}
+                    className={style.buttonLink}
                     onClick={() => navigate(`${BRAND_ROUTE}/${el.slug}`)}
                   >
                     {el.name}
@@ -114,9 +86,9 @@ const NavBar = observer(() => {
             </NavDropdown>
             <NavDropdown className={style.dropdownMenuTitle} title="Categories" id="collasible-nav-dropdown-categories">
               {product.categoriesForSelected.map((el) => (
-                <NavDropdown.Item key={el.id}>
+                <NavDropdown.Item key={el.id} className={style.dropdownItem}>
                   <button
-                    className={style.dropdownMenu}
+                    className={style.buttonLink}
                     onClick={() => navigate(`${CATEGORY_ROUTE}/${el.slug}`)}
                   >
                     {el.name}
