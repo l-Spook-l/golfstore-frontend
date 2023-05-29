@@ -10,6 +10,10 @@ const CategoryBar = observer(() => {
 
   const [show, setShow] = useState(true);
 
+  const testClick = (category) => {
+    product.selectedCategory.includes(category)
+  }
+
   return (
     <Accordion  bsPrefix="my-accordion" defaultActiveKey="0">
       <Accordion.Item eventKey="0">
@@ -26,7 +30,7 @@ const CategoryBar = observer(() => {
               id={category.id + 200}
               type="checkbox"
               label={category.name}
-              checked={product.selectedCategory.includes(category)}
+              checked={testClick(category)}
               onChange={() => product.setSelectedCategory(category)}
               className={style.checkbox}
             />

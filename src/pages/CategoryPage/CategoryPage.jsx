@@ -43,12 +43,7 @@ const CategoryPage = observer(() => {
       product.setBrands(data.brand);
       console.log("CategoryPage - fetchOneCategory - data", data);
     })
-    /* fetchProductsByCategory(slug, null, null, 1, null, null, null)
-      .then((data) => {
-        product.setProducts(data.results);
-        product.setTotalCount(data.count);
-        console.log("CategoryPage - fetchProductsByCategory - data", data);
-      }).finally(() => setLoading(false)); */
+    /* .finally(() => setLoading(false)); */
   }, [slug]);
 
   useEffect(() => {
