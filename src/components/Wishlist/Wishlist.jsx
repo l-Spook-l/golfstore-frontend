@@ -39,7 +39,7 @@ const WishListPage = observer(() => {
   };
 
   return (
-    <Container style={{ paddingTop: "63px" }}>
+    <Container className={style.forContainer}>
       <Row>
         <h2>Wishlist</h2>
         {user.wishList.product.length > 0 ? (

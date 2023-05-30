@@ -130,8 +130,8 @@ const ProductItem = observer(({ product }) => {
   };
 
   return (
-    <Col md={3} className="mt-3">
-      <Card style={{ width: 200 }} border="light">
+    <div>
+      <Card className={style.myCard}>
         <button
           className={style.butthonWishlist}
           onClick={() => {
@@ -143,10 +143,8 @@ const ProductItem = observer(({ product }) => {
           {productOnWishList}
         </button>
         <Image
-          style={{ cursor: "pointer" }}
+          className={style.myImage}
           onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}
-          width={200}
-          height={200}
           src={
             isHovered &&
             activeProduct === product.id &&
@@ -157,13 +155,13 @@ const ProductItem = observer(({ product }) => {
           onMouseEnter={() => hoverProduct(product.id)}
           onMouseLeave={() => setIsHovered(false)}
         />
-        <div style={{ cursor: "pointer" }} onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}>
+        <div className={style.nameProduct} onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}>
           {product.name}
         </div>
-        <div className="mt-1 d-flex justify-content-between align-items-center">
+        <div className={style.priceAndBasketProduct}>
           <div>{product.price} $</div>
           <div
-            style={{ fontSize: "1.3rem", color: "black", cursor: 'pointer' }}
+            className={style.buttonBasket}
             onClick={() =>  {
               user.isAuth
                 ? addToBasket(user.basket.id, product.id)
@@ -188,7 +186,7 @@ const ProductItem = observer(({ product }) => {
           onSwitchForm={handleSwitchForm}
         />
       )}
-    </Col>
+    </div>
   );
 });
 

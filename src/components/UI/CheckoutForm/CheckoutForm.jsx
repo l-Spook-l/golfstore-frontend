@@ -70,8 +70,6 @@ const CheckoutForm = ( onFormSubmit ) => {
     setZip(event.target.value);
   };
 
-  console.log('validatedvalidatedvalidated', validated)
-
   return (
     <Form
       noValidate
@@ -198,8 +196,8 @@ const CheckoutForm = ( onFormSubmit ) => {
         />
       </Form.Group>
       {confirm  
-      ? <Button disabled variant="success" type="submit">Data confirmed</Button>
-      : <Button type="submit">Сonfirm entered data</Button>
+      ? <Button className="mt-3" disabled variant="success" type="submit">Data confirmed</Button>
+      : <Button className="mt-3" type="submit">Сonfirm entered data</Button>
       }
     </Form>
   );

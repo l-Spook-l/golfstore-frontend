@@ -1,3 +1,12 @@
+.myCard {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 245px;
+  height: 300px;
+  margin: 10px 0;
+}
+
 .butthonWishlist {
   font-size: 1.5rem;
   color: rgb(205, 191, 5);
@@ -12,4 +21,31 @@
 .butthonWishlist:hover {
   color: rgb(205, 191, 5);
   background-color: antiquewhite;
+}
+
+.myImage {
+  width: 200px;
+  height: 200px;
+  margin: 5px auto;
+  cursor: pointer;
+}
+
+.nameProduct {
+  cursor: pointer;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.priceAndBasketProduct {
+  display: flex;
+  justify-content: space-between;
+  background-color: aqua;
+  width: 90%;
+  align-items: flex-end;
+}
+
+.buttonBasket {
+  font-size: 1.3rem;
+  color: black;
+  cursor: pointer;
 }

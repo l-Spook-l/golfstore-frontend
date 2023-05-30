@@ -15,20 +15,20 @@ import {
 import CategoryBar from "../../components/CategoryBar/CategoryBar";
 import TypeBar from "../../components/TypeBar/TypeBar";
 import PriceBar from "../../components/PriceBar/PriceBar";
-import ProductList from "../../components/ProductList";
+import ProductList from "../../components/ProdcutList/ProductList";
 import Paginations from "../../components/UI/Paginations/Paginations";
 import { MAIN_ROUTE } from "../../utils/consts";
 import style from "./BrandPage.module.css";
 
 const BrandPage = observer(() => {
-  const { user } = useContext(Context)
+  const { user } = useContext(Context);
   const { product } = useContext(Context);
 
   const { slug } = useParams();
   console.log("slug", slug);
 
   const navigate = useNavigate();
-  
+
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -66,7 +66,8 @@ const BrandPage = observer(() => {
     product.priceMin,
     product.priceMax,
     product.ordering,
-    slug, user.wishList.product
+    slug,
+    user.wishList.product,
   ]);
 
   const clearFilter = () => {
@@ -88,7 +89,7 @@ const BrandPage = observer(() => {
   return (
     <Container className={style.forContainer}>
       <Breadcrumb className="mt-2">
-      <Breadcrumb.Item onClick={() => navigate(MAIN_ROUTE)}>
+        <Breadcrumb.Item onClick={() => navigate(MAIN_ROUTE)}>
           Home
         </Breadcrumb.Item>
         <Breadcrumb.Item active>{brand}</Breadcrumb.Item>

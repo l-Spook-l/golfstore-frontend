@@ -19,7 +19,7 @@ import { Context } from "../..";
 import PriceBar from "../../components/PriceBar/PriceBar";
 import BrandBar from "../../components/BrandBar/BrandBar";
 import Paginations from "../../components/UI/Paginations/Paginations";
-import ProductList from "../../components/ProductList";
+import ProductList from "../../components/ProdcutList/ProductList";
 import TypeBar from "../../components/TypeBar/TypeBar";
 import { MAIN_ROUTE } from "../../utils/consts";
 import style from "./CategoryPage.module.css";
@@ -42,7 +42,7 @@ const CategoryPage = observer(() => {
       product.setTypes(data.type);
       product.setBrands(data.brand);
       console.log("CategoryPage - fetchOneCategory - data", data);
-    })
+    });
     /* .finally(() => setLoading(false)); */
   }, [slug]);
 
@@ -56,16 +56,18 @@ const CategoryPage = observer(() => {
       product.priceMin,
       product.priceMax,
       product.ordering
-    ).then((data) => {
-      product.setProducts(data.results);
-      product.setTotalCount(data.count);
+    )
+      .then((data) => {
+        product.setProducts(data.results);
+        product.setTotalCount(data.count);
 
-      //console.log('category page - data', data)
-      //console.log('category page - data results', data.results)
-      //console.log('category page - product types', product.types)
-      //console.log('category page - product brand', product.brands)
-      //console.log('category page - product selectedType', product.selectedType)
-    }).finally(() => setLoading(false));
+        //console.log('category page - data', data)
+        //console.log('category page - data results', data.results)
+        //console.log('category page - product types', product.types)
+        //console.log('category page - product brand', product.brands)
+        //console.log('category page - product selectedType', product.selectedType)
+      })
+      .finally(() => setLoading(false));
   }, [
     product.selectedType,
     product.selectedBrand,
@@ -73,7 +75,8 @@ const CategoryPage = observer(() => {
     product.priceMin,
     product.priceMax,
     product.ordering,
-    slug, user.wishList.product
+    slug,
+    user.wishList.product,
   ]);
 
   const clearFilter = () => {

@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 import TypeBar from "../../components/TypeBar/TypeBar";
 import BrandBar from "../../components/BrandBar/BrandBar";
-import ProductList from "../../components/ProductList";
+import ProductList from "../../components/ProdcutList/ProductList";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
 import {
@@ -40,11 +40,13 @@ const Shop = observer(() => {
 
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
-    console.log('Перезагрузка shop')
+    console.log("Перезагрузка shop");
     window.scrollTo(0, 0);
     fetchTypes().then((data) => product.setTypes(data));
     fetchBrands().then((data) => product.setBrands(data));
-    fetchCategories().then((data) => product.setCategories(data)).finally(() => setLoading(false));
+    fetchCategories()
+      .then((data) => product.setCategories(data))
+      .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -55,7 +57,7 @@ const Shop = observer(() => {
       product.page,
       product.priceMin,
       product.priceMax,
-      product.ordering,
+      product.ordering
     )
       .then((data) => {
         product.setProducts(data.results);
@@ -84,15 +86,15 @@ const Shop = observer(() => {
     product.setSelectedType("clear");
     product.setSelectedBrand("clear");
     product.setSelectedCategory("clear");
-    product.setPriceMin(0)
-    product.setPriceMax(10000)
+    product.setPriceMin(0);
+    product.setPriceMax(10000);
   };
 
   /* console.log("shop - product", product);
   console.log('shop - product selectedType', product.selectedType)
   console.log('shop - product brands', product.brands)
   console.log('shop - product types', product.types) */
-  
+
   /* if (loading) {
     return <Spinner animation="grow" />;
   } */
@@ -181,15 +183,15 @@ const Shop = observer(() => {
       </Row>
       <hr />
       <Row>
-        <Col md={3}>
-          <Col md={9}>
+        <Col md={2}>
+          <Col md={12}>
             <CategoryBar />
             <PriceBar />
             <TypeBar />
             <BrandBar />
           </Col>
         </Col>
-        <Col md={9} >
+        <Col md={10}>
           <ProductList />
           <Paginations />
         </Col>

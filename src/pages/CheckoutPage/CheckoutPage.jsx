@@ -14,6 +14,7 @@ const CheckoutPage = observer(() => {
   const navigate = useNavigate();
 
   const [show, setShow] = useState(false);
+  const [formValid, setFormValid] = useState(true);
 
   const modalClose = () => setShow(false);
 
@@ -21,23 +22,19 @@ const CheckoutPage = observer(() => {
     return acc + el.product.price * el.quantity;
   }, 0);
 
-  const handleFormSubmit = (formData) => {
-    // Выполняем логику с полученными данными формы
-    console.log("formData formData formData", formData);
+  const formSubmit = (formData) => {
+    // formData - полученные данные из формы
+    setFormValid(false);
+    //console.log("formData formData formData", formData);
   };
 
   const sendOrder = (basketId) => {
     setShow(false);
-    {
-      user.basket.product.map((el) => {
-        deleteProductFromBasket(basketId, el.product.id);
-      });
-    }
+    user.basket.product.map((el) => deleteProductFromBasket(basketId, el.product.id))
     user.setBasket({ id: basketId, product: [] });
     navigate(MAIN_ROUTE);
   };
 
-  console.log("Checkout user.basket.product", user.basket.product);
   window.scrollTo(0, 0);
   return (
     <Container className={style.forContainer}>
@@ -83,12 +80,16 @@ const CheckoutPage = observer(() => {
         <Col md={2}>
           <h5>Total</h5>
           <p>{totalPrice} $</p>
-          <Button className="bg-success" onClick={() => setShow(true)}>
+          <Button
+            className="bg-success"
+            disabled={formValid}
+            onClick={() => setShow(true)}
+          >
             Confirm order
           </Button>
         </Col>
       </Row>
-      <CheckoutForm onFormSubmit={handleFormSubmit} />
+      <CheckoutForm onFormSubmit={formSubmit} />
 
       <Modal show={show} onHide={modalClose} backdrop="static" keyboard={false}>
         <Modal.Header>
