@@ -10,16 +10,6 @@ const TypeBar = observer(() => {
 
   const [show, setShow] = useState(true);
 
-  /*   console.log('selectedType', product.selectedType);
-  console.log('selectedType id', product.selectedType.name);
-  console.log('selectedType', typeof product.selectedType);
-  console.log('product.products TypeBar', product.products);
-  console.log('-------------------------------------------------------------'); */
-  //console.log('selectedType', product.selectedType, typeof product.selectedType);
-  //console.log('types', product.types);
-  //console.log('setSelectedType.length', product.selectedType.length)
-  //console.log('setSelectedType.length', Object.keys(product.selectedType).length)
-
   return (
     <Accordion bsPrefix="my-accordion" className="mt-3" defaultActiveKey="0">
       <Accordion.Item className="border-0" eventKey="0">

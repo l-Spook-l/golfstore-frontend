@@ -9,7 +9,7 @@ import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import { observer } from "mobx-react-lite";
 
 const Review = observer(({ reviewId, userId, first_name, comment, createdAt, changeReview }) => {
-  const {user} = useContext(Context) 
+  const { user } = useContext(Context) 
   const { product } = useContext(Context);
   const [showModalUpdateReview, setShowModalUpdateReview] = useState(false);
 

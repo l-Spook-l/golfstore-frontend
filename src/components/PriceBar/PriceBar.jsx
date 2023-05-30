@@ -21,7 +21,6 @@ const PriceBar = observer(() => {
       <div className="d-flex justify-content-between align-items-center">
         <Form.Control
           type="number"
-          //defaultValue={product.priceMin}
           min={product.priceMin}
           max={product.priceMax}
           value={product.priceMin}
@@ -30,7 +29,6 @@ const PriceBar = observer(() => {
         />  $
         <Form.Control
           type="number"
-          //defaultValue={product.priceMax}
           min={product.priceMin}
           max={product.priceMax}
           value={product.priceMax}

@@ -60,7 +60,7 @@ const Basket = observer(() => {
   }
 
   return (
-    <Container style={{paddingTop: '63px'}}>
+    <Container className={style.forContainer}>
       <h2>My Basket</h2>
       {user.basket.product.length > 0 
         ? 
@@ -99,7 +99,6 @@ const Basket = observer(() => {
       </Row>
         : <h4 className="mt-5 text-muted">Basket is empty </h4>
         }
-
     </Container>
   );
 });

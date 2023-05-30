@@ -15,7 +15,7 @@ const CategoryBar = observer(() => {
   }
 
   return (
-    <Accordion  bsPrefix="my-accordion" defaultActiveKey="0">
+    <Accordion bsPrefix="my-accordion" defaultActiveKey="0">
       <Accordion.Item eventKey="0">
         <Accordion.Header className="my-3" onClick={() => setShow(!show)}>
           <span className={style.accordionHeader}>Categories</span>

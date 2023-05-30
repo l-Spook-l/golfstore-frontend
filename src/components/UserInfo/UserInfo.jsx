@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Accordion, Button, Col, Container, Row } from "react-bootstrap";
 import { Context } from "../..";
 import InDevelopmentModal from "../UI/InDevelopmentModal/InDevelopmentModal";
+import style from "./UserInfo.module.css"
 
 const UserInfo = () => {
   const { user } = useContext(Context);
@@ -11,7 +12,7 @@ const UserInfo = () => {
   const closeModal = () => setShowModal(false);
 
   return (
-    <Container style={{ paddingTop: "63px" }}>
+    <Container className={style.forContainer}>
       <h2>Personal information</h2>
       <Accordion alwaysOpen>
         <Accordion.Item eventKey="0" className="mb-2">
@@ -38,6 +39,7 @@ const UserInfo = () => {
             <Row>
               <Col md={3}>
                 <p>Mobile phone</p>
+                {user.user.phone_number}
               </Col>
               <Col md={3}>
                 <p>Email</p>

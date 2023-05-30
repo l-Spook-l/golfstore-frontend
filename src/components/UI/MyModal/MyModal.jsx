@@ -1,7 +1,7 @@
 import React from "react";
-import { Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 
-const MyModal = ({children, showModal, setShowModal, title}) => {
+const MyModal = ({ showModal, setShowModal, title, children}) => {
 
   const modalClose = () => {
     setShowModal(false);
@@ -17,6 +17,11 @@ const MyModal = ({children, showModal, setShowModal, title}) => {
         <Modal.Body>
           {children}
         </Modal.Body>
+        <Modal.Footer>
+          <Button variant="success" onClick={modalClose}>
+            OK
+          </Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );

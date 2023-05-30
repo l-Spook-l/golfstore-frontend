@@ -1,10 +1,12 @@
 .myDropdownToggle {
   padding: 0;
+  border: 1px solid black;
 }
 
 .myInput {
   width: 410px;
 }
+
 
 .image {
   width: 45px;

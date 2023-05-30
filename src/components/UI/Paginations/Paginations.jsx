@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Context } from "../../..";
 import { Pagination } from "react-bootstrap";
 import style from "./Paginations.module.css";
@@ -21,7 +21,6 @@ const Paginations = observer(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-
   return (
     <Pagination className='mt-5'>
       {pages.map((page) => 
@@ -34,17 +33,6 @@ const Paginations = observer(() => {
         </div>
       )}
     </Pagination>
-    /* <Pagination className='mt-5'>
-      {pages.map((page) => (
-        <Pagination.Item
-          key={page}
-          onClick={() => selectPage(page)}
-          active={page === product.page}
-          >
-          {page}
-        </Pagination.Item>
-      ))}
-    </Pagination> */
   );
 });
 

@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../..";
 import { Dropdown, Form, Image } from "react-bootstrap";
 import style from "./SearchBar.module.css";
