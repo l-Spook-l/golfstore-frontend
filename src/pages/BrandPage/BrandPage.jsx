@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { fetchOneBrand, fetchProductsByBrand } from "../../http/productAPI";
 import { Context } from "../..";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
@@ -19,15 +19,17 @@ import ProductList from "../../components/ProdcutList/ProductList";
 import Paginations from "../../components/UI/Paginations/Paginations";
 import { MAIN_ROUTE } from "../../utils/consts";
 import style from "./BrandPage.module.css";
+import MyOffcanvas from "../../components/UI/MyOffcanvas/MyOffcanvas";
 
 const BrandPage = observer(() => {
   const { user } = useContext(Context);
   const { product } = useContext(Context);
 
   const { slug } = useParams();
-  console.log("slug", slug);
 
   const navigate = useNavigate();
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
+
 
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
@@ -86,6 +88,14 @@ const BrandPage = observer(() => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 
+  const handleClose = () => {
+    setShowOffcanvas(false);
+  };
+
+  const handleOpen = () => {
+    setShowOffcanvas(true);
+  };
+
   return (
     <Container className={style.forContainer}>
       <Breadcrumb className="mt-2">
@@ -94,6 +104,9 @@ const BrandPage = observer(() => {
         </Breadcrumb.Item>
         <Breadcrumb.Item active>{brand}</Breadcrumb.Item>
       </Breadcrumb>
+      <button className={style.filterButton} onClick={handleOpen}>
+        Filters
+      </button>
       <Row className="mt-3">
         <Col md={10} className="d-flex flex-wrap mb-0 ">
           {product.selectedType.length !== 0 ||
@@ -150,17 +163,21 @@ const BrandPage = observer(() => {
         </Col>
       </Row>
       <hr />
-      <Row>
-        <Col md={2}>
+      <div className={style.shopMainBlock}>
+        <div className={style.filters}>
           <CategoryBar />
           <PriceBar />
           <TypeBar />
-        </Col>
-        <Col md={10}>
+        </div>
+        <div className={style.productSection}>
           <ProductList />
           <Paginations />
-        </Col>
-      </Row>
+        </div>
+      </div>
+      <MyOffcanvas
+        showOffcanvas={showOffcanvas}
+        setShowOffcanvas={handleClose}
+      />
     </Container>
   );
 });

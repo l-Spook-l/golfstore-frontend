@@ -26,12 +26,14 @@ import CategoryBar from "../../components/CategoryBar/CategoryBar";
 import style from "./Shop.module.css";
 import { MAIN_ROUTE } from "../../utils/consts";
 import { NavLink, useNavigate } from "react-router-dom";
+import MyOffcanvas from "../../components/UI/MyOffcanvas/MyOffcanvas";
 
 const Shop = observer(() => {
   const { user } = useContext(Context);
   const { product } = useContext(Context);
 
   const [loading, setLoading] = useState(true);
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
   const navigate = useNavigate();
   /* 
   console.log('shop - product page', product.page)
@@ -82,6 +84,19 @@ const Shop = observer(() => {
     product.ordering,
   ]);
 
+  /* useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+  
+    window.addEventListener("resize", handleResize);
+  
+    // Очистка обработчика события при размонтировании компонента
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [windowWidth]); */
+
   const clearFilter = () => {
     product.setSelectedType("clear");
     product.setSelectedBrand("clear");
@@ -99,6 +114,14 @@ const Shop = observer(() => {
     return <Spinner animation="grow" />;
   } */
 
+  const handleClose = () => {
+    setShowOffcanvas(false);
+  };
+
+  const handleOpen = () => {
+    setShowOffcanvas(true);
+  };
+
   return (
     <Container className={style.forContainer}>
       <Breadcrumb className="mt-2">
@@ -107,6 +130,9 @@ const Shop = observer(() => {
         </Breadcrumb.Item>
         <Breadcrumb.Item active>Shop All</Breadcrumb.Item>
       </Breadcrumb>
+      <button className={style.filterButton} onClick={handleOpen}>
+        Filters
+      </button>
       <Row className="mt-3">
         <Col md={10} className="d-flex flex-wrap mb-0 ">
           {product.selectedType.length !== 0 ||
@@ -182,18 +208,22 @@ const Shop = observer(() => {
         </Col>
       </Row>
       <hr />
-      <Row>
-        <Col md={2}>
+      <div className={style.shopMainBlock}>
+        <div className={style.filters}>
           <CategoryBar />
           <PriceBar />
           <TypeBar />
           <BrandBar />
-        </Col>
-        <Col md={10}>
+        </div>
+        <div className={style.productSection}>
           <ProductList />
           <Paginations />
-        </Col>
-      </Row>
+        </div>
+      </div>
+      <MyOffcanvas
+        showOffcanvas={showOffcanvas}
+        setShowOffcanvas={handleClose}
+      />
     </Container>
   );
 });

@@ -17,3 +17,53 @@
   color: antiquewhite;
   background-color: rgb(200, 0, 0);
 }
+
+.filterButton {
+  display: none;
+  width: 80px;
+  height: 45px;
+  font-size: 18px;
+  border-radius: 8px;
+  color: white;
+  background-color: black;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+}
+
+.shopMainBlock {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filters {
+  max-width: 200px;
+}
+
+.productSection {
+  max-width: 1090px;
+}
+
+@media (max-width: 1200px) {
+  .productSection{
+    max-width: 740px;
+  }
+}
+
+@media (max-width: 992px) {
+  .productSection{
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 769px) {
+  .shopMainBlock {
+    display: block;
+  }
+
+  .filters {
+    display: none;
+  }
+
+  .filterButton {
+    display: block;
+  }
+}

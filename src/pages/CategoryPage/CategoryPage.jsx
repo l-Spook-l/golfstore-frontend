@@ -23,6 +23,7 @@ import ProductList from "../../components/ProdcutList/ProductList";
 import TypeBar from "../../components/TypeBar/TypeBar";
 import { MAIN_ROUTE } from "../../utils/consts";
 import style from "./CategoryPage.module.css";
+import MyOffcanvas from "../../components/UI/MyOffcanvas/MyOffcanvas";
 
 const CategoryPage = observer(() => {
   const { user } = useContext(Context);
@@ -32,6 +33,7 @@ const CategoryPage = observer(() => {
   console.log("slug", slug);
 
   const [loading, setLoading] = useState(true);
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
 
   const navigate = useNavigate();
 
@@ -100,6 +102,14 @@ const CategoryPage = observer(() => {
     return <Spinner animation="grow" />;
   }
 
+  const handleClose = () => {
+    setShowOffcanvas(false);
+  };
+
+  const handleOpen = () => {
+    setShowOffcanvas(true);
+  };
+
   return (
     <Container className={style.forContainer}>
       <Breadcrumb className="mt-2">
@@ -108,6 +118,9 @@ const CategoryPage = observer(() => {
         </Breadcrumb.Item>
         <Breadcrumb.Item active>{category}</Breadcrumb.Item>
       </Breadcrumb>
+      <button className={style.filterButton} onClick={handleOpen}>
+        Filters
+      </button>
       <Row className="mt-3">
         <Col md={10} className="d-flex flex-wrap mb-0 ">
           {product.selectedType.length !== 0 ||
@@ -165,17 +178,21 @@ const CategoryPage = observer(() => {
         </Col>
       </Row>
       <hr />
-      <Row>
-        <Col md={2}>
-          <TypeBar />
+      <div className={style.shopMainBlock}>
+        <div className={style.filters}>
           <PriceBar />
+          <TypeBar />
           <BrandBar />
-          </Col>
-        <Col md={10}>
+        </div>
+        <div className={style.productSection}>
           <ProductList />
           <Paginations />
-        </Col>
-      </Row>
+        </div>
+      </div>
+      <MyOffcanvas
+        showOffcanvas={showOffcanvas}
+        setShowOffcanvas={handleClose}
+      />
     </Container>
   );
 });
