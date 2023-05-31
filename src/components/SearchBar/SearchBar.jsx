@@ -25,7 +25,7 @@ const SearchBar = observer(() => {
   };
 
   return (
-    <Dropdown className="me-4">
+    <Dropdown className={style.myDropdown}>
       <Dropdown.Toggle bsPrefix="my-dropdown-toggle" className={style.myDropdownToggle}>
         <div className="d-flex" >
           <Form.Control
@@ -49,7 +49,6 @@ const SearchBar = observer(() => {
             product.searchProducts.map((productItem) => (
               <Dropdown.Item
                 key={productItem.id}
-                className={style.dropdownItem}
                 onClick={() => navigate(`${PRODUCT_ROUTE}/${productItem.slug}`)}
               >
                 <div>

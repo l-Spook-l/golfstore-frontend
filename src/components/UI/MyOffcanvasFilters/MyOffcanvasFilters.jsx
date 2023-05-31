@@ -5,7 +5,7 @@ import PriceBar from "../../PriceBar/PriceBar";
 import TypeBar from "../../TypeBar/TypeBar";
 import BrandBar from "../../BrandBar/BrandBar";
 
-const MyOffcanvas = ({ showOffcanvas, setShowOffcanvas }) => {
+const MyOffcanvasFilters = ({ showOffcanvas, setShowOffcanvas }) => {
 
   const offcanvasClose = () => {
     setShowOffcanvas(false);
@@ -15,7 +15,7 @@ const MyOffcanvas = ({ showOffcanvas, setShowOffcanvas }) => {
     <>
       <Offcanvas show={showOffcanvas} onHide={offcanvasClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+          <Offcanvas.Title>Filters</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <CategoryBar />
@@ -28,4 +28,4 @@ const MyOffcanvas = ({ showOffcanvas, setShowOffcanvas }) => {
   );
 };
 
-export default MyOffcanvas;
+export default MyOffcanvasFilters;

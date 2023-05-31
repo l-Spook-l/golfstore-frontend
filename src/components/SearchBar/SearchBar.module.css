@@ -1,12 +1,15 @@
+.myDropdown {
+  margin-right: 1.2rem;
+}
+
 .myDropdownToggle {
   padding: 0;
-  border: 1px solid black;
+  border: 0;
 }
 
 .myInput {
-  width: 410px;
+  width: 375px;
 }
-
 
 .image {
   width: 45px;
@@ -27,7 +30,7 @@
 
 .dropdownMenu {
   position: absolute;
-  width: 411px;
+  width: 375px;
   padding: 5px;
   max-height: 225px;
   overflow-y: auto  ;
@@ -35,9 +38,24 @@
   border-radius: 5px;
 }
 
-.dropdownItem {}
+@media (max-width: 1200px) {
+  .myInput{
+    max-width: 300px;
+  }
+}
 
-.dropdownItem:active {
-  color: black;
-  background-color: rgb(217, 249, 238);
+@media (max-width: 1050px) {
+  .myInput{
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 960px) {
+  .myDropdown {
+    margin-right: 0px;
+  }
+
+  .myInput{
+    max-width: 300px;
+  }
 }

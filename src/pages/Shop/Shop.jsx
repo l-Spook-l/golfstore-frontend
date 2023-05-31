@@ -26,7 +26,7 @@ import CategoryBar from "../../components/CategoryBar/CategoryBar";
 import style from "./Shop.module.css";
 import { MAIN_ROUTE } from "../../utils/consts";
 import { NavLink, useNavigate } from "react-router-dom";
-import MyOffcanvas from "../../components/UI/MyOffcanvas/MyOffcanvas";
+import MyOffcanvasFilters from "../../components/UI/MyOffcanvasFilters/MyOffcanvasFilters";
 
 const Shop = observer(() => {
   const { user } = useContext(Context);
@@ -220,7 +220,7 @@ const Shop = observer(() => {
           <Paginations />
         </div>
       </div>
-      <MyOffcanvas
+      <MyOffcanvasFilters
         showOffcanvas={showOffcanvas}
         setShowOffcanvas={handleClose}
       />

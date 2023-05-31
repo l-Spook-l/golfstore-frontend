@@ -1,15 +1,31 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../../index";
-import { Button, Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import {
+  Container,
+  Nav,
+  NavDropdown,
+  Navbar,
+  Offcanvas,
+} from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
-import MyModal from "../../components/UI/MyModal/MyModal";
 import { observer } from "mobx-react-lite";
 import FormLogin from "../UI/FormLogin/FormLogin";
 import FormRegister from "../UI/FormRegister/FormRegister";
-import { BRAND_ROUTE, CATEGORY_ROUTE, MAIN_ROUTE, PROFILE_ROUTE, SHOP_ROUTE } from "../../utils/consts";
-import { AiOutlineShoppingCart, AiOutlineHeart, AiOutlineProfile, AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
+import {
+  BRAND_ROUTE,
+  CATEGORY_ROUTE,
+  MAIN_ROUTE,
+  PROFILE_ROUTE,
+  SHOP_ROUTE,
+} from "../../utils/consts";
+import {
+  AiOutlineShoppingCart,
+  AiOutlineHeart,
+  AiOutlineProfile,
+  AiOutlineLogin,
+  AiOutlineLogout,
+} from "react-icons/ai";
 import style from "./NavBar.module.css";
-
 import { GiGolfFlag } from "react-icons/gi";
 import SearchBar from "../SearchBar/SearchBar";
 
@@ -44,9 +60,7 @@ const NavBar = observer(() => {
     setShowLogin(!showLogin);
   };
 
-  console.log("Работает Navbar");
-  console.log("Работает Navbar user.basket.product.length", user.basket.product.length);
-  console.log("Navbar product.categoriesForSelected", product.categoriesForSelected);
+  //console.log("Работает Navbar");
 
   return (
     <Container>
@@ -62,98 +76,109 @@ const NavBar = observer(() => {
           <GiGolfFlag className={style.logo} />
           <span className={style.logoText}>Spook Golf</span>
         </NavLink>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ms-auto align-items-center">
-            <SearchBar/>
-            <NavLink
-              className={style.shopOnNavbar}
-              to={SHOP_ROUTE}
-            >
-              Shop All
-            </NavLink>
-            <NavDropdown className={style.dropdownMenuTitle} title="Brands" id="collasible-nav-dropdown-brands">
-              {product.brandsForSelected.map((el) => (
-                <NavDropdown.Item key={el.id} className={style.dropdownItem}>
-                  <button
-                    className={style.buttonLink}
-                    onClick={() => navigate(`${BRAND_ROUTE}/${el.slug}`)}
-                  >
-                    {el.name}
-                  </button>
-                </NavDropdown.Item>
-              ))}
-            </NavDropdown>
-            <NavDropdown className={style.dropdownMenuTitle} title="Categories" id="collasible-nav-dropdown-categories">
-              {product.categoriesForSelected.map((el) => (
-                <NavDropdown.Item key={el.id} className={style.dropdownItem}>
-                  <button
-                    className={style.buttonLink}
-                    onClick={() => navigate(`${CATEGORY_ROUTE}/${el.slug}`)}
-                  >
-                    {el.name}
-                  </button>
-                </NavDropdown.Item>
-              ))}
-            </NavDropdown>
-          </Nav>
-
-          <Nav>
-            <NavLink
-              className={style.cart}
-              to={user.isAuth ? { pathname: PROFILE_ROUTE } : undefined}
-              state="basket"
-              onClick={!user.isAuth ? clickLogin : undefined}
-            >
-              <AiOutlineShoppingCart />
-
-              {user.basket.product.length > 0 && (
-                <div className={style.cartCount}>
-                  {user.basket.product.length}
-                </div>
-              )}
-            </NavLink>
-          </Nav>
-
-          <Nav>
-            {user.isAuth ? (
-              <div>
+        <Navbar.Toggle aria-controls={"offcanvasNavbar-expand-lg"} />
+        <Navbar.Offcanvas
+          id={"offcanvasNavbar-expand-lg"}
+          aria-labelledby={"offcanvasNavbarLabel-expand-lg"}
+          placement="end"
+        >
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title id={"offcanvasNavbarLabel-expand-lg"}>
+              Menu
+            </Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body className="bg-black">
+            <Nav className="ms-auto align-items-center">
+              <SearchBar />
+              <NavLink className={style.shopOnNavbar} to={SHOP_ROUTE}>
+                Shop All
+              </NavLink>
+              <NavDropdown
+                className={style.dropdownMenuTitle}
+                title="Brands"
+                id="collasible-nav-dropdown-brands"
+              >
+                {product.brandsForSelected.map((el) => (
+                  <NavDropdown.Item key={el.id} className={style.dropdownItem}>
+                    <button
+                      className={style.buttonLink}
+                      onClick={() => navigate(`${BRAND_ROUTE}/${el.slug}`)}
+                    >
+                      {el.name}
+                    </button>
+                  </NavDropdown.Item>
+                ))}
+              </NavDropdown>
+              <NavDropdown
+                className={style.dropdownMenuTitle}
+                title="Categories"
+                id="collasible-nav-dropdown-categories"
+              >
+                {product.categoriesForSelected.map((el) => (
+                  <NavDropdown.Item key={el.id} className={style.dropdownItem}>
+                    <button
+                      className={style.buttonLink}
+                      onClick={() => navigate(`${CATEGORY_ROUTE}/${el.slug}`)}
+                    >
+                      {el.name}
+                    </button>
+                  </NavDropdown.Item>
+                ))}
+              </NavDropdown>
+            </Nav>
+            <div className="d-flex justify-content-center">
+              <Nav>
                 <NavLink
-                  className={style.wishlist}
-                  to={{ pathname: PROFILE_ROUTE }}
-                  state="wishlist"
+                  className={style.cart}
+                  to={user.isAuth ? { pathname: PROFILE_ROUTE } : undefined}
+                  state="basket"
+                  onClick={!user.isAuth ? clickLogin : undefined}
                 >
-                  <AiOutlineHeart />
-                  {user.wishList.product.length > 0 && (
-                    <div className={style.wishlistCount}>
-                      {user.wishList.product.length}
+                  <AiOutlineShoppingCart />
+
+                  {user.basket.product.length > 0 && (
+                    <div className={style.cartCount}>
+                      {user.basket.product.length}
                     </div>
                   )}
                 </NavLink>
-                <NavLink
-                  className={style.profile}
-                  to={{ pathname: PROFILE_ROUTE }}
-                  state="userInfo"
-                >
-                  <AiOutlineProfile />
-                </NavLink>
-                <NavLink
-                  className={style.login}
-                  onClick={logOut}
-                >
-                  <AiOutlineLogout />
-                </NavLink>
-              </div>
-            ) : (
-              <NavLink
-                className={style.logout}
-                onClick={clickLogin}
-              >
-                <AiOutlineLogin />
-              </NavLink>
-            )}
-          </Nav>
-        </Navbar.Collapse>
+              </Nav>
+
+              <Nav>
+                {user.isAuth ? (
+                  <div>
+                    <NavLink
+                      className={style.wishlist}
+                      to={{ pathname: PROFILE_ROUTE }}
+                      state="wishlist"
+                    >
+                      <AiOutlineHeart />
+                      {user.wishList.product.length > 0 && (
+                        <div className={style.wishlistCount}>
+                          {user.wishList.product.length}
+                        </div>
+                      )}
+                    </NavLink>
+                    <NavLink
+                      className={style.profile}
+                      to={{ pathname: PROFILE_ROUTE }}
+                      state="userInfo"
+                    >
+                      <AiOutlineProfile />
+                    </NavLink>
+                    <NavLink className={style.login} onClick={logOut}>
+                      <AiOutlineLogout />
+                    </NavLink>
+                  </div>
+                ) : (
+                  <NavLink className={style.logout} onClick={clickLogin}>
+                    <AiOutlineLogin />
+                  </NavLink>
+                )}
+              </Nav>
+            </div>
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
       </Navbar>
 
       {showLogin ? (

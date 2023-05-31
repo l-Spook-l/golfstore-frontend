@@ -19,7 +19,7 @@ import ProductList from "../../components/ProdcutList/ProductList";
 import Paginations from "../../components/UI/Paginations/Paginations";
 import { MAIN_ROUTE } from "../../utils/consts";
 import style from "./BrandPage.module.css";
-import MyOffcanvas from "../../components/UI/MyOffcanvas/MyOffcanvas";
+import MyOffcanvas from "../../components/UI/MyOffcanvasFilters/MyOffcanvasFilters";
 
 const BrandPage = observer(() => {
   const { user } = useContext(Context);
@@ -29,7 +29,6 @@ const BrandPage = observer(() => {
 
   const navigate = useNavigate();
   const [showOffcanvas, setShowOffcanvas] = useState(false);
-
 
   // первое получение типов, брєндов, продуктов
   useEffect(() => {

@@ -23,7 +23,7 @@ import ProductList from "../../components/ProdcutList/ProductList";
 import TypeBar from "../../components/TypeBar/TypeBar";
 import { MAIN_ROUTE } from "../../utils/consts";
 import style from "./CategoryPage.module.css";
-import MyOffcanvas from "../../components/UI/MyOffcanvas/MyOffcanvas";
+import MyOffcanvas from "../../components/UI/MyOffcanvasFilters/MyOffcanvasFilters";
 
 const CategoryPage = observer(() => {
   const { user } = useContext(Context);
