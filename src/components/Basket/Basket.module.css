@@ -1,7 +1,7 @@
 .forContainer {
   padding-top: 63px;
+  margin-bottom: 30px;
 }
-
 
 .buttonOrder {
   color: white;
@@ -30,4 +30,10 @@
 
 .buttonChangeQuantity:hover {
   background-color: limegreen;
+}
+
+@media (max-width: 769px) {
+  .forContainer {
+    padding-top: 1px;
+  }
 }

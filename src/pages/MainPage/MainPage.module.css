@@ -5,8 +5,15 @@
   margin-bottom: 20px;
 }
 
-.buttonCatigories {
-  margin-top: 10px;
+.brands,
+.categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.buttonCategories {
+  margin: 10px 5px;
   height: 200px;
   width: 415px;
   font-size: 30px;
@@ -18,10 +25,11 @@
   transition: background-color  0.5s ease-in-out;
 }
 
+
 .buttonBrands {
-  margin-top: 10px;
+  margin: 10px 5px;
+  width: 300px;
   height: 200px;
-  width: 315px;
   font-size: 30px;
   border-radius: 3px;
   color: black;
@@ -32,7 +40,7 @@
 }
 
 .buttonBrands:hover,
-.buttonCatigories:hover,
+.buttonCategories:hover,
 .buttonForGoflClubsAndBrands:hover {
   background-color: black;
   color: wheat;
@@ -40,10 +48,15 @@
 
 .buttonForMore {
   width: 300px;
-  margin: 15px auto 0 auto;
   background-color: black;
-  color: white;
-  padding: 5px 0 5px 0;
+  color: white; 
+  padding: 5px 0;
+}
+
+.storeOffers {
+  display: flex;
+  justify-content: space-around;
+  margin: 35px 0;
 }
 
 .textForGoflClubsAndBrands {
@@ -54,6 +67,8 @@
 
 .imageForGoflClubsAndBrands {
   margin: 10px auto;
+  width: 500px;
+  height: 600px;
 }
 
 .buttonForGoflClubsAndBrands {
@@ -69,4 +84,10 @@
   background-color: white;
   background-color: transparent;
   transition: background-color  0.5s ease-in-out;
+}
+
+@media (max-width: 1200px) {
+  .storeOffers{
+    display: block;
+  }
 }

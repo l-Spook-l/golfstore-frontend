@@ -5,7 +5,6 @@ import {
   fetchBrands,
   fetchCategories,
   fetchProducts,
-  fetchTypes,
 } from "../../http/productAPI";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
@@ -89,26 +88,29 @@ const MainPage = observer(() => {
       <SliderForMainPage />
       <Container>
         <h2 className={style.sectionTitle}>Categories</h2>
-        <Row className="justify-content-center">
-          {product.categories.slice(0, countCategoryOnMainPage).map((el) => (
-            <Col md={4} key={el.id}>
+        <div>
+          <div className={style.categories}>
+            {product.categories.slice(0, countCategoryOnMainPage).map((el) => (
               <button
-                className={style.buttonCatigories}
+                key={el.id}
+                className={style.buttonCategories}
                 onClick={() => navigate(`${CATEGORY_ROUTE}/${el.slug}`)}
               >
                 {el.name}
               </button>
-            </Col>
-          ))}
-          {countCategoryOnMainPage < product.categories.length && (
-            <button
-              className={style.buttonForMore}
-              onClick={() => showMoreCategories()}
-            >
-              More categories
-            </button>
-          )}
-        </Row>
+            ))}
+          </div>
+          <div className="mt-3 d-flex justify-content-center">
+            {countCategoryOnMainPage < product.categories.length && (
+              <button
+                className={style.buttonForMore}
+                onClick={() => showMoreCategories()}
+              >
+                More categories
+              </button>
+            )}
+          </div>
+        </div>
 
         <h2 className={style.sectionTitle}>NEWEST ARRIVALS</h2>
         <Row style={{ display: "flex", justifyContent: "space-around" }}>
@@ -139,29 +141,32 @@ const MainPage = observer(() => {
         </Row>
 
         <h2 className={style.sectionTitle}>Brands</h2>
-        <Row className="justify-content-center mb-5">
-          {product.brands.slice(0, countBrandsOnMainPage).map((el) => (
-            <Col md={3} key={el.id}>
+        <div>
+          <div className={style.brands}>
+            {product.brands.slice(0, countBrandsOnMainPage).map((el) => (
               <button
+                key={el.id}
                 className={style.buttonBrands}
                 onClick={() => navigate(`${BRAND_ROUTE}/${el.slug}`)}
               >
                 {el.name}
               </button>
-            </Col>
-          ))}
-          {countBrandsOnMainPage < product.brands.length && (
-            <button
-              className={style.buttonForMore}
-              onClick={() => showMoreBrands()}
-            >
-              More brands
-            </button>
-          )}
-        </Row>
+            ))}
+          </div>
+          <div className="mt-3 d-flex justify-content-center">
+            {countBrandsOnMainPage < product.brands.length && (
+              <button
+                className={style.buttonForMore}
+                onClick={() => showMoreBrands()}
+              >
+                More brands
+              </button>
+            )}
+          </div>
+        </div>
 
-        <Row className="mt-5 mb-5">
-          <Col md={6} className="d-flex flex-column">
+        <div className={style.storeOffers}>
+          <div className="d-flex flex-column">
             <h3 className="text-center">Golf clubs for you</h3>
             <p className={style.textForGoflClubsAndBrands}>
               Discover the perfect golf clubs for your game at Golf Clubs for
@@ -176,18 +181,14 @@ const MainPage = observer(() => {
             </NavLink>
             <Image
               className={style.imageForGoflClubsAndBrands}
-              width={500}
-              height={600}
               src={golf_brands_photo}
             />
-          </Col>
+          </div>
 
-          <Col md={6} className="d-flex flex-column">
+          <div className="d-flex flex-column">
             <h3 className="text-center">Exclusive brands</h3>
             <Image
               className={style.imageForGoflClubsAndBrands}
-              width={500}
-              height={600}
               src={golf_clothing_photo}
             />
             <p className={style.textForGoflClubsAndBrands}>
@@ -200,8 +201,8 @@ const MainPage = observer(() => {
             >
               Shop
             </NavLink>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </Container>
     </div>
   );

@@ -1,3 +1,9 @@
 .forContainer {
   padding-top: 63px;
 }
+
+@media (max-width: 769px) {
+  .forContainer {
+    padding-top: 1px;
+  }
+}

@@ -1,5 +1,6 @@
 .forContainer {
-  padding-top: 63px
+  padding-top: 63px;
+  margin-bottom: 30px;
 }
 
 .cardProduct {
@@ -35,4 +36,10 @@
 
 .deleteProductButton > svg:hover {
   color: #ff0000;
+}
+
+@media (max-width: 769px) {
+  .forContainer {
+    padding-top: 1px;
+  }
 }

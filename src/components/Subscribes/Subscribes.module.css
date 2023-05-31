@@ -1,5 +1,6 @@
 .forContainer {
   padding-top: 63px;
+  margin-bottom: 30px;
 }
 
 .input[type="checkbox"] {
@@ -24,4 +25,10 @@
 .h3 {
   font-size: 23px;
   margin-left: -2px;
+}
+
+@media (max-width: 769px) {
+  .forContainer {
+    padding-top: 1px;
+  }
 }
