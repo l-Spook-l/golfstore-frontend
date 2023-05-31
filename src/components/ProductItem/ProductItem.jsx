@@ -1,10 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card, Col, Image } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { PRODUCT_ROUTE, PROFILE_ROUTE } from "../../utils/consts";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { BsCart, BsFillCartCheckFill } from "react-icons/bs";
-import { addProductToBasket, addProductToWishList, deleteProductFromWishList } from "../../http/productAPI";
+import {
+  addProductToBasket,
+  addProductToWishList,
+  deleteProductFromWishList,
+} from "../../http/productAPI";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
 import FormLogin from "../UI/FormLogin/FormLogin";
@@ -24,11 +28,13 @@ const ProductItem = observer(({ product }) => {
   const [productOnWishList, setProductOnWishList] = useState();
 
   useEffect(() => {
-    console.log('useEffect prodcut item')
-    user.basket.product.filter((item) => item.product.id === product.id).length > 0
+    console.log("useEffect prodcut item");
+    user.basket.product.filter((item) => item.product.id === product.id)
+      .length > 0
       ? setProductOnBasket(<BsFillCartCheckFill />)
       : setProductOnBasket(<BsCart />);
-    user.wishList.product.filter((item) => item.product.id === product.id).length > 0
+    user.wishList.product.filter((item) => item.product.id === product.id)
+      .length > 0
       ? setProductOnWishList(<AiTwotoneHeart />)
       : setProductOnWishList(<AiOutlineHeart />);
   }, []);
@@ -38,11 +44,14 @@ const ProductItem = observer(({ product }) => {
       (item) => item.product.id !== productId
     );
     const productInWishList =
-      user.wishList.product.filter((item) => item.product.id === product.id).length > 0;
+      user.wishList.product.filter((item) => item.product.id === product.id)
+        .length > 0;
 
     if (productInWishList) {
       deleteProductFromWishList(wishListId, productId);
-      const wishList = user.wishList.product.filter((item) => item.product.id !== productId);
+      const wishList = user.wishList.product.filter(
+        (item) => item.product.id !== productId
+      );
 
       user.setWishList({ id: wishListId, product: wishList });
       setProductOnWishList(<AiOutlineHeart />);
@@ -76,18 +85,22 @@ const ProductItem = observer(({ product }) => {
   };
 
   const addToBasket = (basketId, productId) => {
-    const basket = user.basket.product.filter((item) => item.product.id !== productId);
+    const basket = user.basket.product.filter(
+      (item) => item.product.id !== productId
+    );
 
-    const productInBasket = user.basket.product.filter((item) => item.product.id === product.id).length > 0;
+    const productInBasket =
+      user.basket.product.filter((item) => item.product.id === product.id)
+        .length > 0;
 
     if (productInBasket) {
-      navigate(`${PROFILE_ROUTE}`, {state: 'basket'});
+      navigate(`${PROFILE_ROUTE}`, { state: "basket" });
     } else {
       const newProduct = addProductToBasket({
         basket: basketId,
         product: productId,
       });
-  
+
       newProduct.then((result) =>
         user.setBasket({
           id: basketId,
@@ -142,7 +155,7 @@ const ProductItem = observer(({ product }) => {
         >
           {productOnWishList}
         </button>
-        <Image
+        <Card.Img
           className={style.myImage}
           onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}
           src={
@@ -155,24 +168,29 @@ const ProductItem = observer(({ product }) => {
           onMouseEnter={() => hoverProduct(product.id)}
           onMouseLeave={() => setIsHovered(false)}
         />
-        <div className={style.nameProduct} onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}>
-          {product.name}
-        </div>
-        <div className={style.priceAndBasketProduct}>
-          <div>{product.price} $</div>
+        <Card.Body className={style.cardBody}>
           <div
-            className={style.buttonBasket}
-            onClick={() =>  {
-              user.isAuth
-                ? addToBasket(user.basket.id, product.id)
-                : clickLogin()
-            }}
+            className={style.nameProduct}
+            onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}
           >
-            {productOnBasket}
+            {product.name}
           </div>
-        </div>
+          <div className={style.priceAndBasketProduct}>
+            <div>{product.price} $</div>
+            <div
+              className={style.buttonBasket}
+              onClick={() => {
+                user.isAuth
+                  ? addToBasket(user.basket.id, product.id)
+                  : clickLogin();
+              }}
+            >
+              {productOnBasket}
+            </div>
+          </div>
+        </Card.Body>
       </Card>
-
+      
       {showLogin ? (
         <FormLogin
           show={showModal}

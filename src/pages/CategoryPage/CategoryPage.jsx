@@ -166,14 +166,12 @@ const CategoryPage = observer(() => {
       </Row>
       <hr />
       <Row>
-        <Col md={3}>
-          <Col md={9}>
-            <TypeBar />
-            <PriceBar />
-            <BrandBar />
+        <Col md={2}>
+          <TypeBar />
+          <PriceBar />
+          <BrandBar />
           </Col>
-        </Col>
-        <Col md={9}>
+        <Col md={10}>
           <ProductList />
           <Paginations />
         </Col>

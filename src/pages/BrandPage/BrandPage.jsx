@@ -135,14 +135,12 @@ const BrandPage = observer(() => {
       </Row>
       <hr />
       <Row>
-        <Col md={3}>
-          <Col md={9}>
-            <CategoryBar />
-            <PriceBar />
-            <TypeBar />
-          </Col>
+        <Col md={2}>
+          <CategoryBar />
+          <PriceBar />
+          <TypeBar />
         </Col>
-        <Col md={9}>
+        <Col md={10}>
           <ProductList />
           <Paginations />
         </Col>

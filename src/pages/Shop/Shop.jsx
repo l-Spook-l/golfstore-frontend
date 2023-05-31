@@ -184,12 +184,10 @@ const Shop = observer(() => {
       <hr />
       <Row>
         <Col md={2}>
-          <Col md={12}>
-            <CategoryBar />
-            <PriceBar />
-            <TypeBar />
-            <BrandBar />
-          </Col>
+          <CategoryBar />
+          <PriceBar />
+          <TypeBar />
+          <BrandBar />
         </Col>
         <Col md={10}>
           <ProductList />
