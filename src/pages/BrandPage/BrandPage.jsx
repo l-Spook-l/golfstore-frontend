@@ -97,11 +97,27 @@ const BrandPage = observer(() => {
       <Row className="mt-3">
         <Col md={10} className="d-flex flex-wrap mb-0 ">
           {product.selectedType.length !== 0 ||
-          product.selectedBrand.length !== 0 ? (
+          product.selectedCategory.length !== 0 ? (
             <Button className={style.clearButton} onClick={() => clearFilter()}>
               Clear
             </Button>
           ) : null}
+          {product.selectedCategory.map((el) => (
+            <Alert
+              key={el.id}
+              variant="light"
+              className="me-1 border text-dark p-2"
+            >
+              {el.name}
+              <Button
+                type="button"
+                className="ms-1 btn-close"
+                style={{ fontSize: 12 }}
+                aria-label="Close"
+                onClick={() => product.setSelectedCategory(el)}
+              ></Button>
+            </Alert>
+          ))}
           {product.selectedType.map((el) => (
             <Alert
               key={el.id}
