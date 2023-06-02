@@ -1,12 +1,11 @@
 .button {
   margin: 10px;
-  width: 35px;
-  height: 35px;
-  text-align: center;
-  cursor: pointer;
-  font-size: 22px;
+  width: 38px;
+  height: 38px;
+  font-size: 20px;
   border-radius: 50%;
 }
+
 
 .buttonInactive {
   background-color: rgb(19, 26, 24);

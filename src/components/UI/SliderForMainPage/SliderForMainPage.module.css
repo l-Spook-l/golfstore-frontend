@@ -1,7 +1,10 @@
+
+
 .buttonOnCarousel {
   position: absolute;
   font-size: 18px;
-  bottom: 320px;
+  /* bottom: 320px; */
+  bottom: 100px;
   border-radius: 0;
   padding: 15px;
   text-decoration: none;
@@ -10,7 +13,7 @@
   color: white;
   background-color: transparent;
   transition: background-color  0.5s ease-in-out;
-}
+} 
 
 .buttonOnCarousel:hover{
   color: black;
@@ -23,5 +26,11 @@
 }
 
 .carouselItem {
-  height: 600px;
+  max-width: 100%;
+  height: auto;
+}
+
+.carouselImage {
+  width: 100%;
+  height: auto;
 }

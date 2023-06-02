@@ -1,7 +1,7 @@
 .myCard {
   width: 245px;
   height: 335px;
-  margin: 10px 0;
+  margin: 10px 0px 10px 22px;
 }
 
 .butthonWishlist {
@@ -54,3 +54,22 @@
 }
 
 
+@media (max-width: 1400px) {
+  .myCard {
+    margin: 10px 0px 10px 40px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .myCard {
+    margin: 10px 0px 10px 1px;
+  }
+}
+
+@media (max-width: 769px) {
+  .myCard {
+    width: 235px;
+    height: 335px;
+    margin: 10px 0px;
+  }
+}

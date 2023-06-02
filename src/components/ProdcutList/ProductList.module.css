@@ -1,12 +1,11 @@
 .myContainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  /* background-color: aqua; */
+  justify-content: flex-start;
 }
 
-.myContainerChild {
-  width: 220px;
-  height: 220px;
-  margin: 10px;
+@media (max-width: 769px) {
+  .myContainer {
+    justify-content: space-between;
+  }
 }
