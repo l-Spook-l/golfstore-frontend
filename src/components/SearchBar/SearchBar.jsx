@@ -16,8 +16,7 @@ const SearchBar = observer(() => {
     fetchProducts( null, null, null, 1, null, null, null, product.selectedSearchProducts)
     .then((data) => {
       product.setSearchProducts(data.results);
-      console.log("useEffect SearchBar", data);
-    }); //.finally(() => setLoading(false));
+    })
   }, [product.selectedSearchProducts]);
 
   const clearSearch = () => {

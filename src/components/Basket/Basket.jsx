@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Col, Container, Image, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Container, Image, Row } from "react-bootstrap";
 import { Context } from "../..";
 import { observer } from "mobx-react-lite";
 import { deleteProductFromBasket, fetchListProductsBasket, updateQuantityProductInBasket } from "../../http/productAPI";
@@ -10,7 +10,6 @@ import style from "./Basket.module.css"
 const Basket = observer(() => {
   const { user } = useContext(Context);
 
-  const [loading, setLoading] = useState(true)
   const navigate = useNavigate();
 
   const [changeQuantity, setChangeQuantity] = useState(true)
@@ -18,15 +17,14 @@ const Basket = observer(() => {
   /* console.log('Basket user', user)
   console.log('Basket user user', user.user)
   console.log('Basket user user id', user.user.id) */
-  console.log('Basket user', user)
-  console.log("Basket user basket", user.basket);
+  //console.log('Basket user', user)
+  //console.log("Basket user basket", user.basket);
   //console.log("Basket user basket lenght ", user.basket.length);
   
   useEffect(() => {
     fetchListProductsBasket(user.basket.id).then((products) => {
       user.setBasket({id: user.basket.id , product: products.results})
-    }).finally(() => setLoading(false));
-    console.log('Basket useEffect')
+    })
   },[changeQuantity])
 
   const deleteProduct = (basketId, productId) => {
@@ -35,10 +33,6 @@ const Basket = observer(() => {
     user.setBasket({id: basketId , product: basket})
   }
 
-  /* if (loading) {
-    return <Spinner animation='grow'/>
-  }
- */
   const totalPrice = user.basket.product.reduce((acc, el) => {
     return acc + (el.product.price * el.quantity)
   }, 0);

@@ -20,7 +20,7 @@ const CategoryBar = observer(() => {
           </span>
         </Accordion.Header>
         <Accordion.Body>
-          {product.categories.map((category) => (
+          {product.categories.map((category) => 
             <Form.Check
               key={category.id}
               id={category.id + 200}
@@ -30,7 +30,7 @@ const CategoryBar = observer(() => {
               onChange={() => product.setSelectedCategory(category)}
               className={style.checkbox}
             />
-          ))}
+          )}
         </Accordion.Body>
       </Accordion.Item>
       <hr />

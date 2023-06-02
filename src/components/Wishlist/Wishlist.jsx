@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import { Context } from "../..";
 import { deleteProductFromWishList } from "../../http/productAPI";

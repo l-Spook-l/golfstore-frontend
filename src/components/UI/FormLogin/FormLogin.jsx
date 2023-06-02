@@ -2,14 +2,11 @@ import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Col, Form, InputGroup, Modal, Row } from "react-bootstrap";
 import { Context } from "../../..";
-import { useNavigate } from "react-router-dom";
 import { login } from "../../../http/userAPI";
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
 
 const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
   const { user } = useContext(Context);
-
-  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,7 +39,7 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
       setLoginError(false)
       onHide()
     })
-    .catch((error) => {
+    .catch(() => {
       setLoginError(true)
     });
   };
@@ -128,11 +125,7 @@ const FormLogin = observer(({ onSwitchForm, show, onHide }) => {
               <Form.Text className="text-danger">{passwordError}</Form.Text>
             )}
           </Form.Group>
-
-          {/* <Form.Group className="mt-2" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Remember me" />
-          </Form.Group> */}
-          
+         
           <Row className="mt-2">
             <Col md={8} className="d-flex">
               No account?

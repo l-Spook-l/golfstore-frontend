@@ -1,3 +1,8 @@
+.myNavbar {
+  position: fixed;
+  height: 63px;
+}
+
 .logo {
   font-size: 48px;
 }
@@ -5,7 +10,6 @@
 .logoText {
   font-size: 25px;
   margin-left: 10px;
-
 }
 
 .logoContainer {

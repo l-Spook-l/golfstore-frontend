@@ -20,7 +20,7 @@ const TypeBar = observer(() => {
           </span>
         </Accordion.Header>
         <Accordion.Body>
-          {product.types.map((type) => (
+          {product.types.map((type) => 
             <Form.Check
               key={type.id}
               id={type.id + 100}
@@ -30,7 +30,7 @@ const TypeBar = observer(() => {
               onChange={() => product.setSelectedType(type)}
               className={style.checkbox}
             />
-          ))}
+          )}
         </Accordion.Body>
       </Accordion.Item>
       <hr />

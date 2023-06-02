@@ -15,10 +15,6 @@ const App = observer(() => {
   const { user } = useContext(Context)
   const { product } = useContext(Context);
 
-/*   console.log('App user', user)
-  console.log('App user user', user.user)
-  console.log('App user user name', user.user.username) */
-
   // Для крутилки во время загрузки
   const [loading, setLoading] = useState(true)
   //console.log('$authHost', $authHost.interceptors  )

@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Form } from "react-bootstrap";
 import { Context } from "../..";
 import style from "./PriceBar.module.css";

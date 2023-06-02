@@ -7,7 +7,6 @@ import {
   Container,
   Form,
   Row,
-  Spinner,
 } from "react-bootstrap";
 import TypeBar from "../../components/TypeBar/TypeBar";
 import BrandBar from "../../components/BrandBar/BrandBar";
@@ -25,14 +24,12 @@ import PriceBar from "../../components/PriceBar/PriceBar";
 import CategoryBar from "../../components/CategoryBar/CategoryBar";
 import style from "./Shop.module.css";
 import { MAIN_ROUTE } from "../../utils/consts";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MyOffcanvasFilters from "../../components/UI/MyOffcanvasFilters/MyOffcanvasFilters";
 
 const Shop = observer(() => {
-  const { user } = useContext(Context);
   const { product } = useContext(Context);
 
-  const [loading, setLoading] = useState(true);
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const navigate = useNavigate();
   /* 
@@ -45,11 +42,13 @@ const Shop = observer(() => {
     console.log("Перезагрузка shop");
     window.scrollTo(0, 0);
     product.setPage(1)
+    product.setSelectedType("clear");
+    product.setSelectedBrand("clear");
+    product.setSelectedCategory("clear");
     fetchTypes().then((data) => product.setTypes(data));
     fetchBrands().then((data) => product.setBrands(data));
     fetchCategories()
       .then((data) => product.setCategories(data))
-      .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -74,7 +73,6 @@ const Shop = observer(() => {
         //console.log('shop - product type2222222', product.types.slug)
         //console.log('shop - product brand222', product.brands)
       })
-      .finally(() => setLoading(false));
   }, [
     product.selectedType,
     product.selectedBrand,
@@ -84,19 +82,6 @@ const Shop = observer(() => {
     product.priceMax,
     product.ordering,
   ]);
-
-  /* useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-  
-    window.addEventListener("resize", handleResize);
-  
-    // Очистка обработчика события при размонтировании компонента
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [windowWidth]); */
 
   const clearFilter = () => {
     product.setSelectedType("clear");
@@ -110,10 +95,6 @@ const Shop = observer(() => {
   console.log('shop - product selectedType', product.selectedType)
   console.log('shop - product brands', product.brands)
   console.log('shop - product types', product.types) */
-
-  /* if (loading) {
-    return <Spinner animation="grow" />;
-  } */
 
   const handleClose = () => {
     setShowOffcanvas(false);

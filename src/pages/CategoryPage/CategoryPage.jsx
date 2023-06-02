@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   fetchOneCategory,
   fetchProductsByCategory,
@@ -12,7 +12,6 @@ import {
   Container,
   Form,
   Row,
-  Spinner,
 } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
@@ -30,9 +29,8 @@ const CategoryPage = observer(() => {
   const { product } = useContext(Context);
 
   const { slug } = useParams();
-  console.log("slug", slug);
+  //console.log("slug", slug);
 
-  const [loading, setLoading] = useState(true);
   const [showOffcanvas, setShowOffcanvas] = useState(false);
 
   const navigate = useNavigate();
@@ -41,12 +39,15 @@ const CategoryPage = observer(() => {
   useEffect(() => {
     window.scrollTo(0, 0);
     product.setPage(1)
+    product.setSelectedType("clear");
+    product.setSelectedBrand("clear");
+    product.setSelectedCategory("clear");
     fetchOneCategory(slug).then((data) => {
       product.setTypes(data.type);
       product.setBrands(data.brand);
       console.log("CategoryPage - fetchOneCategory - data", data);
-    });
-    /* .finally(() => setLoading(false)); */
+    })
+    //.finally(() => setLoading(false));
   }, [slug]);
 
   useEffect(() => {
@@ -70,7 +71,7 @@ const CategoryPage = observer(() => {
         //console.log('category page - product brand', product.brands)
         //console.log('category page - product selectedType', product.selectedType)
       })
-      .finally(() => setLoading(false));
+      //.finally(() => setLoading(false));
   }, [
     product.selectedType,
     product.selectedBrand,
@@ -98,10 +99,6 @@ const CategoryPage = observer(() => {
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
-
-  if (loading) {
-    return <Spinner animation="grow" />;
-  }
 
   const handleClose = () => {
     setShowOffcanvas(false);

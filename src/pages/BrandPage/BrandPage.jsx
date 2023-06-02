@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { fetchOneBrand, fetchProductsByBrand } from "../../http/productAPI";
 import { Context } from "../..";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Alert,
   Breadcrumb,
@@ -28,16 +28,20 @@ const BrandPage = observer(() => {
   const { slug } = useParams();
 
   const navigate = useNavigate();
+  
   const [showOffcanvas, setShowOffcanvas] = useState(false);
 
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
     window.scrollTo(0, 0);
     product.setPage(1)
+    product.setSelectedType("clear");
+    product.setSelectedBrand("clear");
+    product.setSelectedCategory("clear");
     fetchOneBrand(slug).then((data) => {
       product.setTypes(data.type);
       product.setCategories(data.categories);
-      console.log("brandPage - fetchOneBrand - data", data);
+      //console.log("brandPage - fetchOneBrand - data", data);
     });
   }, [slug]);
 

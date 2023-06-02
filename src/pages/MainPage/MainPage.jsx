@@ -11,18 +11,9 @@ import {
   BRAND_ROUTE,
   CATEGORY_ROUTE,
   PRODUCT_ROUTE,
-  SHOP_ROUTE,
 } from "../../utils/consts";
 import SliderForMainPage from "../../components/UI/SliderForMainPage/SliderForMainPage";
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Image,
-  Row,
-  Spinner,
-} from "react-bootstrap";
+import { Card, Container, Image, Row } from "react-bootstrap";
 import golf_clothing_photo from "../../assets/golf-clothing-main-page.png";
 import golf_brands_photo from "../../assets/golf-brands-main-page.png";
 import style from "./MainPage.module.css";
@@ -30,9 +21,6 @@ import style from "./MainPage.module.css";
 const MainPage = observer(() => {
   const { product } = useContext(Context);
   const navigate = useNavigate(); // для перехода по страницам
-
-  // Для крутилки во время загрузки
-  const [loading, setLoading] = useState(true);
 
   const [countCategoryOnMainPage, setCountCategoryOnMainPage] = useState(3);
   const [countBrandsOnMainPage, setCountBrandsOnMainPage] = useState(4);
@@ -49,14 +37,12 @@ const MainPage = observer(() => {
     window.scrollTo(0, 0);
     fetchBrands().then((data) => product.setBrands(data));
     fetchCategories().then((data) => product.setCategories(data));
-    fetchProducts(null, null, null, 1, null, null, null)
-      .then((data) => {
-        product.setProducts(data.results);
-        product.setTotalCount(data.count);
-        //console.log('shop - data', data)
-        //console.log('shop - data.results', data.results)
-      })
-      .finally(() => setLoading(false));
+    fetchProducts(null, null, null, 1, null, null, null).then((data) => {
+      product.setProducts(data.results);
+      product.setTotalCount(data.count);
+      //console.log('shop - data', data)
+      //console.log('shop - data.results', data.results)
+    });
   }, []);
 
   const showMoreCategories = () => {
@@ -76,12 +62,6 @@ const MainPage = observer(() => {
   console.log("shop - product products", product.products);
   console.log('shop - product typesqqq', product.selectedType)
   console.log('shop - product brands', product.brands) */
-
-  /* if (loading) {
-    return <Spinner animation="grow" />;
-  }
- */
-  console.log("MainPage");
 
   return (
     <div style={{ paddingTop: "63px" }}>

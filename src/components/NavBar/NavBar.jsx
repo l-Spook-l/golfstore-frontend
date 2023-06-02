@@ -36,6 +36,7 @@ const NavBar = observer(() => {
 
   const navigate = useNavigate(); // для перехода по страницам
 
+  const [showLogin, setShowLogin] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
   // Выход из профиля
@@ -48,8 +49,6 @@ const NavBar = observer(() => {
     navigate(MAIN_ROUTE);
   };
 
-  /* ---------------------------------------------------- */
-  const [showLogin, setShowLogin] = useState(true);
 
   const clickLogin = () => {
     setShowModal(true);

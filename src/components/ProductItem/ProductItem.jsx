@@ -18,17 +18,16 @@ import style from "./ProductItem.module.css";
 const ProductItem = observer(({ product }) => {
   const { user } = useContext(Context);
 
-  const [isHovered, setIsHovered] = useState(false);
-  const [activeProduct, setActiveProduct] = useState(0);
-
   const navigate = useNavigate();
 
+  const [isHovered, setIsHovered] = useState(false);
+  const [activeProduct, setActiveProduct] = useState(0);
   const [productOnBasket, setProductOnBasket] = useState();
-
   const [productOnWishList, setProductOnWishList] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
 
   useEffect(() => {
-    console.log("useEffect prodcut item");
     user.basket.product.filter((item) => item.product.id === product.id)
       .length > 0
       ? setProductOnBasket(<BsFillCartCheckFill />)
@@ -44,15 +43,13 @@ const ProductItem = observer(({ product }) => {
       (item) => item.product.id !== productId
     );
     const productInWishList =
-      user.wishList.product.filter((item) => item.product.id === product.id)
-        .length > 0;
+      user.wishList.product.filter((item) => item.product.id === product.id).length > 0;
 
     if (productInWishList) {
       deleteProductFromWishList(wishListId, productId);
       const wishList = user.wishList.product.filter(
         (item) => item.product.id !== productId
       );
-
       user.setWishList({ id: wishListId, product: wishList });
       setProductOnWishList(<AiOutlineHeart />);
     } else {
@@ -124,13 +121,9 @@ const ProductItem = observer(({ product }) => {
     }
   };
 
-  const [showModal, setShowModal] = useState(false);
-
   const handleSwitchForm = () => {
     setShowLogin(!showLogin);
   };
-
-  const [showLogin, setShowLogin] = useState(true);
 
   const clickLogin = () => {
     setShowModal(true);

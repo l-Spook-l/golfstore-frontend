@@ -11,6 +11,7 @@ import { observer } from "mobx-react-lite";
 const Review = observer(({ reviewId, userId, first_name, comment, createdAt, changeReview }) => {
   const { user } = useContext(Context) 
   const { product } = useContext(Context);
+
   const [showModalUpdateReview, setShowModalUpdateReview] = useState(false);
 
   const now = moment();
@@ -19,6 +20,7 @@ const Review = observer(({ reviewId, userId, first_name, comment, createdAt, cha
   const diffInDays = now.diff(created, "days");
 
   let timeCreate = 0;
+  
   if (diffInHours === 0) {
   timeCreate = "less than an hour ago";
   } else if (diffInHours < 24) {
@@ -33,7 +35,7 @@ const Review = observer(({ reviewId, userId, first_name, comment, createdAt, cha
     setShowModalUpdateReview(true)
   };
 
-  const handleCloseModalUpdateReview = () => {
+  const closeModalUpdateReview = () => {
     setShowModalUpdateReview(false)
   }
 
@@ -72,7 +74,7 @@ const Review = observer(({ reviewId, userId, first_name, comment, createdAt, cha
         </Card>
       </Col>
       {showModalUpdateReview && (
-        <ReviewForm show={showModalUpdateReview} onHide={handleCloseModalUpdateReview} onSubmit={handleUpdateReview} state={'Update'} oldComment={comment}/>
+        <ReviewForm show={showModalUpdateReview} onHide={closeModalUpdateReview} onSubmit={handleUpdateReview} state={'Update'} oldComment={comment}/>
       )}
     </Row>
   );

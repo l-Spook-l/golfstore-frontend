@@ -20,7 +20,7 @@ const BrandBar = observer(() => {
           </span>
         </Accordion.Header>
         <Accordion.Body className="">
-          {product.brands.map((brand) => (
+          {product.brands.map((brand) => 
             <div key={brand.id} className="form-check">
               <input
                 type="checkbox"
@@ -36,7 +36,7 @@ const BrandBar = observer(() => {
                 {brand.name}
               </label>
             </div>
-          ))}
+          )}
         </Accordion.Body>
       </Accordion.Item>
       <hr />
