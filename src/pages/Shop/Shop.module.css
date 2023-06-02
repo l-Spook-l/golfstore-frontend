@@ -31,7 +31,6 @@
 
 .shopMainBlock {
   display: flex;
-  justify-content: space-between;
 }
 
 .filters {
@@ -42,17 +41,6 @@
   max-width: 1090px;
 }
 
-@media (max-width: 1200px) {
-  .productSection{
-    max-width: 740px;
-  }
-}
-
-@media (max-width: 992px) {
-  .productSection{
-    max-width: 500px;
-  }
-}
 
 @media (max-width: 769px) {
   .shopMainBlock {

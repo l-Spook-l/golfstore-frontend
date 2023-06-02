@@ -44,6 +44,7 @@ const Shop = observer(() => {
   useEffect(() => {
     console.log("Перезагрузка shop");
     window.scrollTo(0, 0);
+    product.setPage(1)
     fetchTypes().then((data) => product.setTypes(data));
     fetchBrands().then((data) => product.setBrands(data));
     fetchCategories()

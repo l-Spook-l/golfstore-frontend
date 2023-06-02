@@ -33,6 +33,7 @@ const BrandPage = observer(() => {
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
     window.scrollTo(0, 0);
+    product.setPage(1)
     fetchOneBrand(slug).then((data) => {
       product.setTypes(data.type);
       product.setCategories(data.categories);

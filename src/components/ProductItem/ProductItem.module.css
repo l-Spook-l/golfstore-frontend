@@ -62,7 +62,9 @@
 
 @media (max-width: 1200px) {
   .myCard {
-    margin: 10px 0px 10px 1px;
+    width: 235px;
+    height: 335px;
+    margin: 10px 8px 10px 1px;
   }
 }
 

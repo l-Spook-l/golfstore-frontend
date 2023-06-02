@@ -40,6 +40,7 @@ const CategoryPage = observer(() => {
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
     window.scrollTo(0, 0);
+    product.setPage(1)
     fetchOneCategory(slug).then((data) => {
       product.setTypes(data.type);
       product.setBrands(data.brand);
