@@ -29,7 +29,6 @@
 }
 
 .dropdownMenu {
-  /* position: absolute; */
   width: 375px;
   padding: 5px;
   max-height: 225px;
@@ -38,7 +37,7 @@
   border-radius: 5px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   .myInput{
     max-width: 300px;
   }

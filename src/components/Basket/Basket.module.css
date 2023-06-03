@@ -71,7 +71,7 @@
   background-color: limegreen;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1399px) {
   .productsBlock {
     width: 600px;
   }
@@ -80,7 +80,7 @@
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   .productsBlock {
     width: 500px;
   }
@@ -89,10 +89,11 @@
   }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 991px) {
   .productsBlock {
     margin-top: 70px;
   }
+
   .orderBlock {
     position: absolute;
     flex-direction: row;
@@ -100,15 +101,17 @@
     width: 320px;
     justify-content: space-between;
   }
+
   .totalPrice {
     margin-top: 10px;
   }
 }
 
-@media (max-width: 769px) {
+@media (max-width: 767px) {
   .forContainer {
     padding-top: 1px;
   }
+  
   .orderBlock {
     top: 630px;
   }

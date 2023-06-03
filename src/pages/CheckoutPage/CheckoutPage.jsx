@@ -40,47 +40,46 @@ const CheckoutPage = observer(() => {
   return (
     <Container className={style.forContainer}>
       <h2>Order checkout</h2>
-      <Row className="mt-2 d-flex justify-content-between">
-        <Col md={4}>
+      <div className={style.contactInformation}>
+        <div >
           <h5>Your contact information</h5>
           <p>
             Name: {user.user.first_name} {user.user.last_name}, 
             Email: {user.user.email}
           </p>
-        </Col>
-        <Col md={3}>
+        </div>
+        <div>
           <NavLink to={{ pathname: PROFILE_ROUTE }} state="basket">
             Edit order
           </NavLink>
-        </Col>
-      </Row>
-      <Row className="mt-5">
-        <Col md={10}>
+        </div>
+      </div>
+      <div className={style.mainBlock}>
+        <div className={style.blockProducts}>
           {user.basket.product.map((el) => (
-            <Row className="m-1" key={el.product.id}>
-              <Col md={1}>
+            <div className={style.productBlock} key={el.product.id}>
+              <div>
                 <Image
                   width={70}
                   height={70}
                   src={el.product.photos[0]["image"]}
                 />
-              </Col>
-              <Col md={5}>
+              </div>
+              <div className={style.nameProduct}>
                 <h5>{el.product.name}</h5>
-              </Col>
-              <Col md={2}>
+              </div>
+              <div className={style.priceProduct}>
                 <p>Price {el.product.price} $</p>
-              </Col>
-              <Col md={2}>
+              </div>
+              <div>
                 <p>Quantity {el.quantity}</p>
-              </Col>
-              <hr className="mt-3" />
-            </Row>
+              </div>
+            </div>
           ))}
-        </Col>
-        <Col md={2}>
-          <h5>Total</h5>
-          <p>{totalPrice} $</p>
+        </div>
+        <div className={style.orderBlock}>
+          <p className={style.orderBlockTitle}>Total</p>
+          <p className={style.orderBlockPrice}>{totalPrice} $</p>
           <Button
             className="bg-success"
             disabled={formValid}
@@ -88,8 +87,8 @@ const CheckoutPage = observer(() => {
           >
             Confirm order
           </Button>
-        </Col>
-      </Row>
+        </div>
+      </div>
       <CheckoutForm onFormSubmit={formSubmit} />
 
       <Modal show={show} onHide={modalClose} backdrop="static" keyboard={false}>

@@ -54,13 +54,13 @@
 }
 
 
-@media (max-width: 1400px) {
+@media (max-width: 1399px) {
   .myCard {
     margin: 10px 0px 10px 40px;
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   .myCard {
     width: 235px;
     height: 335px;
