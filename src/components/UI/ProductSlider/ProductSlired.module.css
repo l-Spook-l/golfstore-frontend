@@ -10,3 +10,9 @@
   border: 1px solid black;
 }
 
+@media (max-width: 1199px) {
+  .selectPhoto {
+    width: 55px;
+    height: 55px;
+  }
+}

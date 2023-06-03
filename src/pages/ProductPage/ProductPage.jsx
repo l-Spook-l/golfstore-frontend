@@ -146,8 +146,9 @@ const ProductPage = observer(() => {
         <Breadcrumb.Item active>{product.selectedProduct.name}</Breadcrumb.Item>
       </Breadcrumb>
       <hr />
-      <Row className="mb-5">
-        <Col md={4} className="d-flex flex-column">
+      <div className={style.mainBlock}>
+        <div className={style.prodcutBlock}>
+        <div className={style.imagesBlock}>
           <Image
             className={style.mainPhoto}
             onClick={() => openModalPhoto(product.selectedProduct.photos[mainPhoto]["image"])}
@@ -157,39 +158,38 @@ const ProductPage = observer(() => {
             photos={product.selectedProduct.photos}
             onSelect={chageMainPhoto}
           />
-        </Col>
+        </div>
 
-        <Col md={4}>
-          <Row className="d-flex flex-column align-items-center">
-            <h2>{product.selectedProduct.name}</h2>
-            {Object.keys(separateOptions).map((title) => (
-              <div key={title}>
-                <p className={style.optionsTitle}>{title}:</p>
-                {separateOptions[title].map((option) => (
-                  <span
-                    key={option.id}
-                    onClick={() => changeOptions(title, option.description)}
-                    className={
-                      options !== undefined &&
-                      Object.values(options).includes(option.description)
-                        ? style.optionsSelect
-                        : style.options
-                    }
-                  >
-                    {option.description}
-                  </span>
-                ))}
-              </div>
-            ))}
-          </Row>
-        </Col>
+        <Row className="d-flex flex-column align-items-center">
+          <h2>{product.selectedProduct.name}</h2>
+          {Object.keys(separateOptions).map((title) => (
+            <div key={title}>
+              <p className={style.optionsTitle}>{title}:</p>
+              {separateOptions[title].map((option) => (
+                <span
+                  key={option.id}
+                  onClick={() => changeOptions(title, option.description)}
+                  className={
+                    options !== undefined &&
+                    Object.values(options).includes(option.description)
+                      ? style.optionsSelect
+                      : style.options
+                  }
+                >
+                  {option.description}
+                </span>
+              ))}
+            </div>
+          ))}
+        </Row>
+        </div>
 
-        <Col md={4}>
+        <div>
           <Card className={style.blockPriceAndButtonToBasket}>
-            <h3>{product.selectedProduct.price} $</h3>
+            <h3 className="mt-2">{product.selectedProduct.price} $</h3>
             {user.isAuth
              ? (
-              <div>
+              <div className="mb-2">
                 {user.basket.product.filter(
                   (item) => item.product.id === product.selectedProduct.id).length > 0 
                   ? (
@@ -218,25 +218,21 @@ const ProductPage = observer(() => {
               </Button>
             )}
           </Card>
-        </Col>
-      </Row>
+        </div>
+      </div>
 
-      <div className="d-flex mb-3">
+      <div className={style.titleReview}>
         <h4>Reviews</h4>
-        {user.isAuth ? (
-          <Col className=" d-flex justify-content-end" md={7}>
-            <Button className="bg-success" onClick={() => openModalAddReview()}>
-              Add a review
-            </Button>
-          </Col>
-        ) : (
-          <div></div>
-        )}
+        {user.isAuth && 
+          <Button className="bg-success" onClick={() => openModalAddReview()}>
+            Add a review
+          </Button>
+        }
       </div>
       {product.selectedProduct.reviews.length > 0 ? (
         <div>
           {product.selectedProduct.reviews.map((review) => (
-            <Row key={review.id} className="">
+            <div key={review.id} className={style.review}>
               <Review
                 key={review.id}
                 reviewId={review.id}
@@ -246,7 +242,7 @@ const ProductPage = observer(() => {
                 createdAt={review.created_at}
                 changeReview={updateAndChangeReview}
               />
-            </Row>
+            </div>
           ))}
         </div>
       ) : (

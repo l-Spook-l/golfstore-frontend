@@ -2,22 +2,21 @@
   padding-top: 100px;
 }
 
+.mainBlock,
+.prodcutBlock {
+  display: flex;
+  justify-content: space-between;
+}
+
+.imagesBlock {
+  width: 420px;
+  margin-bottom: 38px;
+}
+
 .mainPhoto {
-  width: 300px;
-  height: 300px;
+  width: 385px;
+  height: 385px;
   cursor: pointer;
-}
-
-.selectPhoto {
-  width: 50px;
-  height: 50px;
-  margin: 20px 0 0 10px;
-  cursor: pointer;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-}
-
-.selectPhoto:hover {
-  border: 1px solid black;
 }
 
 .optionsTitle {
@@ -47,8 +46,8 @@
 }
 
 .blockPriceAndButtonToBasket {
-  width: 300px;
-  height: 300px;
+  width: 220px;
+  height: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,7 +56,47 @@
   border: "5px solid lightgray";
 }
 
+.titleReview {
+  display: flex;
+  max-width: 1000px;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.review {
+  max-width: 1000px;
+}
+
 .noneReviews {
   margin-bottom: 110px;
 }
 
+@media (max-width: 1199px) {
+  .imagesBlock{
+    width: 333px;
+  }
+  .mainPhoto {
+    width: 305px;
+    height: 305px;
+  }
+}
+
+@media (max-width: 991px) {
+  .titleReview {
+    margin-top: 80px;
+  }
+  .mainBlock {
+    display: block;
+  }
+  .blockPriceAndButtonToBasket {
+    width: 100%;
+    height: 55px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (max-width: 767px) {
+  
+}

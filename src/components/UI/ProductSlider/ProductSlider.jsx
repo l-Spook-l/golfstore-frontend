@@ -11,7 +11,7 @@ const ProductSlider = ({ photos, onSelect }) => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: photos.length > 5 ? 5 : photos.length,
+    slidesToShow: photos.length > 4 ? 4 : photos.length,
     slidesToScroll: 1,
     arrows: false,
   };
