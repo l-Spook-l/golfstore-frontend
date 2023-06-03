@@ -3,6 +3,45 @@
   margin-bottom: 30px;
 }
 
+.mainBlock {
+  display: flex;
+  justify-content: space-between;
+}
+
+.orderBlock {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+}
+
+.totalPrice {
+  font-size: 20px;
+}
+
+.productsBlock {
+  width: 750px;
+}
+
+.productBlock {
+  display: flex;
+  margin: 10px 0;
+}
+
+.quantityBlock {
+  display: flex;
+  width: 500px;
+}
+
+.deleteButton {
+  width: 60px;
+  height: 45px;
+  border: 0;
+  border-radius: 8px;
+  color: rgb(240, 229, 229);
+  background-color: rgb(212, 62, 62);
+}
+
 .buttonOrder {
   color: white;
   padding: 8px;
@@ -32,8 +71,45 @@
   background-color: limegreen;
 }
 
+@media (max-width: 1400px) {
+  .productsBlock {
+    width: 600px;
+  }
+  .quantityBlock {
+    width: 400px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .productsBlock {
+    width: 500px;
+  }
+  .quantityBlock {
+    width: 300px;
+  }
+}
+
+@media (max-width: 992px) {
+  .productsBlock {
+    margin-top: 70px;
+  }
+  .orderBlock {
+    position: absolute;
+    flex-direction: row;
+    top: 170px;
+    width: 320px;
+    justify-content: space-between;
+  }
+  .totalPrice {
+    margin-top: 10px;
+  }
+}
+
 @media (max-width: 769px) {
   .forContainer {
     padding-top: 1px;
+  }
+  .orderBlock {
+    top: 630px;
   }
 }

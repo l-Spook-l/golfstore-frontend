@@ -58,39 +58,39 @@ const Basket = observer(() => {
       <h2>My Basket</h2>
       {user.basket.product.length > 0 
         ? 
-        <Row className="my-1">
-        <Col md={10}>
-        {user.basket.product.map((el) => 
-        <Row className="mt-3" key={el.product.id}>
-          <Col md={2}>
-            <Image className={style.image} src={el.product.photos[0]['image']}
-            onClick={() => navigate(`${PRODUCT_ROUTE}/${productSlug(el.product.name)}`)}
-            />
-          </Col>
-          <Col md={6}>
-            <h5>{el.product.name}</h5>
-            <div className="d-flex">
-              Quantity
-              <div className="1">
-                <button className={style.buttonChangeQuantity} disabled={el.quantity === 1} onClick={() => changeQuantityMinus(user.basket.id, el.product.id, el.quantity - 1)}>-</button>
-                {el.quantity}
-                <button className={style.buttonChangeQuantity} onClick={() => changeQuantityPlus(user.basket.id, el.product.id, el.quantity + 1)}>+</button>
-              </div>
+        <div className={style.mainBlock}>
+          <div className={style.productsBlock}>
+          {user.basket.product.map((el) => 
+          <div className={style.productBlock} key={el.product.id}>
+            <div >
+              <Image className={style.image} src={el.product.photos[0]['image']}
+              onClick={() => navigate(`${PRODUCT_ROUTE}/${productSlug(el.product.name)}`)}
+              />
             </div>
-            <p>{el.product.price} $</p>
-          </Col>
-          <Col md={2}>
-            <Button onClick={() => deleteProduct(user.basket.id, el.product.id)} className="btn-danger">Delete</Button>
-          </Col>
-        </Row>
-        )}
-        </Col>
-        <Col md={2}>
-          <h5>Total amount</h5>
-          <p>{totalPrice} $</p>
-          <NavLink className={style.buttonOrder} to={CHECKOUT_ROUTE}>Place Order</NavLink>
-        </Col>
-      </Row>
+            <div className="ms-3">
+              <h5>{el.product.name}</h5>
+              <div className={style.quantityBlock}>
+                Quantity
+                <div className="">
+                  <button className={style.buttonChangeQuantity} disabled={el.quantity === 1} onClick={() => changeQuantityMinus(user.basket.id, el.product.id, el.quantity - 1)}>-</button>
+                  {el.quantity}
+                  <button className={style.buttonChangeQuantity} onClick={() => changeQuantityPlus(user.basket.id, el.product.id, el.quantity + 1)}>+</button>
+                </div>
+              </div>
+              <p>{el.product.price} $</p>
+            </div>
+            <div>
+              <button onClick={() => deleteProduct(user.basket.id, el.product.id)} className={style.deleteButton}>Delete</button>
+            </div>
+          </div>
+          )}  
+          </div>
+          <div className={style.orderBlock}>
+            <h4>Total amount</h4>
+            <p className={style.totalPrice}>{totalPrice} $</p>
+            <NavLink className={style.buttonOrder} to={CHECKOUT_ROUTE}>Place Order</NavLink>
+          </div>
+        </div>
         : <h4 className="mt-5 text-muted">Basket is empty </h4>
         }
     </Container>
