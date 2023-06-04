@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import style from "./CardForm.module.css"
+import InDevelopmentModal from '../../Modals/InDevelopmentModal/InDevelopmentModal';
 
 const CardForm = () => {
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const [showDevModal, setShowDevModal] = useState(false);
+
+  const handleClose = () => {
+    setShow(false)
+    setShowDevModal(true)
+  };
   const handleShow = () => setShow(true);
+
+  const closeDevModal = () => setShowDevModal(false);
 
   return (
     <div className='mt-4'>
@@ -31,14 +39,12 @@ const CardForm = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
           <Button variant="primary" onClick={handleClose}>
             Save
           </Button>
         </Modal.Footer>
       </Modal>
+      <InDevelopmentModal show={showDevModal} closeModal={closeDevModal}/>
     </div>
   );
 };

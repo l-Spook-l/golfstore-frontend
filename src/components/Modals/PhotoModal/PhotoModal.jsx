@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 
+// Для отображения увеличенного фото товара
 const PhotoModal = ({ image, onClose }) => {
   return (
     <Modal show={true} onHide={onClose}>

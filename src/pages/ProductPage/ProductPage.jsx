@@ -1,20 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Breadcrumb,
-  Button,
-  Card,
-  Col,
-  Container,
-  Image,
-  Row,
-  Spinner,
-} from "react-bootstrap";
+import { Breadcrumb, Button, Card, Container, Image, Row, Spinner } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  addProductToBasket,
-  createReview,
-  fetchOneProduct,
-} from "../../http/productAPI";
+import { addProductToBasket, createReview, fetchOneProduct } from "../../http/productAPI";
 import Review from "../../components/Review/Review";
 import { CATEGORY_ROUTE, MAIN_ROUTE, PROFILE_ROUTE } from "../../utils/consts";
 import { Context } from "../..";

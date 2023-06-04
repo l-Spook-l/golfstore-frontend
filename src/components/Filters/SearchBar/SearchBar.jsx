@@ -1,11 +1,11 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect } from "react";
-import { Context } from "../..";
+import { Context } from "../../..";
 import { Dropdown, Form, Image } from "react-bootstrap";
 import style from "./SearchBar.module.css";
 import { useNavigate } from "react-router-dom";
-import { PRODUCT_ROUTE } from "../../utils/consts";
-import { fetchProducts } from "../../http/productAPI";
+import { PRODUCT_ROUTE } from "../../../utils/consts";
+import { fetchProducts } from "../../../http/productAPI";
 import { AiOutlineClose } from "react-icons/ai";
 
 const SearchBar = observer(() => {
@@ -13,10 +13,18 @@ const SearchBar = observer(() => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchProducts( null, null, null, 1, null, null, null, product.selectedSearchProducts)
-    .then((data) => {
+    fetchProducts(
+      null,
+      null,
+      null,
+      1,
+      null,
+      null,
+      null,
+      product.selectedSearchProducts
+    ).then((data) => {
       product.setSearchProducts(data.results);
-    })
+    });
   }, [product.selectedSearchProducts]);
 
   const clearSearch = () => {
@@ -25,8 +33,11 @@ const SearchBar = observer(() => {
 
   return (
     <Dropdown className={style.myDropdown}>
-      <Dropdown.Toggle bsPrefix="my-dropdown-toggle" className={style.myDropdownToggle}>
-        <div className="d-flex" >
+      <Dropdown.Toggle
+        bsPrefix="my-dropdown-toggle"
+        className={style.myDropdownToggle}
+      >
+        <div className="d-flex">
           <Form.Control
             type="text"
             className={style.myInput}

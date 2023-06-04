@@ -1,18 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  fetchOneCategory,
-  fetchProductsByCategory,
-} from "../../http/productAPI";
-import {
-  Alert,
-  Breadcrumb,
-  Button,
-  Col,
-  Container,
-  Form,
-  Row,
-} from "react-bootstrap";
+import { fetchOneCategory, fetchProductsByCategory } from "../../http/productAPI";
+import { Alert, Breadcrumb, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
 import Paginations from "../../components/Paginations/Paginations";

@@ -4,11 +4,7 @@ import { PRODUCT_ROUTE, PROFILE_ROUTE } from "../../utils/consts";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { BsCart, BsFillCartCheckFill } from "react-icons/bs";
-import {
-  addProductToBasket,
-  addProductToWishList,
-  deleteProductFromWishList,
-} from "../../http/productAPI";
+import { addProductToBasket, addProductToWishList, deleteProductFromWishList } from "../../http/productAPI";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
 import FormLogin from "../Forms/FormLogin/FormLogin";
@@ -131,6 +127,7 @@ const ProductItem = observer(({ product }) => {
     setShowLogin(true);
   };
 
+  // При наведении курсора показываем другое фото (если оно есть)
   const hoverProduct = (productId) => {
     setIsHovered(true);
     setActiveProduct(productId);

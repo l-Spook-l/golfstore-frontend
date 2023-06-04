@@ -1,22 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Alert,
-  Breadcrumb,
-  Button,
-  Col,
-  Container,
-  Form,
-  Row,
-} from "react-bootstrap";
+import { Alert, Breadcrumb, Button, Col, Container, Form, Row } from "react-bootstrap";
 import ProductList from "../../components/ProdcutList/ProductList";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
-import {
-  fetchBrands,
-  fetchProducts,
-  fetchTypes,
-  fetchCategories,
-} from "../../http/productAPI";
+import { fetchBrands, fetchProducts, fetchTypes, fetchCategories } from "../../http/productAPI";
 import Paginations from "../../components/Paginations/Paginations";
 import style from "./Shop.module.css";
 import { MAIN_ROUTE } from "../../utils/consts";

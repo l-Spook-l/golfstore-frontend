@@ -197,11 +197,7 @@ const FormRegister = observer(({ onSwitchForm, show, onHide }) => {
               <Form.Text className="text-danger">{passwordError}</Form.Text>
             )}
           </Form.Group>
-
-          <Form.Group className="mt-2" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Remember me" />
-          </Form.Group>
-          
+         
           <Row className="mt-2">
             <Col md={8} className="d-flex">
               Already a member?

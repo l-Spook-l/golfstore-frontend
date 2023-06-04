@@ -1,33 +1,15 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../../index";
-import {
-  Container,
-  Nav,
-  NavDropdown,
-  Navbar,
-  Offcanvas,
-} from "react-bootstrap";
+import { Container, Nav, NavDropdown, Navbar, Offcanvas } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import FormLogin from "../Forms/FormLogin/FormLogin";
 import FormRegister from "../Forms/FormRegister/FormRegister";
-import {
-  BRAND_ROUTE,
-  CATEGORY_ROUTE,
-  MAIN_ROUTE,
-  PROFILE_ROUTE,
-  SHOP_ROUTE,
-} from "../../utils/consts";
-import {
-  AiOutlineShoppingCart,
-  AiOutlineHeart,
-  AiOutlineProfile,
-  AiOutlineLogin,
-  AiOutlineLogout,
-} from "react-icons/ai";
+import { BRAND_ROUTE, CATEGORY_ROUTE, MAIN_ROUTE, PROFILE_ROUTE, SHOP_ROUTE } from "../../utils/consts";
+import { AiOutlineShoppingCart, AiOutlineHeart, AiOutlineProfile, AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
 import style from "./NavBar.module.css";
 import { GiGolfFlag } from "react-icons/gi";
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBar from "../Filters/SearchBar/SearchBar";
 
 // observer позволяет создавать компоненты, которые автоматически обновляются при изменении данных, отслеживаемых с помощью MobX.
 const NavBar = observer(() => {

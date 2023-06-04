@@ -1,17 +1,9 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../..";
-import {
-  fetchBrands,
-  fetchCategories,
-  fetchProducts,
-} from "../../http/productAPI";
+import { fetchBrands, fetchCategories, fetchProducts } from "../../http/productAPI";
 import { NavLink, useNavigate } from "react-router-dom";
-import {
-  BRAND_ROUTE,
-  CATEGORY_ROUTE,
-  PRODUCT_ROUTE,
-} from "../../utils/consts";
+import { BRAND_ROUTE, CATEGORY_ROUTE, PRODUCT_ROUTE } from "../../utils/consts";
 import SliderForMainPage from "../../components/Sliders/SliderForMainPage/SliderForMainPage";
 import { Card, Container, Image, Row } from "react-bootstrap";
 import golf_clothing_photo from "../../assets/golf-clothing-main-page.png";
