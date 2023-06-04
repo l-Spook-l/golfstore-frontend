@@ -4,12 +4,11 @@ import { createBasketForUser, createWishListForUser } from "./productAPI";
 
 export const registration = async (first_name, last_name, email, password) => {
   console.log('registration', first_name, last_name, email, password)
-  const response = await $host.post("auth/users/", { first_name, last_name, email, password });
+  const response = await $host.post("auth/users/", { first_name, last_name, email, password });  // Ответ от сервера
   console.log("регистрация response", response);
   createBasketForUser({user: response.data.id})  // создаем корзину
   createWishListForUser({user: response.data.id})  // создаем список желаний 
   console.log("регистрация data", response.data);
-  
   return response.data
 };
 

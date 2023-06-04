@@ -49,7 +49,6 @@ const NavBar = observer(() => {
     navigate(MAIN_ROUTE);
   };
 
-
   const clickLogin = () => {
     setShowModal(true);
     setShowLogin(true);

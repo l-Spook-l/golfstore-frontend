@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Col, Container, Image, Row } from "react-bootstrap";
+import { Container, Image } from "react-bootstrap";
 import { Context } from "../..";
 import { observer } from "mobx-react-lite";
 import { deleteProductFromBasket, fetchListProductsBasket, updateQuantityProductInBasket } from "../../http/productAPI";

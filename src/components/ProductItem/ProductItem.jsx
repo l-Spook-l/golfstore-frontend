@@ -35,8 +35,8 @@ const ProductItem = observer(({ product }) => {
     user.wishList.product.filter((item) => item.product.id === product.id)
       .length > 0
       ? setProductOnWishList(<AiTwotoneHeart />)
-      : setProductOnWishList(<AiOutlineHeart />);
-  }, []);
+      : setProductOnWishList(<AiOutlineHeart />)
+  }, [user.basket.product]);
 
   const addToWishlist = (wishListId, productId) => {
     const wishList = user.wishList.product.filter(

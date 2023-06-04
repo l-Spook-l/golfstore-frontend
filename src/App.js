@@ -55,7 +55,7 @@ const App = observer(() => {
   if (loading) {
     return <Spinner animation='grow'/>
   }
-  console.log('Appp user', user)
+  //console.log('Appp user', user)
 
   return (
     <BrowserRouter>
