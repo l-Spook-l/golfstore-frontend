@@ -54,7 +54,7 @@ const NavBar = observer(() => {
       >
         <NavLink className={style.logoContainer} to={MAIN_ROUTE}>
           <GiGolfFlag className={style.logo} />
-          <span className={style.logoText}>Spook Golf</span>
+          <span className={style.logoText}>Golf Store</span>
         </NavLink>
         <Navbar.Toggle aria-controls={"offcanvasNavbar-expand-lg"} />
         <Navbar.Offcanvas
