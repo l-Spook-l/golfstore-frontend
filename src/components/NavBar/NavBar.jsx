@@ -9,8 +9,8 @@ import {
 } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
-import FormLogin from "../UI/FormLogin/FormLogin";
-import FormRegister from "../UI/FormRegister/FormRegister";
+import FormLogin from "../Forms/FormLogin/FormLogin";
+import FormRegister from "../Forms/FormRegister/FormRegister";
 import {
   BRAND_ROUTE,
   CATEGORY_ROUTE,

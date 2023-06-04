@@ -7,8 +7,7 @@ import { Context } from "./index";
 import { check } from "./http/userAPI";
 import Footer from "./components/Footer/Footer";
 import { observer } from "mobx-react-lite";
-import { $authHost } from "./http";
-import { fetchBasket, fetchBrands, fetchCategories, fetchListProductsBasket, fetchListProductsWishList, fetchProducts, fetchWishList } from "./http/productAPI";
+import { fetchBasket, fetchBrands, fetchCategories, fetchListProductsBasket, fetchListProductsWishList, fetchWishList } from "./http/productAPI";
 
 const App = observer(() => {
   // получаем состоянию пользователя

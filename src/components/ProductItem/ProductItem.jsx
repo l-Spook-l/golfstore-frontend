@@ -11,8 +11,8 @@ import {
 } from "../../http/productAPI";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
-import FormLogin from "../UI/FormLogin/FormLogin";
-import FormRegister from "../UI/FormRegister/FormRegister";
+import FormLogin from "../Forms/FormLogin/FormLogin";
+import FormRegister from "../Forms/FormRegister/FormRegister";
 import style from "./ProductItem.module.css";
 
 const ProductItem = observer(({ product }) => {
@@ -35,7 +35,7 @@ const ProductItem = observer(({ product }) => {
     user.wishList.product.filter((item) => item.product.id === product.id)
       .length > 0
       ? setProductOnWishList(<AiTwotoneHeart />)
-      : setProductOnWishList(<AiOutlineHeart />)
+      : setProductOnWishList(<AiOutlineHeart />);
   }, [user.basket.product]);
 
   const addToWishlist = (wishListId, productId) => {
@@ -43,7 +43,8 @@ const ProductItem = observer(({ product }) => {
       (item) => item.product.id !== productId
     );
     const productInWishList =
-      user.wishList.product.filter((item) => item.product.id === product.id).length > 0;
+      user.wishList.product.filter((item) => item.product.id === product.id)
+        .length > 0;
 
     if (productInWishList) {
       deleteProductFromWishList(wishListId, productId);
@@ -183,7 +184,7 @@ const ProductItem = observer(({ product }) => {
           </div>
         </Card.Body>
       </Card>
-      
+
       {showLogin ? (
         <FormLogin
           show={showModal}

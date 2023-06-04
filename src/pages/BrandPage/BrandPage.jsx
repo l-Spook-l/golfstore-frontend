@@ -12,14 +12,14 @@ import {
   Form,
   Row,
 } from "react-bootstrap";
-import CategoryBar from "../../components/CategoryBar/CategoryBar";
-import TypeBar from "../../components/TypeBar/TypeBar";
-import PriceBar from "../../components/PriceBar/PriceBar";
 import ProductList from "../../components/ProdcutList/ProductList";
-import Paginations from "../../components/UI/Paginations/Paginations";
+import Paginations from "../../components/Paginations/Paginations";
 import { MAIN_ROUTE } from "../../utils/consts";
 import style from "./BrandPage.module.css";
-import MyOffcanvas from "../../components/UI/MyOffcanvasFilters/MyOffcanvasFilters";
+import MyOffcanvas from "../../components/MyOffcanvasFilters/MyOffcanvasFilters";
+import CategoryBar from "../../components/Filters/CategoryBar/CategoryBar";
+import PriceBar from "../../components/Filters/PriceBar/PriceBar";
+import TypeBar from "../../components/Filters/TypeBar/TypeBar";
 
 const BrandPage = observer(() => {
   const { user } = useContext(Context);

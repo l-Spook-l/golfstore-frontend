@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Context } from "../..";
+import { Context } from "../../../index";
 import { Accordion, Form } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import style from "./CategoryBar.module.css";

@@ -8,8 +8,6 @@ import {
   Form,
   Row,
 } from "react-bootstrap";
-import TypeBar from "../../components/TypeBar/TypeBar";
-import BrandBar from "../../components/BrandBar/BrandBar";
 import ProductList from "../../components/ProdcutList/ProductList";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
@@ -19,13 +17,15 @@ import {
   fetchTypes,
   fetchCategories,
 } from "../../http/productAPI";
-import Paginations from "../../components/UI/Paginations/Paginations";
-import PriceBar from "../../components/PriceBar/PriceBar";
-import CategoryBar from "../../components/CategoryBar/CategoryBar";
+import Paginations from "../../components/Paginations/Paginations";
 import style from "./Shop.module.css";
 import { MAIN_ROUTE } from "../../utils/consts";
 import { useNavigate } from "react-router-dom";
-import MyOffcanvasFilters from "../../components/UI/MyOffcanvasFilters/MyOffcanvasFilters";
+import MyOffcanvasFilters from "../../components/MyOffcanvasFilters/MyOffcanvasFilters";
+import CategoryBar from "../../components/Filters/CategoryBar/CategoryBar";
+import PriceBar from "../../components/Filters/PriceBar/PriceBar";
+import TypeBar from "../../components/Filters/TypeBar/TypeBar";
+import BrandBar from "../../components/Filters/BrandBar/BrandBar";
 
 const Shop = observer(() => {
   const { product } = useContext(Context);

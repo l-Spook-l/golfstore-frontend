@@ -1,5 +1,5 @@
 import React from 'react'
-import CardForm from '../UI/CardForm/CardForm'
+import CardForm from '../Forms/CardForm/CardForm'
 import { Container } from 'react-bootstrap'
 
 const Wallet = () => {

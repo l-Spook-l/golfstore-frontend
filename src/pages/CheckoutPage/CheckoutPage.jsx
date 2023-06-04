@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Button, Col, Container, Image, Modal, Row } from "react-bootstrap";
 import { deleteProductFromBasket } from "../../http/productAPI";
 import { Context } from "../..";
-import CheckoutForm from "../../components/UI/CheckoutForm/CheckoutForm";
+import CheckoutForm from "../../components/Forms/CheckoutForm/CheckoutForm";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MAIN_ROUTE, PROFILE_ROUTE } from "../../utils/consts";
 import { observer } from "mobx-react-lite";

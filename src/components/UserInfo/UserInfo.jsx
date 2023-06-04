@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Accordion, Button, Col, Container, Row } from "react-bootstrap";
 import { Context } from "../..";
-import InDevelopmentModal from "../UI/InDevelopmentModal/InDevelopmentModal";
+import InDevelopmentModal from "../Modals/InDevelopmentModal/InDevelopmentModal";
 import style from "./UserInfo.module.css"
 
 const UserInfo = () => {

@@ -1,8 +1,8 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
-import { Context } from "../../..";
 import { Pagination } from "react-bootstrap";
 import style from "./Paginations.module.css";
+import { Context } from "../..";
 
 const Paginations = observer(() => {
   const { product } = useContext(Context);

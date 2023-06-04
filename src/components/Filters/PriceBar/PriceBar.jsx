@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
 import { Form } from "react-bootstrap";
-import { Context } from "../..";
+import { Context } from "../../../index";
 import style from "./PriceBar.module.css";
 
 const PriceBar = observer(() => {

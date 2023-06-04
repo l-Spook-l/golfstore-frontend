@@ -15,14 +15,14 @@ import {
 } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
-import PriceBar from "../../components/PriceBar/PriceBar";
-import BrandBar from "../../components/BrandBar/BrandBar";
-import Paginations from "../../components/UI/Paginations/Paginations";
+import Paginations from "../../components/Paginations/Paginations";
 import ProductList from "../../components/ProdcutList/ProductList";
-import TypeBar from "../../components/TypeBar/TypeBar";
 import { MAIN_ROUTE } from "../../utils/consts";
 import style from "./CategoryPage.module.css";
-import MyOffcanvas from "../../components/UI/MyOffcanvasFilters/MyOffcanvasFilters";
+import MyOffcanvas from "../../components/MyOffcanvasFilters/MyOffcanvasFilters";
+import PriceBar from "../../components/Filters/PriceBar/PriceBar";
+import TypeBar from "../../components/Filters/TypeBar/TypeBar";
+import BrandBar from "../../components/Filters/BrandBar/BrandBar";
 
 const CategoryPage = observer(() => {
   const { user } = useContext(Context);

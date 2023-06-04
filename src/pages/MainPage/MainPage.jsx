@@ -12,7 +12,7 @@ import {
   CATEGORY_ROUTE,
   PRODUCT_ROUTE,
 } from "../../utils/consts";
-import SliderForMainPage from "../../components/UI/SliderForMainPage/SliderForMainPage";
+import SliderForMainPage from "../../components/Sliders/SliderForMainPage/SliderForMainPage";
 import { Card, Container, Image, Row } from "react-bootstrap";
 import golf_clothing_photo from "../../assets/golf-clothing-main-page.png";
 import golf_brands_photo from "../../assets/golf-brands-main-page.png";

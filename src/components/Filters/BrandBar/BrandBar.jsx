@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useState } from "react";
-import { Context } from "../../index";
+import { Context } from "../../../index";
 import { Accordion } from "react-bootstrap";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import style from "./BrandBar.module.css";

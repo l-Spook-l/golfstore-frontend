@@ -1,9 +1,9 @@
 import React from "react";
 import { Offcanvas } from "react-bootstrap";
-import CategoryBar from "../../CategoryBar/CategoryBar";
-import PriceBar from "../../PriceBar/PriceBar";
-import TypeBar from "../../TypeBar/TypeBar";
-import BrandBar from "../../BrandBar/BrandBar";
+import CategoryBar from "../Filters/CategoryBar/CategoryBar";
+import PriceBar from "../Filters/PriceBar/PriceBar";
+import TypeBar from "../Filters/TypeBar/TypeBar";
+import BrandBar from "../Filters/BrandBar/BrandBar";
 
 const MyOffcanvasFilters = ({ showOffcanvas, setShowOffcanvas }) => {
 

@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { useContext, useState } from "react";
 import { Accordion, Form } from "react-bootstrap";
-import { Context } from "../../index";
+import { Context } from "../../../index";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import style from "./TypeBar.module.css";
 

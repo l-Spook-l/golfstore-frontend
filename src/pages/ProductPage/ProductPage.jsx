@@ -1,14 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Breadcrumb, Button, Card, Col, Container, Image, Row, Spinner} from "react-bootstrap";
+import {
+  Breadcrumb,
+  Button,
+  Card,
+  Col,
+  Container,
+  Image,
+  Row,
+  Spinner,
+} from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { addProductToBasket, createReview, fetchOneProduct } from "../../http/productAPI";
+import {
+  addProductToBasket,
+  createReview,
+  fetchOneProduct,
+} from "../../http/productAPI";
 import Review from "../../components/Review/Review";
 import { CATEGORY_ROUTE, MAIN_ROUTE, PROFILE_ROUTE } from "../../utils/consts";
 import { Context } from "../..";
 import style from "./ProductPage.module.css";
-import PhotoModal from "../../components/UI/PhotoModal/PhotoModal";
-import ProductSlider from "../../components/UI/ProductSlider/ProductSlider";
-import ReviewForm from "../../components/UI/ReviewForm/ReviewForm";
+import PhotoModal from "../../components/Modals/PhotoModal/PhotoModal";
+import ProductSlider from "../../components/Sliders/ProductSlider/ProductSlider";
+import ReviewForm from "../../components/Forms/ReviewForm/ReviewForm";
 import { observer } from "mobx-react-lite";
 
 const ProductPage = observer(() => {
@@ -65,7 +78,10 @@ const ProductPage = observer(() => {
     return <Spinner animation="grow" />;
   }
 
-  const typeSlug = product.selectedProduct.category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  const typeSlug = product.selectedProduct.category
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
   const separateOptions = {};
 
@@ -97,10 +113,13 @@ const ProductPage = observer(() => {
   };
 
   const addToBasket = (basketId, productId) => {
-    const basket = user.basket.product.filter((item) => item.product.id !== productId);
+    const basket = user.basket.product.filter(
+      (item) => item.product.id !== productId
+    );
 
     const productInBasket =
-      user.basket.product.filter((item) => item.product.id === productId).length > 0;
+      user.basket.product.filter((item) => item.product.id === productId)
+        .length > 0;
 
     if (productInBasket) {
       navigate(`${PROFILE_ROUTE}`, { state: "basket" });
@@ -148,51 +167,54 @@ const ProductPage = observer(() => {
       <hr />
       <div className={style.mainBlock}>
         <div className={style.prodcutBlock}>
-        <div className={style.imagesBlock}>
-          <Image
-            className={style.mainPhoto}
-            onClick={() => openModalPhoto(product.selectedProduct.photos[mainPhoto]["image"])}
-            src={product.selectedProduct.photos[mainPhoto]["image"]}
-          />
-          <ProductSlider
-            photos={product.selectedProduct.photos}
-            onSelect={chageMainPhoto}
-          />
-        </div>
+          <div className={style.imagesBlock}>
+            <Image
+              className={style.mainPhoto}
+              onClick={() =>
+                openModalPhoto(
+                  product.selectedProduct.photos[mainPhoto]["image"]
+                )
+              }
+              src={product.selectedProduct.photos[mainPhoto]["image"]}
+            />
+            <ProductSlider
+              photos={product.selectedProduct.photos}
+              onSelect={chageMainPhoto}
+            />
+          </div>
 
-        <Row className="d-flex flex-column align-items-center">
-          <h2>{product.selectedProduct.name}</h2>
-          {Object.keys(separateOptions).map((title) => (
-            <div key={title}>
-              <p className={style.optionsTitle}>{title}:</p>
-              {separateOptions[title].map((option) => (
-                <span
-                  key={option.id}
-                  onClick={() => changeOptions(title, option.description)}
-                  className={
-                    options !== undefined &&
-                    Object.values(options).includes(option.description)
-                      ? style.optionsSelect
-                      : style.options
-                  }
-                >
-                  {option.description}
-                </span>
-              ))}
-            </div>
-          ))}
-        </Row>
+          <Row className="d-flex flex-column align-items-center">
+            <h2>{product.selectedProduct.name}</h2>
+            {Object.keys(separateOptions).map((title) => (
+              <div key={title}>
+                <p className={style.optionsTitle}>{title}:</p>
+                {separateOptions[title].map((option) => (
+                  <span
+                    key={option.id}
+                    onClick={() => changeOptions(title, option.description)}
+                    className={
+                      options !== undefined &&
+                      Object.values(options).includes(option.description)
+                        ? style.optionsSelect
+                        : style.options
+                    }
+                  >
+                    {option.description}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </Row>
         </div>
 
         <div>
           <Card className={style.blockPriceAndButtonToBasket}>
             <h3 className="mt-2">{product.selectedProduct.price} $</h3>
-            {user.isAuth
-             ? (
+            {user.isAuth ? (
               <div className="mb-2">
                 {user.basket.product.filter(
-                  (item) => item.product.id === product.selectedProduct.id).length > 0 
-                  ? (
+                  (item) => item.product.id === product.selectedProduct.id
+                ).length > 0 ? (
                   <Button
                     variant="outline-dark"
                     onClick={() =>
@@ -223,11 +245,11 @@ const ProductPage = observer(() => {
 
       <div className={style.titleReview}>
         <h4>Reviews</h4>
-        {user.isAuth && 
+        {user.isAuth && (
           <Button className="bg-success" onClick={() => openModalAddReview()}>
             Add a review
           </Button>
-        }
+        )}
       </div>
       {product.selectedProduct.reviews.length > 0 ? (
         <div>
