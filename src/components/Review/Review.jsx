@@ -8,8 +8,7 @@ import ReviewForm from "../Forms/ReviewForm/ReviewForm";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { observer } from "mobx-react-lite";
 
-const Review = observer(
-  ({ reviewId, userId, first_name, comment, createdAt, changeReview }) => {
+const Review = observer(({ reviewId, userId, first_name, comment, createdAt, changeReview }) => {
     const { user } = useContext(Context);
     const { product } = useContext(Context);
 

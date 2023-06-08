@@ -133,7 +133,6 @@ const ProductItem = observer(({ product }) => {
     setActiveProduct(productId);
   };
 
-  //console.log('Product item test')
 
   return (
     <div>

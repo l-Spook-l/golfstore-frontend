@@ -33,7 +33,6 @@ const BrandPage = observer(() => {
     fetchOneBrand(slug).then((data) => {
       product.setTypes(data.type);
       product.setCategories(data.categories);
-      //console.log("brandPage - fetchOneBrand - data", data);
     });
   }, [slug]);
 
@@ -50,12 +49,6 @@ const BrandPage = observer(() => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
 
-      /* console.log('brand page - data', data)
-      console.log('brand page - data results', data.results)
-      console.log('brand page - product ', product)
-      console.log('brand page - product types', product.types)
-      console.log('brand page - product categories', product.categories)
-      console.log('brand page - product selectedType', product.selectedType) */
     });
   }, [
     product.selectedType,
@@ -72,12 +65,6 @@ const BrandPage = observer(() => {
     product.setSelectedType("clear");
     product.setSelectedCategory("clear");
   };
-  //console.log('category', category)
-  //console.log('category results', category.results[0].name)
-  //console.log("CategoryPage - product", product);
-  //console.log('CategoryPage - product selectedType', product.selectedType)
-  //console.log('CategoryPage - product brands', product.brands)
-  //console.log('CategoryPage - product types', product.types)
 
   const brand = slug
     .split("-")

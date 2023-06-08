@@ -1,6 +1,5 @@
 import { makeAutoObservable } from "mobx"
 
-// _ - переменная не может быть изменена
 export default class UserStore {
   constructor() {
     this._isAuth = false
@@ -12,7 +11,6 @@ export default class UserStore {
     makeAutoObservable(this)  //  делает все свойства класса наблюдаемыми (отслеживаемыми). 
   }
 
-  // экшены - фун-я которая как-то меняет состояние
   setIsAuth(bool) {
     this._isAuth = bool
   }
@@ -47,6 +45,4 @@ export default class UserStore {
     return this._wishList
   }
 
-  /* isAuth возвращает значение приватного поля _isAuth. Это свойство содержит информацию о том, авторизован ли пользователь в настоящее время.
-    user возвращает значение приватного поля _user. Это свойство содержит информацию о текущем пользователе, который авторизовался в приложении. */
 }

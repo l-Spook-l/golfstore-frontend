@@ -13,13 +13,6 @@ const Basket = observer(() => {
   const navigate = useNavigate();
 
   const [changeQuantity, setChangeQuantity] = useState(true)
-
-  /* console.log('Basket user', user)
-  console.log('Basket user user', user.user)
-  console.log('Basket user user id', user.user.id) */
-  //console.log('Basket user', user)
-  //console.log("Basket user basket", user.basket);
-  //console.log("Basket user basket lenght ", user.basket.length);
   
   useEffect(() => {
     fetchListProductsBasket(user.basket.id).then((products) => {

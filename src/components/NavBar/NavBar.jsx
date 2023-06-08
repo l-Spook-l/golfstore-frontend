@@ -11,12 +11,11 @@ import style from "./NavBar.module.css";
 import { GiGolfFlag } from "react-icons/gi";
 import SearchBar from "../Filters/SearchBar/SearchBar";
 
-// observer позволяет создавать компоненты, которые автоматически обновляются при изменении данных, отслеживаемых с помощью MobX.
 const NavBar = observer(() => {
   const { user } = useContext(Context);
   const { product } = useContext(Context);
 
-  const navigate = useNavigate(); // для перехода по страницам
+  const navigate = useNavigate();
 
   const [showLogin, setShowLogin] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -40,7 +39,6 @@ const NavBar = observer(() => {
     setShowLogin(!showLogin);
   };
 
-  //console.log("Работает Navbar");
 
   return (
     <Container>

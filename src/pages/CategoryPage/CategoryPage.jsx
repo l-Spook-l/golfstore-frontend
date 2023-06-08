@@ -18,7 +18,6 @@ const CategoryPage = observer(() => {
   const { product } = useContext(Context);
 
   const { slug } = useParams();
-  //console.log("slug", slug);
 
   const [showOffcanvas, setShowOffcanvas] = useState(false);
 
@@ -36,7 +35,6 @@ const CategoryPage = observer(() => {
       product.setBrands(data.brand);
       console.log("CategoryPage - fetchOneCategory - data", data);
     })
-    //.finally(() => setLoading(false));
   }, [slug]);
 
   useEffect(() => {
@@ -53,14 +51,7 @@ const CategoryPage = observer(() => {
       .then((data) => {
         product.setProducts(data.results);
         product.setTotalCount(data.count);
-
-        //console.log('category page - data', data)
-        //console.log('category page - data results', data.results)
-        //console.log('category page - product types', product.types)
-        //console.log('category page - product brand', product.brands)
-        //console.log('category page - product selectedType', product.selectedType)
       })
-      //.finally(() => setLoading(false));
   }, [
     product.selectedType,
     product.selectedBrand,
@@ -76,13 +67,6 @@ const CategoryPage = observer(() => {
     product.setSelectedType("clear");
     product.setSelectedBrand("clear");
   };
-
-  //console.log('category', category)
-  //console.log('category results', category.results[0].name)
-  //console.log("CategoryPage - product", product);
-  //console.log('CategoryPage - product selectedType', product.selectedType)
-  //console.log('CategoryPage - product brands', product.brands)
-  //console.log('CategoryPage - product types', product.types)
 
   const category = slug
     .split("-")

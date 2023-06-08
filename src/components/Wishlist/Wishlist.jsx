@@ -13,14 +13,6 @@ const WishListPage = observer(() => {
 
   const navigate = useNavigate();
 
-  /* console.log("wishList user wishList", user.wishList);
-  console.log("wishList user wishList", user.wishList.id);
-  console.log("wishList user wishList", user.wishList.product); */
-
-  /* console.log('WishListPage user', user)
-  console.log('WishListPage user user', user.user)
-  console.log('WishListPage user user id', user.user.id) */
-
   const deleteProduct = (wishListId, productId) => {
     deleteProductFromWishList(wishListId, productId);
     const wishList = user.wishList.product.filter(

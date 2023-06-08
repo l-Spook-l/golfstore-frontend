@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, Col, Container, Image, Modal, Row } from "react-bootstrap";
+import { Button, Container, Image, Modal, Row } from "react-bootstrap";
 import { deleteProductFromBasket } from "../../http/productAPI";
 import { Context } from "../..";
 import CheckoutForm from "../../components/Forms/CheckoutForm/CheckoutForm";
@@ -25,7 +25,6 @@ const CheckoutPage = observer(() => {
   const formSubmit = (formData) => {
     // formData - полученные данные из формы
     setFormValid(false);
-    //console.log("formData formData formData", formData);
   };
 
   const sendOrder = (basketId) => {

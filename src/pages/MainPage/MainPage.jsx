@@ -19,10 +19,6 @@ const MainPage = observer(() => {
 
   const [isHovered, setIsHovered] = useState(false);
   const [activeProduct, setActiveProduct] = useState(0);
-  /*   
-  console.log('shop - product page', product.page)
-  console.log('shop - product types', product.types)
-  console.log('shop - product brands', product.brands) */
 
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
@@ -32,8 +28,6 @@ const MainPage = observer(() => {
     fetchProducts(null, null, null, 1, null, null, null).then((data) => {
       product.setProducts(data.results);
       product.setTotalCount(data.count);
-      //console.log('shop - data', data)
-      //console.log('shop - data.results', data.results)
     });
   }, []);
 
@@ -49,11 +43,6 @@ const MainPage = observer(() => {
     setIsHovered(true);
     setActiveProduct(productId);
   };
-
-  /* console.log("shop - product", product);
-  console.log("shop - product products", product.products);
-  console.log('shop - product typesqqq', product.selectedType)
-  console.log('shop - product brands', product.brands) */
 
   return (
     <div style={{ paddingTop: "63px" }}>

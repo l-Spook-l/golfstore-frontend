@@ -14,15 +14,8 @@ const SearchBar = observer(() => {
 
   useEffect(() => {
     fetchProducts(
-      null,
-      null,
-      null,
-      1,
-      null,
-      null,
-      null,
-      product.selectedSearchProducts
-    ).then((data) => {
+      null, null, null, 1, null, null, null, product.selectedSearchProducts
+      ).then((data) => {
       product.setSearchProducts(data.results);
     });
   }, [product.selectedSearchProducts]);
