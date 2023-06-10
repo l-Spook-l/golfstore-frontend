@@ -32,6 +32,7 @@ const Shop = observer(() => {
     product.setSelectedType("clear");
     product.setSelectedBrand("clear");
     product.setSelectedCategory("clear");
+    product.setOrdering('')
     fetchTypes().then((data) => product.setTypes(data));
     fetchBrands().then((data) => product.setBrands(data));
     fetchCategories()

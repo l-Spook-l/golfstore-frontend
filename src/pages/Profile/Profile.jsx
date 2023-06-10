@@ -85,6 +85,7 @@ const Profile = observer(() => {
             >
               My Wallet
             </Alert>
+            {/* My orders */}
           </Nav>
         </Col>
         <Col md={9}>{view}</Col>

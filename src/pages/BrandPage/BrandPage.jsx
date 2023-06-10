@@ -30,6 +30,7 @@ const BrandPage = observer(() => {
     product.setSelectedType("clear");
     product.setSelectedBrand("clear");
     product.setSelectedCategory("clear");
+    product.setOrdering('')
     fetchOneBrand(slug).then((data) => {
       product.setTypes(data.type);
       product.setCategories(data.categories);

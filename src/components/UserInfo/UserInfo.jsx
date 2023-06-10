@@ -3,13 +3,39 @@ import { Accordion, Button, Col, Container, Row } from "react-bootstrap";
 import { Context } from "../..";
 import InDevelopmentModal from "../Modals/InDevelopmentModal/InDevelopmentModal";
 import style from "./UserInfo.module.css"
+import {  updateUserEmail, updateUserFirstName, updateUserLastName, updateUserPhoneNumber } from "../../http/userAPI";
+import { observer } from "mobx-react-lite";
 
-const UserInfo = () => {
+const UserInfo = observer(() => {
   const { user } = useContext(Context);
 
   const [showModal, setShowModal] = useState(false);
+  const [editFirstLastName, setEditFirstLastName] = useState(false);
+  const [editPhoneNumberEmail, setEditPhoneNumberEmail] = useState(false);
+  const [editLogin, setEditLogin] = useState(false)
 
   const closeModal = () => setShowModal(false);
+
+  const updateFirstLastName = (firstName, lastName) => {
+    updateUserFirstName(firstName)
+    updateUserLastName(lastName)
+    setEditFirstLastName(false)
+  }
+
+  const updatePhoneNumberEmail = (phoneNumber, email) => {
+    updateUserPhoneNumber(phoneNumber)
+    updateUserEmail(email)
+    setEditPhoneNumberEmail(false)
+  }
+
+  const updateUserLogin = (email) => {
+    updateUserEmail(email)
+    setEditLogin(false)
+  }
+
+  const updateUserCardNumber = (cardNumber) => {
+  }
+  
 
   return (
     <Container className={style.forContainer}>
@@ -29,7 +55,14 @@ const UserInfo = () => {
               </Col>
               <Col md={4}></Col>
             </Row>
-            <Button onClick={() => setShowModal(true)} className="mt-4 bg-success">Edit</Button>
+            {editFirstLastName 
+            ? <div>
+              <Button onClick={() => updateFirstLastName('true')} className="mt-4 bg-success">Save</Button>
+              <Button onClick={() => setEditFirstLastName(false)} className="mt-4 bg-success">Cancel</Button>
+            </div>
+            : <Button onClick={() => setEditFirstLastName(true)} className="mt-4 bg-success">Edit</Button>
+            }
+            
           </Accordion.Body>
         </Accordion.Item>
 
@@ -46,7 +79,13 @@ const UserInfo = () => {
                 {user.user.email}
               </Col>
             </Row>
-            <Button onClick={() => setShowModal(true)} className="mt-4 bg-success">Edit</Button>
+            {editPhoneNumberEmail 
+            ? <div>
+              <Button onClick={() => updatePhoneNumberEmail('true')} className="mt-4 bg-success">Save</Button>
+              <Button onClick={() => setEditPhoneNumberEmail(false)} className="mt-4 bg-success">Cancel</Button>
+            </div>
+            : <Button onClick={() => setEditPhoneNumberEmail(true)} className="mt-4 bg-success">Edit</Button>
+            }
           </Accordion.Body>
         </Accordion.Item>
 
@@ -68,7 +107,13 @@ const UserInfo = () => {
                 {user.user.email}
               </Col>
             </Row>
-            <Button onClick={() => setShowModal(true)} className="mt-4 bg-success">Edit</Button>
+            {editLogin 
+            ? <div>
+              <Button onClick={() => updateUserLogin('true')} className="mt-4 bg-success">Save</Button>
+              <Button onClick={() => setEditLogin(false)} className="mt-4 bg-success">Cancel</Button>
+            </div>
+            : <Button onClick={() => setEditLogin(true)} className="mt-4 bg-success">Edit</Button>
+            }
           </Accordion.Body>
         </Accordion.Item>
 
@@ -92,6 +137,6 @@ const UserInfo = () => {
       <InDevelopmentModal show={showModal} closeModal={closeModal}/>
     </Container>
   );
-};
+});
 
 export default UserInfo;
