@@ -82,22 +82,22 @@ const UserInfo = observer(() => {
             <Row>
               <Col md={3}>
                 <p>Mobile phone</p>
-                {editFirstLastName
-                ? <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                {editPhoneNumberEmail
+                ? <input type="number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
                 : phoneNumber
                 }
               </Col>
               <Col md={3}>
                 <p>Email</p>
-                {editFirstLastName
-                ? <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                {editPhoneNumberEmail
+                ? <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 : email
                 }
               </Col>
             </Row>
             {editPhoneNumberEmail 
             ? <div>
-                <Button onClick={() => updatePhoneNumberEmail('true')} className="mt-4 bg-success">Save</Button>
+                <Button onClick={() => updatePhoneNumberEmail()} className="mt-4 bg-success">Save</Button>
                 <Button onClick={() => setEditPhoneNumberEmail(false)} className="mt-4 bg-success">Cancel</Button>
               </div>
             : <Button onClick={() => setEditPhoneNumberEmail(true)} className="mt-4 bg-success">Edit</Button>
@@ -120,15 +120,15 @@ const UserInfo = observer(() => {
             <Row>
               <Col md={3}>
                 <p>Login (Email)</p>
-                {editFirstLastName
-                ? <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                {editLogin
+                ? <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 : email
                 }
               </Col>
             </Row>
             {editLogin 
             ? <div>
-                <Button onClick={() => updateUserLogin('true')} className="mt-4 bg-success">Save</Button>
+                <Button onClick={() => updateUserLogin()} className="mt-4 bg-success">Save</Button>
                 <Button onClick={() => setEditLogin(false)} className="mt-4 bg-success">Cancel</Button>
               </div>
             : <Button onClick={() => setEditLogin(true)} className="mt-4 bg-success">Edit</Button>

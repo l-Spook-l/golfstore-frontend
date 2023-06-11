@@ -20,7 +20,8 @@ export const login = async (email, password) => {
   console.log("авторизация response.data.access", response.data.access); 
   console.log("авторизация jwt_decode(response.data.access)", jwt_decode(response.data.access)); 
 
-  const responseUserMe = await $authHost.get("api/v1/user-info/");
+  const userId = jwt_decode(localStorage.getItem("token")).user_id
+  const responseUserMe = await $authHost.get(`api/v1/user-info/${userId}/`);
   console.log("авторизация auth/users/me/ responseUserMe", responseUserMe);
   console.log("авторизация auth/users/me/ responseUserMe data", responseUserMe.data);
 
@@ -37,7 +38,7 @@ export const check = async () => {
 
   const userId = jwt_decode(localStorage.getItem("token")).user_id
   const response = await $authHost.get(`api/v1/user-info/${userId}/`);
-  //const response = await $authHost.get(`api/v1/user-info/`);
+
   console.log("check auth/users/me/ token test", `Bearer ${localStorage.getItem("token")}`);
   console.log("check auth/users/me/ response user-info", response);
   console.log("check auth/users/me/ response.data user-info", response.data);
@@ -47,40 +48,30 @@ export const check = async () => {
 
 export const updateUserFirstName = async (first_name) => {
   const userId = jwt_decode(localStorage.getItem("token")).user_id
-  //const response = await $authHost.patch(`api/v1/user-info/`, {first_name});
   const response = await $authHost.patch(`api/v1/user-info/${userId}/`, {first_name});
-  console.log("updateUser response ", response);
-  //console.log("updateUser response.data ", response.data);
   return response
 }
 
-export const updateUserLastName = async (lastName) => {
+export const updateUserLastName = async (last_name) => {
   const userId = jwt_decode(localStorage.getItem("token")).user_id
-  const response = await $authHost.patch(`api/v1/user-info/${userId}/`,{lastName});
-  console.log("updateUser response ", response);
-  console.log("updateUser response.data ", response.data);
-  return response.data
+  const response = await $authHost.patch(`api/v1/user-info/${userId}/`, {last_name});
+  return response
 }
+
 export const updateUserEmail = async (email) => {
   const userId = jwt_decode(localStorage.getItem("token")).user_id
-  const response = await $authHost.patch(`api/v1/user-info/${userId}/`,{email});
-  console.log("updateUser response ", response);
-  console.log("updateUser response.data ", response.data);
-  return response.data
+  const response = await $authHost.patch(`api/v1/user-info/${userId}/`, {email});
+  return response
 }
 
-export const updateUserPhoneNumber = async (phoneNumber) => {
+export const updateUserPhoneNumber = async (phone_number) => {
   const userId = jwt_decode(localStorage.getItem("token")).user_id
-  const response = await $authHost.patch(`api/v1/user-info/${userId}/`, {phoneNumber});
-  console.log("updateUser response ", response);
-  console.log("updateUser response.data ", response.data);
-  return response.data
+  const response = await $authHost.patch(`api/v1/user-info/${userId}/`, {phone_number});
+  return response
 }
 
-export const updateUserCardNumber = async (cardNumber) => {
+export const updateUserCardNumber = async (card_number) => {
   const userId = jwt_decode(localStorage.getItem("token")).user_id
-  const response = await $authHost.patch(`api/v1/user-info/${userId}/`,{cardNumber});
-  console.log("updateUser response ", response);
-  console.log("updateUser response.data ", response.data);
-  return response.data
+  const response = await $authHost.patch(`api/v1/user-info/${userId}/`, {card_number});
+  return response
 }
