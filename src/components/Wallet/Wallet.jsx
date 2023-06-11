@@ -8,7 +8,6 @@ import style from "./Wallet.module.css"
 
 const Wallet = observer(() => {
   const { user } = useContext(Context)
-  console.log('wqeeeeeeeeeeeeeeeeee', user.user.card_number)
 
   const [cardNumber, setCardNumber] = useState(user.user.card_number)
 
@@ -21,8 +20,6 @@ const Wallet = observer(() => {
     updateUserCardNumber(null)
     setCardNumber(null)
   }
-  console.log('eqwewq', cardNumber, typeof(cardNumber), String(cardNumber), typeof(cardNumber))
-  
 
   return (
     <Container className={style.forContainer} >
@@ -35,7 +32,6 @@ const Wallet = observer(() => {
           <button className={style.deleteCard} onClick={() => deleteCardNumber()}>Delete card</button>
         </div>
       }
-      
     </Container>
   )
 })

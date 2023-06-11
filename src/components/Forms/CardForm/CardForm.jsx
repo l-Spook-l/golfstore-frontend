@@ -6,18 +6,19 @@ const CardForm = ({ card }) => {
   const [show, setShow] = useState(false);
   const [cardNumber, setCardNumber] = useState("");
 
-  const handleClose = () => setShow(false);
+  const modalClose = () => setShow(false);
 
   const addOrChangeCardNumber = () => {
     card(cardNumber);
   }
   
-  const handleShow = () => setShow(true);
+  const modalShow = () => setShow(true);
 
   const handleInputChange = (event) => {
     const { value, name } = event.target;
-    console.log('value name', value, name)
+    // Проверям чтобы в строке были только цифры и пробелы
     const isValid = /^[0-9\s]+$/.test(value);
+
     if (value.length > 0 && isValid) {
       // Удаляем все нечисловые символы из ввода
       const numericValue = value.replace(/\D/g, "");
@@ -29,19 +30,17 @@ const CardForm = ({ card }) => {
     }
   };
 
-  console.log("cardNumber",cardNumber)
-
   return (
     <div className="mt-4">
       <Button
         className={style.buttonAddCard}
         variant="primary"
-        onClick={handleShow}
+        onClick={modalShow}
       >
         Add card
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={modalClose}>
         <Modal.Header closeButton>
           <Modal.Title>Adding a card</Modal.Title>
         </Modal.Header>
