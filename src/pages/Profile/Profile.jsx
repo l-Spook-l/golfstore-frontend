@@ -70,7 +70,6 @@ const Profile = observer(() => {
             >
               Basket
             </Alert>
-
             <Alert
               className={`${style.alertMenu} ${activeTab === "wishlist" ? style.alertMenuActive : ""}`}
               onClick={() => blurHandler("wishlist")}

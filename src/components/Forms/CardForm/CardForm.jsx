@@ -1,23 +1,43 @@
-import React, { useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
-import style from "./CardForm.module.css"
-import InDevelopmentModal from '../../Modals/InDevelopmentModal/InDevelopmentModal';
+import React, { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
+import style from "./CardForm.module.css";
 
-const CardForm = () => {
+const CardForm = ({ card }) => {
   const [show, setShow] = useState(false);
-  const [showDevModal, setShowDevModal] = useState(false);
+  const [cardNumber, setCardNumber] = useState("");
 
-  const handleClose = () => {
-    setShow(false)
-    setShowDevModal(true)
-  };
+  const handleClose = () => setShow(false);
+
+  const addOrChangeCardNumber = () => {
+    card(cardNumber);
+  }
+  
   const handleShow = () => setShow(true);
 
-  const closeDevModal = () => setShowDevModal(false);
+  const handleInputChange = (event) => {
+    const { value, name } = event.target;
+    console.log('value name', value, name)
+    const isValid = /^[0-9\s]+$/.test(value);
+    if (value.length > 0 && isValid) {
+      // Удаляем все нечисловые символы из ввода
+      const numericValue = value.replace(/\D/g, "");
+      // Разделяем номер карты на блоки по 4 цифры
+      const formattedValue = numericValue.match(/.{1,4}/g).join(" ").trim();
+      setCardNumber(formattedValue);
+    } else if (value.length === 0){
+      setCardNumber('')
+    }
+  };
+
+  console.log("cardNumber",cardNumber)
 
   return (
-    <div className='mt-4'>
-      <Button className={style.buttonAddCard} variant="primary" onClick={handleShow}>
+    <div className="mt-4">
+      <Button
+        className={style.buttonAddCard}
+        variant="primary"
+        onClick={handleShow}
+      >
         Add card
       </Button>
 
@@ -26,25 +46,27 @@ const CardForm = () => {
           <Modal.Title>Adding a card</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Card number</Form.Label>
-              <Form.Control type="text" placeholder="Enter card number" />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Expiration date</Form.Label>
-              <Form.Control type="text" placeholder="Enter expiration date" />
-            </Form.Group>
-          </Form>
+          <form className={style.formCard}>
+            <div>
+              <label htmlFor="card-number">Card Number:</label>
+              <input
+                type="text"
+                className={style.fieldForCard}
+                name="cardNumber"
+                value={cardNumber}
+                maxLength="19" // Длина включает пробелы (4 блока по 4 цифры и 3 пробела)
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
+          <Button disabled={cardNumber.length !== 19} variant="primary" onClick={addOrChangeCardNumber}>
             Save
           </Button>
         </Modal.Footer>
       </Modal>
-      <InDevelopmentModal show={showDevModal} closeModal={closeDevModal}/>
     </div>
   );
 };

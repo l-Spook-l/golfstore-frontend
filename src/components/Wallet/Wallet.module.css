@@ -1,0 +1,26 @@
+.forContainer {
+  padding-top: 63px;
+  padding-bottom: 63px;
+}
+
+.card {
+  max-width: 200px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.20);
+}
+
+.cardNumber {
+  font-size: 20px;
+}
+
+.deleteCard {
+  margin-top: 20px;
+  border: 0;
+  font-size: 17px;
+  border-radius: 3px;
+}
+
+.deleteCard:hover {
+  background-color: rgb(199, 74, 74);
+}

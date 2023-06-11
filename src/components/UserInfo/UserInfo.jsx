@@ -39,9 +39,6 @@ const UserInfo = observer(() => {
     setEditLogin(false)
   }
 
-  const updateUserCardNumber = (cardNumber) => {
-  }
-
   return (
     <Container className={style.forContainer}>
       <h2>Personal information</h2>
