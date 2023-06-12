@@ -22,9 +22,12 @@ const Basket = observer(() => {
   //console.log("Basket user basket lenght ", user.basket.length);
   
   useEffect(() => {
-    fetchListProductsBasket(user.basket.id).then((products) => {
-      user.setBasket({id: user.basket.id , product: products.results})
-    })
+    console.log('basket useEffect', user.basket.id)
+    if (user.basket.id != null) {
+      fetchListProductsBasket(user.basket.id).then((products) => {
+        user.setBasket({id: user.basket.id , product: products.results})
+      })
+    }
   },[changeQuantity])
 
   const deleteProduct = (basketId, productId) => {

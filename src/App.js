@@ -45,7 +45,7 @@ const App = observer(() => {
           console.log('App fetchListProductsWishList products results', products.results)
         })
       })
-    }).catch(error => {
+    }).catch((error) => {
       console.log('Error login', error);
       // Обработка других ошибок, возникших при выполнении запроса
     }).finally(() => setLoading(false))
