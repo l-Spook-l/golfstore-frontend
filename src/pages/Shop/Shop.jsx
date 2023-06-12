@@ -24,9 +24,8 @@ const Shop = observer(() => {
   console.log('shop - product types', product.types)
   console.log('shop - product brands', product.brands) */
 
-  // первое получение типов, брєндов, продуктов
+  // первое получение типов, брендов, продуктов
   useEffect(() => {
-    console.log("Перезагрузка shop");
     window.scrollTo(0, 0);
     product.setPage(1)
     product.setSelectedType("clear");

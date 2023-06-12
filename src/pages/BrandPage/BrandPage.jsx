@@ -25,6 +25,7 @@ const BrandPage = observer(() => {
 
   // первое получение типов, брєндов, продуктов
   useEffect(() => {
+    console.log('111111111111111111111111111111111111111')
     window.scrollTo(0, 0);
     product.setPage(1)
     product.setSelectedType("clear");
@@ -39,6 +40,8 @@ const BrandPage = observer(() => {
   }, [slug]);
 
   useEffect(() => {
+    console.log('22222222222222222222222222222222222')
+
     fetchProductsByBrand(
       slug,
       product.selectedType.map((el) => el.slug).join(", "),
@@ -75,10 +78,11 @@ const BrandPage = observer(() => {
   };
   //console.log('category', category)
   //console.log('category results', category.results[0].name)
-  //console.log("CategoryPage - product", product);
-  //console.log('CategoryPage - product selectedType', product.selectedType)
-  //console.log('CategoryPage - product brands', product.brands)
-  //console.log('CategoryPage - product types', product.types)
+  //console.log("brand page - product", product);
+  //console.log('brand page - product selectedType', product.selectedType)
+  //console.log('brand page - product brands', product.brands)
+  //console.log('brand page - product types', product.types)
+  console.log('brand page - product.ordering', product.ordering)
 
   const brand = slug
     .split("-")
@@ -151,6 +155,7 @@ const BrandPage = observer(() => {
           <Form.Select
             className="mt-4"
             onChange={(e) => product.setOrdering(e.target.value)}
+            value={product.ordering}
           >
             <option value="">Sorted by</option>
             <option value="-time_create">New Arrivals</option>

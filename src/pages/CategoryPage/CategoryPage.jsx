@@ -37,7 +37,6 @@ const CategoryPage = observer(() => {
       product.setBrands(data.brand);
       console.log("CategoryPage - fetchOneCategory - data", data);
     })
-    //.finally(() => setLoading(false));
   }, [slug]);
 
   useEffect(() => {
@@ -61,7 +60,6 @@ const CategoryPage = observer(() => {
         //console.log('category page - product brand', product.brands)
         //console.log('category page - product selectedType', product.selectedType)
       })
-      //.finally(() => setLoading(false));
   }, [
     product.selectedType,
     product.selectedBrand,
@@ -157,6 +155,7 @@ const CategoryPage = observer(() => {
           <Form.Select
             className="mt-4"
             onChange={(e) => product.setOrdering(e.target.value)}
+            value={product.ordering}
           >
             <option value="">Sorted by</option>
             <option value="-time_create">New Arrivals</option>
