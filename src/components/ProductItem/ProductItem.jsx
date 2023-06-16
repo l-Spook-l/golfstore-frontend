@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { PRODUCT_ROUTE, PROFILE_ROUTE } from "../../utils/consts";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { BsCart, BsFillCartCheckFill } from "react-icons/bs";
 import { addProductToBasket, addProductToWishList, deleteProductFromWishList } from "../../http/productAPI";
@@ -32,7 +32,7 @@ const ProductItem = observer(({ product }) => {
       .length > 0
       ? setProductOnWishList(<AiTwotoneHeart />)
       : setProductOnWishList(<AiOutlineHeart />);
-  }, [user.basket.product]);
+  }, [user.basket.product, user.wishList.product]);
 
   const addToWishlist = (wishListId, productId) => {
     const wishList = user.wishList.product.filter(
@@ -133,6 +133,7 @@ const ProductItem = observer(({ product }) => {
     setActiveProduct(productId);
   };
 
+
   return (
     <div>
       <Card className={style.myCard}>
@@ -146,26 +147,28 @@ const ProductItem = observer(({ product }) => {
         >
           {productOnWishList}
         </button>
-        <Card.Img
-          className={style.myImage}
-          onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}
-          src={
-            isHovered &&
-            activeProduct === product.id &&
-            product.photos.length > 1
-              ? product.photos[1]["image"]
-              : product.photos[0]["image"]
-          }
-          onMouseEnter={() => hoverProduct(product.id)}
-          onMouseLeave={() => setIsHovered(false)}
-        />
+        <NavLink to={`${PRODUCT_ROUTE}/${product.slug}`}>
+          <Card.Img
+            className={style.myImage}
+            src={
+              isHovered &&
+              activeProduct === product.id &&
+              product.photos.length > 1
+                ? product.photos[1]["image"]
+                : product.photos[0]["image"]
+            }
+            onMouseEnter={() => hoverProduct(product.id)}
+            onMouseLeave={() => setIsHovered(false)}
+          />
+        </NavLink>
+        
         <Card.Body className={style.cardBody}>
-          <div
+          <NavLink
             className={style.nameProduct}
-            onClick={() => navigate(`${PRODUCT_ROUTE}/${product.slug}`)}
+            to={`${PRODUCT_ROUTE}/${product.slug}`}
           >
             {product.name}
-          </div>
+          </NavLink>
           <div className={style.priceAndBasketProduct}>
             <div>{product.price} $</div>
             <div
@@ -179,7 +182,8 @@ const ProductItem = observer(({ product }) => {
               {productOnBasket}
             </div>
           </div>
-        </Card.Body>
+          </Card.Body>
+        
       </Card>
 
       {showLogin ? (
