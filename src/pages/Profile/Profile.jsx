@@ -17,7 +17,6 @@ const Profile = observer(() => {
   const location = useLocation();
 
   const state = location.state;
-  //const state = "userInfo"
 
   const [activeTab, setActiveTab] = useState("userInfo");
 

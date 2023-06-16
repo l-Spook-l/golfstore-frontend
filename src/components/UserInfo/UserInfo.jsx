@@ -65,7 +65,7 @@ const UserInfo = observer(() => {
             </Row>
             {editFirstLastName 
             ? <div>
-                <Button onClick={() => updateFirstLastName()} className="mt-4 bg-success">Save</Button>
+                <Button onClick={() => updateFirstLastName()} className="mt-4 me-2 bg-success">Save</Button>
                 <Button onClick={() => setEditFirstLastName(false)} className="mt-4 bg-success">Cancel</Button>
               </div>
             : <Button onClick={() => setEditFirstLastName(true)} className="mt-4 bg-success">Edit</Button>
@@ -94,7 +94,7 @@ const UserInfo = observer(() => {
             </Row>
             {editPhoneNumberEmail 
             ? <div>
-                <Button onClick={() => updatePhoneNumberEmail()} className="mt-4 bg-success">Save</Button>
+                <Button onClick={() => updatePhoneNumberEmail()} className="mt-4 me-2 bg-success">Save</Button>
                 <Button onClick={() => setEditPhoneNumberEmail(false)} className="mt-4 bg-success">Cancel</Button>
               </div>
             : <Button onClick={() => setEditPhoneNumberEmail(true)} className="mt-4 bg-success">Edit</Button>
@@ -125,7 +125,7 @@ const UserInfo = observer(() => {
             </Row>
             {editLogin 
             ? <div>
-                <Button onClick={() => updateUserLogin()} className="mt-4 bg-success">Save</Button>
+                <Button onClick={() => updateUserLogin()} className="mt-4 me-2 bg-success">Save</Button>
                 <Button onClick={() => setEditLogin(false)} className="mt-4 bg-success">Cancel</Button>
               </div>
             : <Button onClick={() => setEditLogin(true)} className="mt-4 bg-success">Edit</Button>

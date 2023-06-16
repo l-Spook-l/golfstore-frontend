@@ -1,7 +1,11 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../..";
-import { fetchBrands, fetchCategories, fetchProducts } from "../../http/productAPI";
+import {
+  fetchBrands,
+  fetchCategories,
+  fetchProducts,
+} from "../../http/productAPI";
 import { NavLink, useNavigate } from "react-router-dom";
 import { BRAND_ROUTE, CATEGORY_ROUTE, PRODUCT_ROUTE } from "../../utils/consts";
 import SliderForMainPage from "../../components/Sliders/SliderForMainPage/SliderForMainPage";
@@ -84,30 +88,35 @@ const MainPage = observer(() => {
           </div>
         </div>
 
-        <h2 className={style.sectionTitle}>NEWEST ARRIVALS</h2>
-        <Row style={{ display: "flex", justifyContent: "space-around" }}>
+        <h2 className={style.sectionTitle}>BESTSELLERS</h2>
+        <Row className={style.blockBestsellers}>
           {product.products.slice(0, 4).map((el) => (
-            <Card
-              style={{ width: 280, cursor: "pointer" }}
-              border="light"
-              key={el.id}
-            >
-              <Image
-                width={250}
-                height={250}
-                src={
-                  isHovered && activeProduct === el.id && el.photos.length > 1
-                    ? el.photos[2]["image"]
-                    : el.photos[0]["image"]
-                }
-                onClick={() => navigate(`${PRODUCT_ROUTE}/${el.slug}`)}
-                onMouseEnter={() => hoverProduct(el.id)}
-                onMouseLeave={() => setIsHovered(false)}
-              />
-              <p>{el.name}</p>
-              <div className="m-auto">
-                <p>{el.price} $</p>
-              </div>
+            <Card className={style.cardProductBestsellers} key={el.id}>
+              <NavLink to={`${PRODUCT_ROUTE}/${el.slug}`}>
+                <Image
+                  width={250}
+                  height={250}
+                  src={
+                    isHovered && activeProduct === el.id && el.photos.length > 1
+                      ? el.photos[2]["image"]
+                      : el.photos[0]["image"]
+                  }
+                  onMouseEnter={() => hoverProduct(el.id)}
+                  onMouseLeave={() => setIsHovered(false)}
+                />
+              </NavLink>
+
+              <NavLink 
+                className={style.productNamePrice}
+                to={`${PRODUCT_ROUTE}/${el.slug}`}
+                >
+                <div className="">
+                  <span>{el.name}</span>
+                </div>
+                <div className="">
+                  <p>{el.price} $</p>
+                </div>
+              </NavLink>
             </Card>
           ))}
         </Row>

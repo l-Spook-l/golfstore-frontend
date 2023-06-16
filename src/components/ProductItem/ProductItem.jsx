@@ -133,7 +133,6 @@ const ProductItem = observer(({ product }) => {
     setActiveProduct(productId);
   };
 
-
   return (
     <div>
       <Card className={style.myCard}>
