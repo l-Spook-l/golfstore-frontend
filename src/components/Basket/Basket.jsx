@@ -15,9 +15,11 @@ const Basket = observer(() => {
   const [changeQuantity, setChangeQuantity] = useState(true)
   
   useEffect(() => {
-    fetchListProductsBasket(user.basket.id).then((products) => {
-      user.setBasket({id: user.basket.id , product: products.results})
-    })
+    if (user.basket.id != null) {
+      fetchListProductsBasket(user.basket.id).then((products) => {
+        user.setBasket({id: user.basket.id , product: products.results})
+      })
+    }
   },[changeQuantity])
 
   const deleteProduct = (basketId, productId) => {

@@ -16,7 +16,6 @@ export const fetchCategories = async() => {
   return response.data.results
 }
 
-// делаем запрос и принимаем данные с параметрами
 export const fetchProducts = async(type, brand, category, page, min_price, max_price, ordering, name) => {
   const response = await $host.get('api/v1/product/', {params:{
     type, brand, category, page, min_price, max_price, ordering, name

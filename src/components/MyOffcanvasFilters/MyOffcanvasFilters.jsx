@@ -5,7 +5,7 @@ import PriceBar from "../Filters/PriceBar/PriceBar";
 import TypeBar from "../Filters/TypeBar/TypeBar";
 import BrandBar from "../Filters/BrandBar/BrandBar";
 
-// Выпадающие меню для фильтров
+
 const MyOffcanvasFilters = ({ showOffcanvas, setShowOffcanvas }) => {
 
   const offcanvasClose = () => {

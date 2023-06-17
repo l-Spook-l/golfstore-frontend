@@ -16,7 +16,6 @@ const ProductSlider = ({ photos, onSelect }) => {
     arrows: false,
   };
   
-  // Передаем выбранное фото обратно в родительский компонент
   const handleSelectPhoto = (index) => {
     onSelect(index);
   };

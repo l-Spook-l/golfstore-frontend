@@ -12,7 +12,7 @@ import style from "./MainPage.module.css";
 
 const MainPage = observer(() => {
   const { product } = useContext(Context);
-  const navigate = useNavigate(); // для перехода по страницам
+  const navigate = useNavigate();
 
   const [countCategoryOnMainPage, setCountCategoryOnMainPage] = useState(3);
   const [countBrandsOnMainPage, setCountBrandsOnMainPage] = useState(4);
@@ -20,7 +20,6 @@ const MainPage = observer(() => {
   const [isHovered, setIsHovered] = useState(false);
   const [activeProduct, setActiveProduct] = useState(0);
 
-  // первое получение типов, брєндов, продуктов
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchBrands().then((data) => product.setBrands(data));
@@ -73,30 +72,35 @@ const MainPage = observer(() => {
           </div>
         </div>
 
-        <h2 className={style.sectionTitle}>NEWEST ARRIVALS</h2>
-        <Row style={{ display: "flex", justifyContent: "space-around" }}>
+        <h2 className={style.sectionTitle}>BESTSELLERS</h2>
+        <Row className={style.blockBestsellers}>
           {product.products.slice(0, 4).map((el) => (
-            <Card
-              style={{ width: 280, cursor: "pointer" }}
-              border="light"
-              key={el.id}
-            >
-              <Image
-                width={250}
-                height={250}
-                src={
-                  isHovered && activeProduct === el.id && el.photos.length > 1
-                    ? el.photos[2]["image"]
-                    : el.photos[0]["image"]
-                }
-                onClick={() => navigate(`${PRODUCT_ROUTE}/${el.slug}`)}
-                onMouseEnter={() => hoverProduct(el.id)}
-                onMouseLeave={() => setIsHovered(false)}
-              />
-              <p>{el.name}</p>
-              <div className="m-auto">
-                <p>{el.price} $</p>
-              </div>
+            <Card className={style.cardProductBestsellers} key={el.id}>
+              <NavLink to={`${PRODUCT_ROUTE}/${el.slug}`}>
+                <Image
+                  width={250}
+                  height={250}
+                  src={
+                    isHovered && activeProduct === el.id && el.photos.length > 1
+                      ? el.photos[2]["image"]
+                      : el.photos[0]["image"]
+                  }
+                  onMouseEnter={() => hoverProduct(el.id)}
+                  onMouseLeave={() => setIsHovered(false)}
+                />
+              </NavLink>
+
+              <NavLink 
+                className={style.productNamePrice}
+                to={`${PRODUCT_ROUTE}/${el.slug}`}
+                >
+                <div className="">
+                  <span>{el.name}</span>
+                </div>
+                <div className="">
+                  <p>{el.price} $</p>
+                </div>
+              </NavLink>
             </Card>
           ))}
         </Row>

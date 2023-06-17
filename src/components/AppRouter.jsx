@@ -16,7 +16,6 @@ const AppRouter = () => {
       {publicRoutes.map(({ path, Component }) => (
         <Route key={path} path={path} element={<Component />} />
       ))}
-      {/* Маршрут для обработки ошибки 404 */}
       <Route path="/*" element={<Page404/>}/>
     </Routes>
   );

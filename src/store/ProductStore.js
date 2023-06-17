@@ -1,15 +1,13 @@
 import { makeAutoObservable } from "mobx";
 
-// _ - переменная не может быть изменена
 export default class ProductStore {
   constructor() {
-    this._types = []  // массив полученных типов
-    this._brands = []  // массив полученных брэндов
+    this._types = []  
+    this._brands = []  
     this._categories = []  
-    this._products = []  // массив полученных продуктов
-    this._searchProducts = []  // массив для поиска товара по названию
+    this._products = []  
+    this._searchProducts = []  
 
-    // Выделять выбранный тип, брэнд, категорию
     this._selectedType = []
     this._selectedBrand = []
     this._selectedCategory = []
@@ -20,16 +18,14 @@ export default class ProductStore {
     this._priceMin = 0
     this._priceMax = 10000
     
-    // Сортировка по, цене, дате создания
     this._ordering = ''
 
     this._page = 1
     this._totalCount = 0
 
-    // Для navBar
     this._brandsForSelected = []
     this._categoriesForSelected = []
-    makeAutoObservable(this); //  делает все свойства класса наблюдаемыми (отслеживаемыми).
+    makeAutoObservable(this); 
   }
 
   setTypes(types) {
@@ -48,7 +44,6 @@ export default class ProductStore {
     this._searchProducts = products
   }
 
-  // Выделять выбранный тип
   setSelectedType(type) {
     this.setPage(1)
     if (type === 'clear') {
@@ -132,7 +127,6 @@ export default class ProductStore {
     return this._searchProducts
   }
 
-  // Выделять выбранный тип
   get priceMin() {
     return this._priceMin;
   }

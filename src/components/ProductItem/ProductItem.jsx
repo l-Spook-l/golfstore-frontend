@@ -127,7 +127,6 @@ const ProductItem = observer(({ product }) => {
     setShowLogin(true);
   };
 
-  // При наведении курсора показываем другое фото (если оно есть)
   const hoverProduct = (productId) => {
     setIsHovered(true);
     setActiveProduct(productId);

@@ -23,13 +23,13 @@ const BrandPage = observer(() => {
   
   const [showOffcanvas, setShowOffcanvas] = useState(false);
 
-  // первое получение типов, брєндов, продуктов
   useEffect(() => {
     window.scrollTo(0, 0);
     product.setPage(1)
     product.setSelectedType("clear");
     product.setSelectedBrand("clear");
     product.setSelectedCategory("clear");
+    product.setOrdering('')
     fetchOneBrand(slug).then((data) => {
       product.setTypes(data.type);
       product.setCategories(data.categories);
@@ -137,6 +137,7 @@ const BrandPage = observer(() => {
           <Form.Select
             className="mt-4"
             onChange={(e) => product.setOrdering(e.target.value)}
+            value={product.ordering}
           >
             <option value="">Sorted by</option>
             <option value="-time_create">New Arrivals</option>

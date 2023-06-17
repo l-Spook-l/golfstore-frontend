@@ -9,6 +9,7 @@ import style from "./Profile.module.css";
 import UserInfo from "../../components/UserInfo/UserInfo";
 import Wishlist from "../../components/Wishlist/Wishlist";
 import Basket from "../../components/Basket/Basket";
+import Orders from "../../components/Orders/Orders";
 
 const Profile = observer(() => {
   const { user } = useContext(Context);
@@ -44,6 +45,9 @@ const Profile = observer(() => {
       case "wallet":
         setView(<Wallet />);
         break;
+      case "orders":
+        setView(<Orders />);
+        break;
     }
   };
 
@@ -64,9 +68,8 @@ const Profile = observer(() => {
               className={`${style.alertMenu} ${activeTab === "basket" ? style.alertMenuActive : ""}`}
               onClick={() => blurHandler("basket")}
             >
-              My Basket
+              Basket
             </Alert>
-
             <Alert
               className={`${style.alertMenu} ${activeTab === "wishlist" ? style.alertMenuActive : ""}`}
               onClick={() => blurHandler("wishlist")}
@@ -83,7 +86,13 @@ const Profile = observer(() => {
               className={`${style.alertMenu} ${activeTab === "wallet" ? style.alertMenuActive : ""}`}
               onClick={() => blurHandler("wallet")}
             >
-              My Wallet
+              Wallet
+            </Alert>
+            <Alert
+              className={`${style.alertMenu} ${activeTab === "orders" ? style.alertMenuActive : ""}`}
+              onClick={() => blurHandler("orders")}
+            >
+              My orders
             </Alert>
           </Nav>
         </Col>

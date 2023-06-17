@@ -3,7 +3,6 @@ import { Button, Form, Modal } from "react-bootstrap";
 
 const ReviewForm = ({ show, onHide, onSubmit, state, oldComment }) => {
   
-  // Подставляем уже написанный текст, если он есть
   const [comment, setComment] = useState(oldComment !== undefined ? oldComment : '');
 
   const handleSubmit = () => {

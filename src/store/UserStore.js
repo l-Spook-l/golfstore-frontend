@@ -8,7 +8,7 @@ export default class UserStore {
     this._basket = {id: null, product: []}
     this._wishList = {id: null, product: []}
     
-    makeAutoObservable(this)  //  делает все свойства класса наблюдаемыми (отслеживаемыми). 
+    makeAutoObservable(this) 
   }
 
   setIsAuth(bool) {
@@ -27,8 +27,6 @@ export default class UserStore {
     this._wishList = product
   }
 
-  // геттеры для чтения значений приватных полей
-  // Вызываються только тогда когда переменная была изменена
   get isAuth() {
     return this._isAuth
   }

@@ -19,7 +19,6 @@ export const authRoutes = [
  
 ];
 
-// Доступ всем
 export const publicRoutes = [
   {
     path: MAIN_ROUTE,

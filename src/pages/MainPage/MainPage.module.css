@@ -25,6 +25,26 @@
   transition: background-color  0.5s ease-in-out;
 }
 
+.blockBestsellers {
+  display: flex;
+  justify-content: space-around;
+}
+
+.cardProductBestsellers {
+  text-align: center;
+  width: 280px;
+  border: 0;
+}
+
+.productNamePrice {
+  margin-top: 20px;
+  text-decoration: none;
+  color: black;
+}
+
+.productNamePrice:hover {
+  color: black;
+}
 
 .buttonBrands {
   margin: 10px 5px;

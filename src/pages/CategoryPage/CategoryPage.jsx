@@ -23,17 +23,16 @@ const CategoryPage = observer(() => {
 
   const navigate = useNavigate();
 
-  // первое получение типов, брєндов, продуктов
   useEffect(() => {
     window.scrollTo(0, 0);
     product.setPage(1)
     product.setSelectedType("clear");
     product.setSelectedBrand("clear");
     product.setSelectedCategory("clear");
+    product.setOrdering('')
     fetchOneCategory(slug).then((data) => {
       product.setTypes(data.type);
       product.setBrands(data.brand);
-      console.log("CategoryPage - fetchOneCategory - data", data);
     })
   }, [slug]);
 
@@ -136,10 +135,10 @@ const CategoryPage = observer(() => {
         </Col>
 
         <Col md={2} className="d-flex flex-wrap align-items-end">
-          {/* Сортировка по убыванию и возрастанию цены, дате создания */}
           <Form.Select
             className="mt-4"
             onChange={(e) => product.setOrdering(e.target.value)}
+            value={product.ordering}
           >
             <option value="">Sorted by</option>
             <option value="-time_create">New Arrivals</option>

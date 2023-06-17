@@ -10,14 +10,11 @@ import { observer } from "mobx-react-lite";
 import { fetchBasket, fetchBrands, fetchCategories, fetchListProductsBasket, fetchListProductsWishList, fetchWishList } from "./http/productAPI";
 
 const App = observer(() => {
-  // получаем состоянию пользователя
   const { user } = useContext(Context)
   const { product } = useContext(Context);
 
-  // Для крутилки во время загрузки
   const [loading, setLoading] = useState(true)
 
-  // При открытии 1 раз делаем проверку
   useEffect(() => {
     fetchBrands().then((data) => product.setBrandsForSelected(data));
     fetchCategories().then((data) => product.setCategoriesForSelected(data));
@@ -35,9 +32,8 @@ const App = observer(() => {
           user.setWishList({id: data.id , product: products.results})
         })
       })
-    }).catch(error => {
-      console.log('Error login', error);
-      // Обработка других ошибок, возникших при выполнении запроса
+    }).catch((error) => {
+      console.log('Error login');
     }).finally(() => setLoading(false))
   },[user.isAuth])
   

@@ -20,7 +20,6 @@ const CheckoutForm = ( onFormSubmit ) => {
       event.preventDefault();
       event.stopPropagation();
     } else {
-      // Получаем данные формы
       const formData = {
         firstName,
         lastName,
@@ -32,7 +31,6 @@ const CheckoutForm = ( onFormSubmit ) => {
         zip,
       };
       setConfirm(true)
-      // Вызываем функцию обратного вызова, передавая данные формы
       onFormSubmit.onFormSubmit(formData);
     }
     setValidated(true); 

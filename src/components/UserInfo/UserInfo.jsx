@@ -3,13 +3,41 @@ import { Accordion, Button, Col, Container, Row } from "react-bootstrap";
 import { Context } from "../..";
 import InDevelopmentModal from "../Modals/InDevelopmentModal/InDevelopmentModal";
 import style from "./UserInfo.module.css"
+import {  updateUserEmail, updateUserFirstName, updateUserLastName, updateUserPhoneNumber } from "../../http/userAPI";
+import { observer } from "mobx-react-lite";
 
-const UserInfo = () => {
+const UserInfo = observer(() => {
   const { user } = useContext(Context);
 
   const [showModal, setShowModal] = useState(false);
 
+  const [editFirstLastName, setEditFirstLastName] = useState(false);
+  const [editPhoneNumberEmail, setEditPhoneNumberEmail] = useState(false);
+  const [editLogin, setEditLogin] = useState(false)
+
+  const [firstName, setFirstName] = useState(user.user.first_name)
+  const [lastName, setLastName] = useState(user.user.last_name)
+  const [phoneNumber, setPhoneNumber] = useState(user.user.phone_number)
+  const [email, setEmail] = useState(user.user.email)
+
   const closeModal = () => setShowModal(false);
+
+  const updateFirstLastName = () => {
+    updateUserFirstName(firstName)
+    updateUserLastName(lastName)
+    setEditFirstLastName(false)
+  }
+
+  const updatePhoneNumberEmail = () => {
+    updateUserPhoneNumber(phoneNumber)
+    updateUserEmail(email)
+    setEditPhoneNumberEmail(false)
+  }
+
+  const updateUserLogin = () => {
+    updateUserEmail(email)
+    setEditLogin(false)
+  }
 
   return (
     <Container className={style.forContainer}>
@@ -20,16 +48,28 @@ const UserInfo = () => {
           <Accordion.Body>
             <Row>
               <Col md={4}>
-                <p>Last name</p>
-                {user.user.last_name}
+              <p>Last name</p>
+              {editFirstLastName
+                ? <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                : lastName
+                }
               </Col>
               <Col md={4}>
                 <p>First name</p>
-                {user.user.first_name}
+                {editFirstLastName
+                ? <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                : firstName
+                }
               </Col>
               <Col md={4}></Col>
             </Row>
-            <Button onClick={() => setShowModal(true)} className="mt-4 bg-success">Edit</Button>
+            {editFirstLastName 
+            ? <div>
+                <Button onClick={() => updateFirstLastName()} className="mt-4 me-2 bg-success">Save</Button>
+                <Button onClick={() => setEditFirstLastName(false)} className="mt-4 bg-success">Cancel</Button>
+              </div>
+            : <Button onClick={() => setEditFirstLastName(true)} className="mt-4 bg-success">Edit</Button>
+            }
           </Accordion.Body>
         </Accordion.Item>
 
@@ -39,14 +79,26 @@ const UserInfo = () => {
             <Row>
               <Col md={3}>
                 <p>Mobile phone</p>
-                {user.user.phone_number}
+                {editPhoneNumberEmail
+                ? <input type="number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                : phoneNumber
+                }
               </Col>
               <Col md={3}>
                 <p>Email</p>
-                {user.user.email}
+                {editPhoneNumberEmail
+                ? <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                : email
+                }
               </Col>
             </Row>
-            <Button onClick={() => setShowModal(true)} className="mt-4 bg-success">Edit</Button>
+            {editPhoneNumberEmail 
+            ? <div>
+                <Button onClick={() => updatePhoneNumberEmail()} className="mt-4 me-2 bg-success">Save</Button>
+                <Button onClick={() => setEditPhoneNumberEmail(false)} className="mt-4 bg-success">Cancel</Button>
+              </div>
+            : <Button onClick={() => setEditPhoneNumberEmail(true)} className="mt-4 bg-success">Edit</Button>
+            }
           </Accordion.Body>
         </Accordion.Item>
 
@@ -65,10 +117,19 @@ const UserInfo = () => {
             <Row>
               <Col md={3}>
                 <p>Login (Email)</p>
-                {user.user.email}
+                {editLogin
+                ? <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                : email
+                }
               </Col>
             </Row>
-            <Button onClick={() => setShowModal(true)} className="mt-4 bg-success">Edit</Button>
+            {editLogin 
+            ? <div>
+                <Button onClick={() => updateUserLogin()} className="mt-4 me-2 bg-success">Save</Button>
+                <Button onClick={() => setEditLogin(false)} className="mt-4 bg-success">Cancel</Button>
+              </div>
+            : <Button onClick={() => setEditLogin(true)} className="mt-4 bg-success">Edit</Button>
+            }
           </Accordion.Body>
         </Accordion.Item>
 
@@ -92,6 +153,6 @@ const UserInfo = () => {
       <InDevelopmentModal show={showModal} closeModal={closeModal}/>
     </Container>
   );
-};
+});
 
 export default UserInfo;
