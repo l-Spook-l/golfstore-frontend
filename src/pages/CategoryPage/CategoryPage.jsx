@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchOneCategory, fetchProductsByCategory } from "../../http/productAPI";
-import { Alert, Breadcrumb, Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Breadcrumb, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
 import Paginations from "../../components/Paginations/Paginations";
@@ -12,6 +12,7 @@ import MyOffcanvas from "../../components/MyOffcanvasFilters/MyOffcanvasFilters"
 import PriceBar from "../../components/Filters/PriceBar/PriceBar";
 import TypeBar from "../../components/Filters/TypeBar/TypeBar";
 import BrandBar from "../../components/Filters/BrandBar/BrandBar";
+import CustomAlert from "../../components/CustomAlert/CustomAlert";
 
 const CategoryPage = observer(() => {
   const { user } = useContext(Context);
@@ -100,37 +101,20 @@ const CategoryPage = observer(() => {
             </Button>
           ) : null}
           {product.selectedType.map((el) => (
-            <Alert
+            <CustomAlert
               key={el.id}
-              variant="light"
-              className="me-1 border text-dark p-2"
-            >
-              {el.name}
-              <Button
-                type="button"
-                className="ms-1 btn-close"
-                style={{ fontSize: 12 }}
-                aria-label="Close"
-                onClick={() => product.setSelectedType(el)}
-              ></Button>
-            </Alert>
+              id={el.id}
+              name={el.name}
+              onClick={() => product.setSelectedType(el)}
+            />
           ))}
-
           {product.selectedBrand.map((el) => (
-            <Alert
+            <CustomAlert
               key={el.id}
-              variant="light"
-              className="me-1 border text-dark p-2"
-            >
-              {el.name}
-              <Button
-                type="button"
-                className="ms-1 btn-close"
-                style={{ fontSize: 12 }}
-                aria-label="Close"
-                onClick={() => product.setSelectedBrand(el)}
-              ></Button>
-            </Alert>
+              id={el.id}
+              name={el.name}
+              onClick={() => product.setSelectedBrand(el)}
+            />
           ))}
         </Col>
 

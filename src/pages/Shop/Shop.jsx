@@ -1,9 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Alert, Breadcrumb, Button, Col, Container, Form, Row } from "react-bootstrap";
+import {
+  Breadcrumb,
+  Col,
+  Container,
+  Form,
+  Row,
+} from "react-bootstrap";
 import ProductList from "../../components/ProdcutList/ProductList";
 import { observer } from "mobx-react-lite";
 import { Context } from "../..";
-import { fetchBrands, fetchProducts, fetchTypes, fetchCategories } from "../../http/productAPI";
+import {
+  fetchBrands,
+  fetchProducts,
+  fetchTypes,
+  fetchCategories,
+} from "../../http/productAPI";
 import Paginations from "../../components/Paginations/Paginations";
 import style from "./Shop.module.css";
 import { MAIN_ROUTE } from "../../utils/consts";
@@ -13,6 +24,7 @@ import CategoryBar from "../../components/Filters/CategoryBar/CategoryBar";
 import PriceBar from "../../components/Filters/PriceBar/PriceBar";
 import TypeBar from "../../components/Filters/TypeBar/TypeBar";
 import BrandBar from "../../components/Filters/BrandBar/BrandBar";
+import CustomAlert from "../../components/CustomAlert/CustomAlert";
 
 const Shop = observer(() => {
   const { product } = useContext(Context);
@@ -22,15 +34,14 @@ const Shop = observer(() => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    product.setPage(1)
+    product.setPage(1);
     product.setSelectedType("clear");
     product.setSelectedBrand("clear");
     product.setSelectedCategory("clear");
-    product.setOrdering('')
+    product.setOrdering("");
     fetchTypes().then((data) => product.setTypes(data));
     fetchBrands().then((data) => product.setBrands(data));
-    fetchCategories()
-      .then((data) => product.setCategories(data))
+    fetchCategories().then((data) => product.setCategories(data));
   }, []);
 
   useEffect(() => {
@@ -42,11 +53,10 @@ const Shop = observer(() => {
       product.priceMin,
       product.priceMax,
       product.ordering
-    )
-      .then((data) => {
-        product.setProducts(data.results);
-        product.setTotalCount(data.count);
-      })
+    ).then((data) => {
+      product.setProducts(data.results);
+      product.setTotalCount(data.count);
+    });
   }, [
     product.selectedType,
     product.selectedBrand,
@@ -94,54 +104,28 @@ const Shop = observer(() => {
             </button>
           ) : null}
           {product.selectedCategory.map((el) => (
-            <Alert
+            <CustomAlert
               key={el.id}
-              variant="light"
-              className="me-1 border text-dark p-2"
-            >
-              {el.name}
-              <Button
-                type="button"
-                className="ms-1 btn-close"
-                style={{ fontSize: 12 }}
-                aria-label="Close"
-                onClick={() => product.setSelectedCategory(el)}
-              ></Button>
-            </Alert>
+              id={el.id}
+              name={el.name}
+              onClick={() => product.setSelectedCategory(el)}
+            />
           ))}
-
           {product.selectedType.map((el) => (
-            <Alert
+            <CustomAlert
               key={el.id}
-              variant="light"
-              className="me-1 border text-dark p-2"
-            >
-              {el.name}
-              <Button
-                type="button"
-                className="ms-1 btn-close"
-                style={{ fontSize: 12 }}
-                aria-label="Close"
-                onClick={() => product.setSelectedType(el)}
-              ></Button>
-            </Alert>
+              id={el.id}
+              name={el.name}
+              onClick={() => product.setSelectedType(el)}
+            />
           ))}
-
           {product.selectedBrand.map((el) => (
-            <Alert
+            <CustomAlert
               key={el.id}
-              variant="light"
-              className="me-1 border text-dark p-2"
-            >
-              {el.name}
-              <Button
-                type="button"
-                className="ms-1 btn-close"
-                style={{ fontSize: 12 }}
-                aria-label="Close"
-                onClick={() => product.setSelectedBrand(el)}
-              ></Button>
-            </Alert>
+              id={el.id}
+              name={el.name}
+              onClick={() => product.setSelectedBrand(el)}
+            />
           ))}
         </Col>
 

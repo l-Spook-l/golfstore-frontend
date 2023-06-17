@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { fetchOneBrand, fetchProductsByBrand } from "../../http/productAPI";
 import { Context } from "../..";
 import { useNavigate, useParams } from "react-router-dom";
-import { Alert, Breadcrumb, Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Breadcrumb, Button, Col, Container, Form, Row } from "react-bootstrap";
 import ProductList from "../../components/ProdcutList/ProductList";
 import Paginations from "../../components/Paginations/Paginations";
 import { MAIN_ROUTE } from "../../utils/consts";
@@ -12,6 +12,7 @@ import MyOffcanvas from "../../components/MyOffcanvasFilters/MyOffcanvasFilters"
 import CategoryBar from "../../components/Filters/CategoryBar/CategoryBar";
 import PriceBar from "../../components/Filters/PriceBar/PriceBar";
 import TypeBar from "../../components/Filters/TypeBar/TypeBar";
+import CustomAlert from "../../components/CustomAlert/CustomAlert";
 
 const BrandPage = observer(() => {
   const { user } = useContext(Context);
@@ -99,41 +100,24 @@ const BrandPage = observer(() => {
             </Button>
           ) : null}
           {product.selectedCategory.map((el) => (
-            <Alert
+            <CustomAlert
               key={el.id}
-              variant="light"
-              className="me-1 border text-dark p-2"
-            >
-              {el.name}
-              <Button
-                type="button"
-                className="ms-1 btn-close"
-                style={{ fontSize: 12 }}
-                aria-label="Close"
-                onClick={() => product.setSelectedCategory(el)}
-              ></Button>
-            </Alert>
+              id={el.id}
+              name={el.name}
+              onClick={() => product.setSelectedCategory(el)}
+            />
           ))}
           {product.selectedType.map((el) => (
-            <Alert
+            <CustomAlert
               key={el.id}
-              variant="light"
-              className="me-1 border text-dark p-2"
-            >
-              {el.name}
-              <Button
-                type="button"
-                className="ms-1 btn-close"
-                style={{ fontSize: 12 }}
-                aria-label="Close"
-                onClick={() => product.setSelectedType(el)}
-              ></Button>
-            </Alert>
+              id={el.id}
+              name={el.name}
+              onClick={() => product.setSelectedType(el)}
+            />
           ))}
         </Col>
 
         <Col md={2} className="d-flex flex-wrap align-items-end">
-          {/* Сортировка по убыванию и возрастанию цены, дате создания */}
           <Form.Select
             className="mt-4"
             onChange={(e) => product.setOrdering(e.target.value)}
