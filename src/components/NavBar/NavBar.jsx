@@ -28,7 +28,6 @@ const NavBar = observer(() => {
     user.setBasket({ id: null, product: [] });
     user.setWishList({ id: null, product: [] });
     localStorage.setItem("token", null);
-    navigate(MAIN_ROUTE);
   };
 
   const clickLogin = () => {
@@ -146,7 +145,7 @@ const NavBar = observer(() => {
                     >
                       <AiOutlineProfile />
                     </NavLink>
-                    <NavLink className={style.login} onClick={logOut}>
+                    <NavLink className={style.login} onClick={logOut} to={MAIN_ROUTE}>
                       <AiOutlineLogout />
                     </NavLink>
                   </div>
