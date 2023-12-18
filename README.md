@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# FastAPI React WorkoutWorld website client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![JS React](https://img.shields.io/badge/JS-React-61DAFB?logo=react)
+![MobX](https://img.shields.io/badge/MobX-React_State_Management-yellowgreen)
+![CSS3](https://img.shields.io/badge/CSS3-Development-blue?logo=css3)
+![RestAPI](https://img.shields.io/badge/RestAPI-Development-yellow)
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+The Golf Store Website's client side is a dynamic and responsive front-end built with React. This part of the project allows users to interact with the Golf Store's platform, enabling them to explore a wide range of golf products, make purchases, leave reviews, and interact with golf-related content.
 
-### `npm start`
+## Functionality
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Browse various golf products and accessories.
+- User-friendly interface for purchasing equipment.
+- Leave reviews and ratings for purchased items.
+- Interact with golf-related content: events, tips, and other materials.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Usage
 
-### `npm test`
+1. **Installing Dependencies:**
+   - Navigate to the directory with the client-side part of the project.
+      ```bash
+      cd client_directory
+      ```
+   - Execute the command to install all necessary dependencies.
+      ```bash
+      npm install
+      ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Running the Project:**
+   - After successful installation of dependencies, execute the command to start the project.
+      ```bash
+      npm run start
+      ```
 
-### `npm run build`
+3. **Accessing the Application:**
+   - Open your browser and go to http://localhost:3000 to view the running application.
+   
+## Planned Enhancements
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Planned enhancements for the Golf Store Website:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Extended user profiles:** Implement user profiles with saved preferences and purchase history.
+- **Expanded product catalog:** Continuous addition of new and diverse golf products.
+- **Interactive golf tutorials:** Introduction of interactive educational materials and guides for golf enthusiasts.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Developers
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- https://github.com/l-Spook-l
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Contact
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If you have any questions or suggestions for improving the project, please contact uaspookua@gmail.com.
