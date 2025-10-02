@@ -1,4 +1,4 @@
-# FastAPI React WorkoutWorld website client
+# golfstore-frontend
 
 ![JS React](https://img.shields.io/badge/JS-React-61DAFB?logo=react)
 ![MobX](https://img.shields.io/badge/MobX-React_State_Management-yellowgreen)
